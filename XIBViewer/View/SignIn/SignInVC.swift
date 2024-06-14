@@ -1,5 +1,5 @@
 //
-//  CustomViewController.swift
+//  SignInVC.swift
 //  XIBViewer
 //
 //  Created by Huy on 28/5/24.
@@ -7,13 +7,12 @@
 
 import UIKit
 
-class CustomViewController: UIViewController {
+class SignInVC: UIViewController {
 
     @IBOutlet var usernameField: UITextField!
-    
     @IBOutlet var passwordField: UITextField!
-    
     @IBOutlet var loginButton: UIButton!
+    
     override func viewDidLoad() {
         usernameField.layer.cornerRadius = 20
         usernameField.layer.borderColor = UIColor.systemBlue.cgColor
@@ -33,7 +32,6 @@ class CustomViewController: UIViewController {
         super.viewDidLoad()
     }
    
-
     @IBAction func loginButtonTapped(_ sender: UIButton) {
     }
 }
