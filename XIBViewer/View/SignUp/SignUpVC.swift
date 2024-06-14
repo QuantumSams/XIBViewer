@@ -1,10 +1,3 @@
-//
-//  SignUpVC.swift
-//  XIBViewer
-//
-//  Created by Huy on 28/5/24.
-//
-
 import UIKit
 
 // Note: Class main body should not contain implementations, special in Lifecycle -> Readable
@@ -41,8 +34,8 @@ final class SignUpVC: UIViewController {
 
 extension SignUpVC: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+        self.view.endEditing(true)
+        return false
     }
 }
 
@@ -52,7 +45,6 @@ extension SignUpVC {
     private func setupViews() {
         setupButton(signUpButton)
         setupButton(changeToLoginButton)
-        
         setupTextField(fullNameField)
         setupTextField(emailField)
         setupTextField(phoneField)
@@ -63,10 +55,11 @@ extension SignUpVC {
     private func setupButton(_ button: UIButton) {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 20
-        NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: 40)])
+        NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: 50)])
     }
     
     private func setupTextField(_ textField: UITextField) {
+        textField.delegate = self // explaination needed
         textField.layer.masksToBounds = true
         textField.borderStyle = .roundedRect
         textField.layer.borderWidth = 1.5
@@ -80,4 +73,9 @@ extension SignUpVC {
         let vc = SignInVC()
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
 }
