@@ -22,7 +22,7 @@ final class SignInVC: UIViewController {
 
 //Private method
 
-extension SignInVC{
+extension SignInVC: UITextFieldDelegate{
     private func setupViews(){
         setupTextField(usernameField)
         setupTextField(passwordField)
@@ -30,6 +30,7 @@ extension SignInVC{
     }
     
     private func setupTextField(_ customTextField:UITextField){
+        customTextField.delegate = self
         customTextField.layer.cornerRadius = 20
         customTextField.layer.borderColor = UIColor.systemBlue.cgColor
         customTextField.layer.borderWidth = 1
@@ -42,6 +43,17 @@ extension SignInVC{
     private func setupButton(_ customButton: UIButton){
         customButton.layer.cornerRadius = 16
         customButton.layer.masksToBounds = true
+        
+        NSLayoutConstraint.activate([customButton.heightAnchor.constraint(equalToConstant: 50)])
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
 
