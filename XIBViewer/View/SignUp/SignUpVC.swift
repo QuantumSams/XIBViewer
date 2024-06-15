@@ -25,8 +25,12 @@ final class SignUpVC: UIViewController {
     
     // MARK: Actions
     
+    @IBAction func registerTapped(_ sender: UIButton) {
+        navigateToCustomViewController(toViewController: AccountVC())
+        
+    }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
-        navigateToCustomViewController()
+        navigateToCustomViewController(toViewController: SignInVC())
     }
 }
 
@@ -69,9 +73,8 @@ extension SignUpVC {
         NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: 64)])
     }
     
-    private func navigateToCustomViewController() {
-        let vc = SignInVC()
-        navigationController?.pushViewController(vc, animated: true)
+    private func navigateToCustomViewController(toViewController: UIViewController) {
+        navigationController?.pushViewController(toViewController, animated: true)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
