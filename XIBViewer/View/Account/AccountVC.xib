@@ -21,19 +21,44 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jqb-51-jEe">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MgM-Cw-JxB">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MgM-Cw-JxB" userLabel="Content View">
                             <rect key="frame" x="0.0" y="20" width="393" height="852"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VL5-R9-PeQ">
-                                    <rect key="frame" x="159" y="20" width="75" height="35"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Button"/>
-                                </button>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GZk-Ee-eH4">
+                                    <rect key="frame" x="16" y="0.0" width="361" height="176"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELE-qH-RoW" userLabel="Email group View">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="176"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZW-e5-h1V">
+                                                    <rect key="frame" x="0.0" y="11.999999999999998" width="42" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xNN-rE-wPC" userLabel="emailTextField">
+                                                    <rect key="frame" x="0.0" y="40.333333333333321" width="361" height="123.66666666666669"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="uZW-e5-h1V" firstAttribute="top" secondItem="ELE-qH-RoW" secondAttribute="top" constant="12" id="28V-9m-hXr"/>
+                                                <constraint firstItem="uZW-e5-h1V" firstAttribute="top" secondItem="ELE-qH-RoW" secondAttribute="top" constant="12" id="74m-uS-mFD"/>
+                                                <constraint firstAttribute="bottom" secondItem="xNN-rE-wPC" secondAttribute="bottom" constant="12" id="KAw-b7-wXw"/>
+                                                <constraint firstItem="xNN-rE-wPC" firstAttribute="top" secondItem="uZW-e5-h1V" secondAttribute="bottom" constant="8" id="LmD-l8-zej"/>
+                                                <constraint firstItem="xNN-rE-wPC" firstAttribute="leading" secondItem="ELE-qH-RoW" secondAttribute="leading" id="X2g-Zs-Avs"/>
+                                                <constraint firstItem="uZW-e5-h1V" firstAttribute="leading" secondItem="ELE-qH-RoW" secondAttribute="leading" id="hLS-1D-D3M"/>
+                                                <constraint firstAttribute="trailing" secondItem="xNN-rE-wPC" secondAttribute="trailing" id="ird-vz-HYd"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="linkColor"/>
                             <constraints>
-                                <constraint firstItem="VL5-R9-PeQ" firstAttribute="top" secondItem="MgM-Cw-JxB" secondAttribute="top" constant="20" id="Wn2-R0-av8"/>
-                                <constraint firstItem="VL5-R9-PeQ" firstAttribute="centerX" secondItem="MgM-Cw-JxB" secondAttribute="centerX" id="zpp-EB-cLb"/>
+                                <constraint firstItem="GZk-Ee-eH4" firstAttribute="top" secondItem="MgM-Cw-JxB" secondAttribute="top" id="XHE-kf-nmz"/>
+                                <constraint firstAttribute="trailing" secondItem="GZk-Ee-eH4" secondAttribute="trailing" constant="16" id="mVA-eu-iJQ"/>
+                                <constraint firstItem="GZk-Ee-eH4" firstAttribute="leading" secondItem="MgM-Cw-JxB" secondAttribute="leading" constant="16" id="qHn-Ie-aks"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -62,9 +87,6 @@
         </view>
     </objects>
     <resources>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
