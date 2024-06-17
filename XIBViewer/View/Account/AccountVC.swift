@@ -18,7 +18,7 @@ final class AccountVC: UIViewController {
     
     //Action - event processing
     @IBAction func editButtonTapped(_ sender: UIButton) {
-        changeButtonOnTap(editButton, emailField.isEnabled)
+        changeButtonOnTap(editButton, firstNameField.isEnabled)
         toggleTextFieldEnable(emailField)
         toggleTextFieldEnable(firstNameField)
         toggleTextFieldEnable(lastNameField)
@@ -72,15 +72,23 @@ extension AccountVC{
         
     }
     private func changeButtonOnTap(_ buttonToChange:UIButton, _ currentTextFieldEnableStatus:Bool){
-        //chang button appearance: lined -> filled
+        //border button
         //state: not editable -> editable
         if(currentTextFieldEnableStatus == false){
-            buttonToChange.tintColor = UIColor.clear
+            
             buttonToChange.layer.borderWidth = 2
+            buttonToChange.setTitle("Finish editing", for: .normal) //need explaination
+            buttonToChange.tintColor = .clear
+            buttonToChange.setTitleColor(.systemPurple, for: .normal)
         }
+        
+        //filled button
+        //status: editable->not editable
         else{
-            buttonToChange.tintColor = UIColor.systemBlue
             buttonToChange.layer.borderWidth = 0
+            buttonToChange.setTitle("Edit", for: .normal) //need explaination
+            buttonToChange.tintColor = .systemPurple
+            buttonToChange.setTitleColor(.white, for: .normal)
 
         }
         

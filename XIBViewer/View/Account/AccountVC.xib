@@ -42,9 +42,8 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z4K-Kd-Jsb">
                                                     <rect key="frame" x="299.66666666666669" y="8" width="53.333333333333314" height="112"/>
-                                                    <buttonConfiguration key="configuration" style="filled" title="Edit">
-                                                        <color key="baseBackgroundColor" systemColor="systemPurpleColor"/>
-                                                    </buttonConfiguration>
+                                                    <color key="tintColor" systemColor="systemPurpleColor"/>
+                                                    <buttonConfiguration key="configuration" style="filled" title="Edit"/>
                                                     <connections>
                                                         <action selector="editButtonTapped:" destination="-1" eventType="touchUpInside" id="Ggn-gT-X6e"/>
                                                     </connections>
@@ -60,8 +59,32 @@
                                                 <constraint firstItem="CUf-aX-0rr" firstAttribute="top" secondItem="lgx-OJ-NrW" secondAttribute="top" constant="8" id="whc-4S-zaK"/>
                                             </constraints>
                                         </view>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="rcy-uA-vR7" userLabel="Horizontal Name View">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELE-qH-RoW" userLabel="Email group View">
                                             <rect key="frame" x="0.0" y="160" width="353" height="176"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZW-e5-h1V">
+                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="20.333333333333332"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xNN-rE-wPC" userLabel="emailTextField">
+                                                    <rect key="frame" x="0.0" y="28.333333333333314" width="353" height="147.66666666666666"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="uZW-e5-h1V" firstAttribute="top" secondItem="ELE-qH-RoW" secondAttribute="top" id="28V-9m-hXr"/>
+                                                <constraint firstAttribute="bottom" secondItem="xNN-rE-wPC" secondAttribute="bottom" id="KAw-b7-wXw"/>
+                                                <constraint firstItem="xNN-rE-wPC" firstAttribute="top" secondItem="uZW-e5-h1V" secondAttribute="bottom" constant="8" id="LmD-l8-zej"/>
+                                                <constraint firstItem="xNN-rE-wPC" firstAttribute="leading" secondItem="ELE-qH-RoW" secondAttribute="leading" id="X2g-Zs-Avs"/>
+                                                <constraint firstItem="uZW-e5-h1V" firstAttribute="leading" secondItem="ELE-qH-RoW" secondAttribute="leading" id="hLS-1D-D3M"/>
+                                                <constraint firstAttribute="trailing" secondItem="xNN-rE-wPC" secondAttribute="trailing" id="ird-vz-HYd"/>
+                                            </constraints>
+                                        </view>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="rcy-uA-vR7" userLabel="Horizontal Name View">
+                                            <rect key="frame" x="0.0" y="368" width="353" height="176"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QK6-XN-Vht" userLabel="First name group View">
                                                     <rect key="frame" x="0.0" y="0.0" width="164.66666666666666" height="176"/>
@@ -113,30 +136,6 @@
                                                 </view>
                                             </subviews>
                                         </stackView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELE-qH-RoW" userLabel="Email group View">
-                                            <rect key="frame" x="0.0" y="368" width="353" height="176"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZW-e5-h1V">
-                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="20.333333333333332"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xNN-rE-wPC" userLabel="emailTextField">
-                                                    <rect key="frame" x="0.0" y="28.333333333333314" width="353" height="147.66666666666666"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="uZW-e5-h1V" firstAttribute="top" secondItem="ELE-qH-RoW" secondAttribute="top" id="28V-9m-hXr"/>
-                                                <constraint firstAttribute="bottom" secondItem="xNN-rE-wPC" secondAttribute="bottom" id="KAw-b7-wXw"/>
-                                                <constraint firstItem="xNN-rE-wPC" firstAttribute="top" secondItem="uZW-e5-h1V" secondAttribute="bottom" constant="8" id="LmD-l8-zej"/>
-                                                <constraint firstItem="xNN-rE-wPC" firstAttribute="leading" secondItem="ELE-qH-RoW" secondAttribute="leading" id="X2g-Zs-Avs"/>
-                                                <constraint firstItem="uZW-e5-h1V" firstAttribute="leading" secondItem="ELE-qH-RoW" secondAttribute="leading" id="hLS-1D-D3M"/>
-                                                <constraint firstAttribute="trailing" secondItem="xNN-rE-wPC" secondAttribute="trailing" id="ird-vz-HYd"/>
-                                            </constraints>
-                                        </view>
                                     </subviews>
                                 </stackView>
                             </subviews>
