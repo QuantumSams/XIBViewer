@@ -26,7 +26,7 @@ final class SignUpVC: UIViewController {
     // MARK: Actions
     
     @IBAction func registerTapped(_ sender: UIButton) {
-        navigateToCustomViewController(toViewController: AccountVC())
+        navigateToTabBarController(toTabBarController: SettingTabBarController())
         
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
@@ -75,6 +75,11 @@ extension SignUpVC {
     
     private func navigateToCustomViewController(toViewController: UIViewController) {
         navigationController?.pushViewController(toViewController, animated: true)
+    }
+    
+    private func navigateToTabBarController(toTabBarController: UITabBarController){
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(toTabBarController) //explaination needed
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

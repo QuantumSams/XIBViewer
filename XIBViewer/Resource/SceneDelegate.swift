@@ -23,6 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         self.window?.makeKeyAndVisible()
     }
+    
+    
+    func swapRootVC(_ swapToVC: UIViewController){
+        
+        guard let window = window else{
+            return
+        }
+        window.rootViewController = swapToVC
+    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

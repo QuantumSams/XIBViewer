@@ -11,13 +11,13 @@ final class SettingTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-    }
+        setupNav()
+        }
 }
 
 
 extension SettingTabBarController{
-    private func setupViews(){
+    private func setupNav(){
         let accountVC = AccountVC()
         accountVC.tabBarItem.title = "Account"
         
