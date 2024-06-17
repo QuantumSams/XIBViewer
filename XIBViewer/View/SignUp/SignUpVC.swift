@@ -58,19 +58,19 @@ extension SignUpVC {
     
     private func setupButton(_ button: UIButton) {
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 20
-        NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: 50)])
+        button.layer.cornerRadius = Constant.ButtonConstant.cornerRadius
+        NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
     }
     
     private func setupTextField(_ textField: UITextField) {
         textField.delegate = self // explaination needed
         textField.layer.masksToBounds = true
         textField.borderStyle = .roundedRect
-        textField.layer.borderWidth = 1.5
+        textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
         textField.layer.borderColor = UIColor.systemIndigo.cgColor
-        textField.layer.cornerRadius = 20
+        textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
         
-        NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: 64)])
+        NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
     }
     
     private func navigateToCustomViewController(toViewController: UIViewController) {

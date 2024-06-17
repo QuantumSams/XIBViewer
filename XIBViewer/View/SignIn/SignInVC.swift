@@ -31,20 +31,20 @@ extension SignInVC: UITextFieldDelegate{
     
     private func setupTextField(_ customTextField:UITextField){
         customTextField.delegate = self
-        customTextField.layer.cornerRadius = 20
+        customTextField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
         customTextField.layer.borderColor = UIColor.systemBlue.cgColor
-        customTextField.layer.borderWidth = 1
+        customTextField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
         customTextField.layer.masksToBounds = true
         customTextField.borderStyle = .roundedRect
         
-        NSLayoutConstraint.activate([customTextField.heightAnchor.constraint(equalToConstant: 64)])
+        NSLayoutConstraint.activate([customTextField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
     }
     
     private func setupButton(_ customButton: UIButton){
-        customButton.layer.cornerRadius = 16
+        customButton.layer.cornerRadius = Constant.ButtonConstant.cornerRadius
         customButton.layer.masksToBounds = true
         
-        NSLayoutConstraint.activate([customButton.heightAnchor.constraint(equalToConstant: 50)])
+        NSLayoutConstraint.activate([customButton.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
