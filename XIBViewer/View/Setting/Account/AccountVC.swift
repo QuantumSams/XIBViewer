@@ -30,29 +30,12 @@ final class AccountVC: UIViewController {
 extension AccountVC{
     
     private func setupViews(){
-        self.navigationItem.hidesBackButton = true
-        displayNavigationTitle()
         setupTextField(emailField)
         setupTextField(lastNameField)
         setupTextField(firstNameField)
         setupButton(editButton)
     }
     
-    private func displayNavigationTitle(){
-        let attatchment = NSTextAttachment()
-        let imageString = NSMutableAttributedString(attachment: attatchment)
-        let config = UIImage.SymbolConfiguration(scale: .large)
-        attatchment.image = UIImage(systemName: "gearshape.fill", withConfiguration: config)
-        let textString = NSAttributedString(string: "Setting")
-        imageString.append(textString)
-        
-        let label = UILabel()
-        label.textAlignment = NSTextAlignment.center
-        label.attributedText = imageString
-        label.font =  UIFont.systemFont(ofSize: 28, weight: .bold)
-        
-        navigationItem.titleView = label
-    }
     private func setupTextField(_ textField: UITextField){
         textField.layer.masksToBounds = true
         textField.borderStyle = .roundedRect
@@ -75,7 +58,6 @@ extension AccountVC{
         //border button
         //state: not editable -> editable
         if(currentTextFieldEnableStatus == false){
-            
             buttonToChange.layer.borderWidth = 2
             buttonToChange.setTitle("Finish editing", for: .normal) //need explaination
             buttonToChange.tintColor = .clear
