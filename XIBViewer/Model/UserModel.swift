@@ -4,5 +4,5 @@ struct UserModel: Codable{
     
     let name: String
     let email: String
-//    let imageURL: String
+    var imageURL: String? = nil
 }
