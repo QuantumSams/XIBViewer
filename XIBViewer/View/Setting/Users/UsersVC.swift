@@ -9,7 +9,11 @@ import UIKit
 
 class UsersVC: UIViewController {
 
-    let dummyData = ["Nguyen Van A", "Nguyen Thi B", "Tran Duc C"]
+    let dummyData:[UserModel] = [
+        UserModel(name: "Nguyen Van A", email: "nguyenvana@gmail.com"),
+        UserModel(name: "Nguyen Thi B", email: "thiBNguyen@gmail.com")
+    ]
+    
     @IBOutlet private weak var userTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +30,7 @@ extension UsersVC: UITableViewDataSource, UITableViewDelegate{
         
         let returnCell = userTableView.dequeueReusableCell(withIdentifier: UsersTableCell.getID(), for: indexPath) as! UsersTableCell
         
-        returnCell.setData(name: dummyData[indexPath.row])
+        returnCell.setData(user: dummyData[indexPath.row])
         return returnCell
     }
     

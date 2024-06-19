@@ -10,6 +10,7 @@ import UIKit
 class UsersTableCell: UITableViewCell {
     
     @IBOutlet private weak var cellName: UILabel!
+    @IBOutlet private weak var cellEmail: UILabel!
     static private let id = "UsersTableCell"
     
     override func awakeFromNib() {
@@ -34,8 +35,12 @@ extension UsersTableCell{
         id
     }
 
-    func setData(name:String){
-        cellName.text = name
+    func setData(user:UserModel){
+        
+        
+        
+        cellName.text = user.name
+        cellEmail.text = user.email
     }
     
 }
