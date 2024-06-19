@@ -10,7 +10,6 @@ import UIKit
 class UsersVC: UIViewController {
 
     let dummyData = ["Nguyen Van A", "Nguyen Thi B", "Tran Duc C"]
-    
     @IBOutlet private weak var userTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,14 +23,17 @@ extension UsersVC: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let returnCell = UITableViewCell()
-        returnCell.textLabel?.text = dummyData[indexPath.row]
+        
+        let returnCell = userTableView.dequeueReusableCell(withIdentifier: UsersTableCell.getID(), for: indexPath) as! UsersTableCell
+        
+        returnCell.setData(name: dummyData[indexPath.row])
         return returnCell
     }
     
     private func setupViews(){
         userTableView.dataSource = self
         userTableView.delegate = self
+        userTableView.register(UsersTableCell.getNib(), forCellReuseIdentifier: UsersTableCell.getID())
     }
     
 }

@@ -18,6 +18,8 @@
 		7C911F3B2C0627A700D28629 /* SignUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C911F392C0627A700D28629 /* SignUpVC.xib */; };
 		7CA5ACC42C2172DB001F8648 /* SettingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA5ACC22C2172DB001F8648 /* SettingTabBarController.swift */; };
 		7CA5ACC52C2172DB001F8648 /* SettingTabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CA5ACC32C2172DB001F8648 /* SettingTabBarController.xib */; };
+		7CA5ACCC2C218C43001F8648 /* UsersTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA5ACCA2C218C43001F8648 /* UsersTableCell.swift */; };
+		7CA5ACCE2C218EE8001F8648 /* UsersTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CA5ACCB2C218C43001F8648 /* UsersTableCell.xib */; };
 		7CDF31F22C060A2100C01B06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF31F12C060A2100C01B06 /* AppDelegate.swift */; };
 		7CDF31F42C060A2100C01B06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF31F32C060A2100C01B06 /* SceneDelegate.swift */; };
 		7CDF31FB2C060A2100C01B06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF31FA2C060A2100C01B06 /* Assets.xcassets */; };
@@ -36,6 +38,8 @@
 		7C911F392C0627A700D28629 /* SignUpVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpVC.xib; sourceTree = "<group>"; };
 		7CA5ACC22C2172DB001F8648 /* SettingTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingTabBarController.swift; path = XIBViewer/Resource/SettingTabBarController.swift; sourceTree = SOURCE_ROOT; };
 		7CA5ACC32C2172DB001F8648 /* SettingTabBarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingTabBarController.xib; path = XIBViewer/Resource/SettingTabBarController.xib; sourceTree = SOURCE_ROOT; };
+		7CA5ACCA2C218C43001F8648 /* UsersTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableCell.swift; sourceTree = "<group>"; };
+		7CA5ACCB2C218C43001F8648 /* UsersTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UsersTableCell.xib; sourceTree = "<group>"; };
 		7CDF31EE2C060A2100C01B06 /* XIBViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XIBViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CDF31F12C060A2100C01B06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CDF31F32C060A2100C01B06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +83,8 @@
 			children = (
 				7C4013C62C208C180019074D /* UsersVC.swift */,
 				7C4013C72C208C180019074D /* UsersVC.xib */,
+				7CA5ACCA2C218C43001F8648 /* UsersTableCell.swift */,
+				7CA5ACCB2C218C43001F8648 /* UsersTableCell.xib */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -224,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CA5ACCE2C218EE8001F8648 /* UsersTableCell.xib in Resources */,
 				7C911F3B2C0627A700D28629 /* SignUpVC.xib in Resources */,
 				7CA5ACC52C2172DB001F8648 /* SettingTabBarController.xib in Resources */,
 				7C911F352C06272B00D28629 /* SignInVC.xib in Resources */,
@@ -241,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CA5ACCC2C218C43001F8648 /* UsersTableCell.swift in Sources */,
 				7C911F362C06272B00D28629 /* SignInVC.swift in Sources */,
 				7C43D71A2C1D909D00B3E914 /* AccountVC.swift in Sources */,
 				7CDF31F22C060A2100C01B06 /* AppDelegate.swift in Sources */,
