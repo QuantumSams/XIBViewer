@@ -28,6 +28,14 @@ final class AccountVC: UIViewController {
 
 //Extenions - private methods
 
+
+extension AccountVC: UITextViewDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+}
+
 extension AccountVC{
     
     private func setupViews(){
@@ -74,5 +82,9 @@ extension AccountVC{
             buttonToChange.tintColor = .systemPurple
             buttonToChange.setTitleColor(.white, for: .normal)
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

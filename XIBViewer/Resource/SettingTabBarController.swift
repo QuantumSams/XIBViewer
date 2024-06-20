@@ -24,32 +24,28 @@ final class SettingTabBarController: UITabBarController {
 extension SettingTabBarController: UITabBarControllerDelegate{
     
     private func setupNav(){
-        self.delegate = self
-        title = "Setting"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        setupTwoTabs(firstTab: AccountVC(), 
-                     secondTab: UsersVC(),
-                     firstTabName: "Account",
-                     secondTabName: "Users")
+        initialSetup()
         
+        let firstTab = modifyVC(viewController: AccountVC(), title: "Account", tag: 0)
+        let secondTab = modifyVC(viewController: UsersVC(), title: "Users", tag: 1)
+        
+        setViewControllers([firstTab, secondTab], animated: true)
         tabBar.tintColor = .systemPurple
         selectedIndex = 0
     }
     
-    
-    private func setupTwoTabs(firstTab:UIViewController, secondTab:UIViewController, firstTabName:String, secondTabName:String)
-    {
-        firstTab.tabBarItem = UITabBarItem(title: firstTabName, image: nil, tag: 0)
-        secondTab.tabBarItem = UITabBarItem(title: secondTabName, image: nil, tag: 1)
-        setupTabBarItemsVisual([firstTab, secondTab])
-        setViewControllers([firstTab, secondTab], animated: true)
+    private func modifyVC(viewController: UIViewController, title: String, tag:Int) -> UIViewController{
+        let returningVC = viewController
+        returningVC.tabBarItem = UITabBarItem(title: title, image: nil, tag: tag)
+        returningVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
+        
+        return returningVC
     }
     
-    private func setupTabBarItemsVisual(_ listOfView:[UIViewController]){
-        for view in listOfView{
-            // centered text
-            view.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
-        }
+    private func initialSetup(){
+        self.delegate = self
+        title = "Setting"
+        navigationController?.navigationBar.prefersLargeTitles = true
         UITabBarItem.appearance().setTitleTextAttributes(tabBarItemFontAttribute, for: .normal)
     }
     
@@ -58,8 +54,6 @@ extension SettingTabBarController: UITabBarControllerDelegate{
         tabBar.frame = CGRect(x: 0, y: height ?? 0, width: tabBar.frame.size.width, height: Constant.TabBarConstant.height)
         tabBar.isOpaque = false
         tabBar.barTintColor = Constant.TabBarConstant.backgroundColor
-        
-        
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {

@@ -16,13 +16,19 @@ final class SignInVC: UIViewController {
     //Action - event processing
    
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        print("Login button clicked")
+        navigateToTabBarController(toTabBarController: SettingTabBarController())
     }
 }
 
-//Private method
+extension SignInVC:UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+}
 
-extension SignInVC: UITextFieldDelegate{
+
+extension SignInVC{
     private func setupViews(){
         setupTextField(usernameField)
         setupTextField(passwordField)
@@ -47,9 +53,9 @@ extension SignInVC: UITextFieldDelegate{
         NSLayoutConstraint.activate([customButton.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
+    private func navigateToTabBarController(toTabBarController: UITabBarController){
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(toTabBarController) //explaination needed
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

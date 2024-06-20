@@ -1,11 +1,7 @@
 import UIKit
 
-// Note: Class main body should not contain implementations, special in Lifecycle -> Readable
+
 final class SignUpVC: UIViewController {
-    // MARK: Properties
-    
-    // MARK: Outlets
-    // Note: Should use private (access) weak -> minimize retain cycles
     
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var fullNameField: UITextField!
@@ -15,25 +11,19 @@ final class SignUpVC: UIViewController {
     @IBOutlet private weak var phoneField: UITextField!
     @IBOutlet private weak var emailField: UITextField!
     
-    // MARK: Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     
-    // MARK: Actions
-    
     @IBAction func registerTapped(_ sender: UIButton) {
         navigateToTabBarController(toTabBarController: SettingTabBarController())
-        
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
         navigateToCustomViewController(toViewController: SignInVC())
     }
 }
 
-// MARK: UITextFieldDelegate
 
 extension SignUpVC: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -41,8 +31,6 @@ extension SignUpVC: UITextFieldDelegate{
         return false
     }
 }
-
-// MARK: Private methods
 
 extension SignUpVC {
     private func setupViews() {
