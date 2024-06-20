@@ -19,9 +19,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window.rootViewController = navigation
         navigation.modalPresentationStyle = .fullScreen
-        
         self.window = window
         self.window?.makeKeyAndVisible()
+    }
+    
+    
+    func swapRootVC(_ swapToVC: UIViewController){
+        
+        guard let window = window else{
+            return
+        }
+        let nextNavigation = UINavigationController(rootViewController: swapToVC)
+        window.rootViewController = nextNavigation
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
