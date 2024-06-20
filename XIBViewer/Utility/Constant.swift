@@ -30,5 +30,7 @@ struct Constant{
     
     struct TabBarConstant{
         static let height: CGFloat = 40
+        static let fontSize: CGFloat = 20
+        static let backgroundColor: UIColor = UIColor.white
     }
 }
