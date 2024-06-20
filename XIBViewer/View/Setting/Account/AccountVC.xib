@@ -148,7 +148,6 @@
                         </view>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="96q-Gh-pha" firstAttribute="trailing" secondItem="MgM-Cw-JxB" secondAttribute="trailing" id="0KN-Hm-gh8"/>
                         <constraint firstItem="MgM-Cw-JxB" firstAttribute="bottom" secondItem="mGa-mF-gKD" secondAttribute="bottom" constant="148" id="Bvz-Wy-ght"/>
                         <constraint firstItem="MgM-Cw-JxB" firstAttribute="trailing" secondItem="mGa-mF-gKD" secondAttribute="trailing" constant="393" id="TMX-kH-sVj"/>
                         <constraint firstItem="MgM-Cw-JxB" firstAttribute="top" secondItem="mGa-mF-gKD" secondAttribute="top" constant="20" id="iYY-jU-8bb"/>
