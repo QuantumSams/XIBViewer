@@ -20,12 +20,15 @@ struct Constant{
         static let imageCGSize: CGSize = CGSize(width: imageWidth, height: imageHeight)
     }
     
-    
     struct PopUpButtonConstant{
         static let cornerRadius:CGFloat = 12
         static let borderWidth:CGFloat = 2
         static let borderColor:UIColor = UIColor.gray
         static let backgroundColor:UIColor = UIColor.white
         static let tintColor:UIColor = UIColor.black
+    }
+    
+    struct TabBarConstant{
+        static let height: CGFloat = 40
     }
 }

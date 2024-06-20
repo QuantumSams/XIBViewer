@@ -9,8 +9,6 @@ import UIKit
 
 class UsersVC: UIViewController {
 
-    
-    
     @IBOutlet private weak var userTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()

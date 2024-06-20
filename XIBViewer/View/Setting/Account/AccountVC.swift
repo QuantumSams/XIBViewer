@@ -5,6 +5,7 @@ final class AccountVC: UIViewController {
     //Property
     
     //Outlet
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var emailField: UITextField!
     @IBOutlet private weak var editButton: UIButton!
     @IBOutlet private weak var lastNameField: UITextField!
@@ -54,6 +55,7 @@ extension AccountVC{
         changeButtonOnTap(buttonToChange, true)
         
     }
+    
     private func changeButtonOnTap(_ buttonToChange:UIButton, _ currentTextFieldEnableStatus:Bool){
         //border button
         //state: not editable -> editable
@@ -71,9 +73,6 @@ extension AccountVC{
             buttonToChange.setTitle("Edit", for: .normal) //need explaination
             buttonToChange.tintColor = .systemPurple
             buttonToChange.setTitleColor(.white, for: .normal)
-
         }
-        
     }
-    
 }

@@ -17,5 +17,42 @@ let dummyData:[UserModel] = [
     UserModel(name: "Hugh Jackman", 
               email: "jackman_hugh@gmail.com",
               role: dummyRole[1]
-             )
+             ),
+    UserModel(name: "Hugh Jackman",
+              email: "jackman_hugh@gmail.com",
+              role: dummyRole[1]
+             ),
+    UserModel(name: "Hugh Jackman",
+              email: "jackman_hugh@gmail.com",
+              role: dummyRole[1]
+             ),
+    UserModel(name: "Hugh Jackman",
+              email: "jackman_hugh@gmail.com",
+              role: dummyRole[1]
+             ),
+    UserModel(name: "Hugh Jackman",
+              email: "jackman_hugh@gmail.com",
+              role: dummyRole[1]
+             ),
+    UserModel(name: "Hugh Jackman",
+              email: "jackman_hugh@gmail.com",
+              role: dummyRole[1]
+             ),
+    UserModel(name: "Hugh Jackman",
+              email: "jackman_hugh@gmail.com",
+              role: dummyRole[1]
+             ),
+    UserModel(name: "Hugh Jackman",
+              email: "jackman_hugh@gmail.com",
+              role: dummyRole[1]
+             ),
+    UserModel(name: "Hugh Jackman",
+              email: "jackman_hugh@gmail.com",
+              role: dummyRole[1]
+             ),
+    UserModel(name: "Hugh Jackman",
+              email: "jackman_hugh@gmail.com",
+              role: dummyRole[1]
+             ),
+    
 ]

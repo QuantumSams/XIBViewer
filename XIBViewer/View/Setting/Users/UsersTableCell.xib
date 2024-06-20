@@ -27,19 +27,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHf-kf-c17">
-                        <rect key="frame" x="78" y="15.999999999999998" width="160" height="20.333333333333329"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="160" id="eRS-4L-TWt"/>
-                        </constraints>
+                        <rect key="frame" x="78" y="15.999999999999998" width="44.333333333333343" height="20.333333333333329"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HC0-HB-VzE" userLabel="Email name">
-                        <rect key="frame" x="78" y="44.333333333333336" width="160" height="17"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="160" id="X5a-jX-aXL"/>
-                        </constraints>
+                        <rect key="frame" x="78" y="44.333333333333336" width="35.333333333333343" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
