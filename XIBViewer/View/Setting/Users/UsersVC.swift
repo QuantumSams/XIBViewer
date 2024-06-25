@@ -8,6 +8,8 @@
 import UIKit
 
 class UsersVC: UIViewController {
+    
+    private let userList: [UserModel] = dummyData
 
     @IBOutlet private weak var userTableView: UITableView!
     override func viewDidLoad() {
@@ -18,14 +20,14 @@ class UsersVC: UIViewController {
 
 extension UsersVC: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyData.count
+        return userList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let returnCell = userTableView.dequeueReusableCell(withIdentifier: UsersTableCell.getID(), for: indexPath) as! UsersTableCell
         
-        returnCell.setData(user: dummyData[indexPath.row])
+        returnCell.setData(user: userList[indexPath.row])
         return returnCell
     }
     
