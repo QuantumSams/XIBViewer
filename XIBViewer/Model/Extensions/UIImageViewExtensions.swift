@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIImageView{
-    func circularImageFromURL(url: String){
+    func circularImageFromURL(url: URL){
         
         //circular border
         layer.masksToBounds = false
@@ -9,6 +9,6 @@ extension UIImageView{
         clipsToBounds = true
         
         //view image from URL using SDWebImage
-        sd_setImage(with: URL(string: url), placeholderImage: UIImage(systemName: "person.crop.circle.fill"))
+        sd_setImage(with: url, placeholderImage: UIImage(systemName: "person.crop.circle.fill"))
     }
 }
