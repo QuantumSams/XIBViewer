@@ -23,6 +23,7 @@
 		7CA5ACD12C227C75001F8648 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA5ACD02C227C75001F8648 /* UserModel.swift */; };
 		7CA5ACD42C2281F9001F8648 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 7CA5ACD32C2281F9001F8648 /* SDWebImage */; };
 		7CA5ACD62C2281F9001F8648 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7CA5ACD52C2281F9001F8648 /* SDWebImageMapKit */; };
+		7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC831FA2C2ADA2200A97350 /* UIImageViewExtensions.swift */; };
 		7CDF31F22C060A2100C01B06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF31F12C060A2100C01B06 /* AppDelegate.swift */; };
 		7CDF31F42C060A2100C01B06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF31F32C060A2100C01B06 /* SceneDelegate.swift */; };
 		7CDF31FB2C060A2100C01B06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF31FA2C060A2100C01B06 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		7CA5ACCA2C218C43001F8648 /* UsersTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableCell.swift; sourceTree = "<group>"; };
 		7CA5ACCB2C218C43001F8648 /* UsersTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UsersTableCell.xib; sourceTree = "<group>"; };
 		7CA5ACD02C227C75001F8648 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		7CC831FA2C2ADA2200A97350 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		7CDF31EE2C060A2100C01B06 /* XIBViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XIBViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CDF31F12C060A2100C01B06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CDF31F32C060A2100C01B06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,12 +69,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7C4013BA2C206C010019074D /* Utility */ = {
+		7C4013BA2C206C010019074D /* Constant */ = {
 			isa = PBXGroup;
 			children = (
 				7C4013B82C206BEA0019074D /* Constant.swift */,
 			);
-			path = Utility;
+			path = Constant;
 			sourceTree = "<group>";
 		};
 		7C4013BB2C208A600019074D /* Setting */ = {
@@ -133,13 +135,32 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		7CBAA3322C07662C00DAC151 /* Resource */ = {
+		7CC831F82C2AD97500A97350 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				7CDF31F12C060A2100C01B06 /* AppDelegate.swift */,
-				7CDF31F32C060A2100C01B06 /* SceneDelegate.swift */,
+				7CC831F92C2AD98400A97350 /* Extensions */,
+				7C4013BA2C206C010019074D /* Constant */,
 			);
-			path = Resource;
+			name = Common;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7CC831F92C2AD98400A97350 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7CC831FA2C2ADA2200A97350 /* UIImageViewExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7CC831FC2C2ADB5E00A97350 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7CDF31FA2C060A2100C01B06 /* Assets.xcassets */,
+				7CDF31FC2C060A2100C01B06 /* LaunchScreen.storyboard */,
+				7CDF31FF2C060A2100C01B06 /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		7CDA8AB62C06259700AAEE2F /* SignIn */ = {
@@ -170,13 +191,12 @@
 		7CDF31F02C060A2100C01B06 /* XIBViewer */ = {
 			isa = PBXGroup;
 			children = (
+				7CC831FC2C2ADB5E00A97350 /* Resources */,
+				7CDF31F12C060A2100C01B06 /* AppDelegate.swift */,
+				7CDF31F32C060A2100C01B06 /* SceneDelegate.swift */,
+				7CC831F82C2AD97500A97350 /* Common */,
 				7CA5ACCF2C227C62001F8648 /* Model */,
-				7C4013BA2C206C010019074D /* Utility */,
-				7CBAA3322C07662C00DAC151 /* Resource */,
 				7CDF32092C060B9800C01B06 /* View */,
-				7CDF31FA2C060A2100C01B06 /* Assets.xcassets */,
-				7CDF31FC2C060A2100C01B06 /* LaunchScreen.storyboard */,
-				7CDF31FF2C060A2100C01B06 /* Info.plist */,
 			);
 			path = XIBViewer;
 			sourceTree = "<group>";
@@ -283,6 +303,7 @@
 				7CA5ACC42C2172DB001F8648 /* SettingTabBarController.swift in Sources */,
 				7CF6797E2C22D83B00C0389C /* RoleModel.swift in Sources */,
 				7CA5ACD12C227C75001F8648 /* UserModel.swift in Sources */,
+				7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */,
 				7C4013B92C206BEA0019074D /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,7 +449,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = XIBViewer/Info.plist;
+				INFOPLIST_FILE = XIBViewer/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -454,7 +475,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = XIBViewer/Info.plist;
+				INFOPLIST_FILE = XIBViewer/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

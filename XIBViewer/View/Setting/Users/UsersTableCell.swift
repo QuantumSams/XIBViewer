@@ -90,16 +90,5 @@ extension UsersTableCell{
     
 }
 
-extension UIImageView{
-    func circularImageFromURL(url: String){
-        
-        //circular
-        layer.masksToBounds = false
-        layer.cornerRadius = Constant.ImageConstant.imageCornerRadius
-        clipsToBounds = true
-        
-        //view image from URL
-        sd_setImage(with: URL(string: url), placeholderImage: UIImage(systemName: "person.crop.circle.fill"))
-    }
-}
+
 
