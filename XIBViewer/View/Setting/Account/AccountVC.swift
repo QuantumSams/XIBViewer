@@ -4,6 +4,8 @@ final class AccountVC: UIViewController {
 
     //Property
     
+    private let adminUser: UserModel = dummyData[0]
+    
     //Outlet
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var emailField: UITextField!
@@ -17,6 +19,11 @@ final class AccountVC: UIViewController {
         setupViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadData(with: adminUser)
+    }
+    
     //Action - event processing
     @IBAction func editButtonTapped(_ sender: UIButton) {
         changeButtonOnTap(editButton, firstNameField.isEnabled)
@@ -27,8 +34,6 @@ final class AccountVC: UIViewController {
 }
 
 //Extenions - private methods
-
-
 extension AccountVC: UITextViewDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -82,6 +87,14 @@ extension AccountVC{
             buttonToChange.tintColor = .systemPurple
             buttonToChange.setTitleColor(.white, for: .normal)
         }
+    }
+    
+    private func loadData(with adminUser: UserModel){
+        let seperatedName = adminUser.name.getFirstAndLastName()
+        
+        emailField.text = adminUser.email
+        firstNameField.text = seperatedName[0]
+        lastNameField.text = seperatedName[1]
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
