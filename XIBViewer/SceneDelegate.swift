@@ -29,8 +29,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let window = window else{
             return
         }
-        let nextNavigation = UINavigationController(rootViewController: swapToVC)
-        window.rootViewController = nextNavigation
+        
+        DispatchQueue.main.async {
+            let nextNavigation = UINavigationController(rootViewController: swapToVC)
+            window.rootViewController = nextNavigation
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
