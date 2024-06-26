@@ -10,21 +10,18 @@ import Foundation
 
 class TokenSingleton{
     private init() {}
-    
     static let getToken = TokenSingleton()
-    
-    private var accessToken = ""
-    private var refreshToken = ""
+    private let storage = UserDefaults.standard
 }
 
 
 extension TokenSingleton{
     func setInitialToken(access: String, refresh: String){
-        self.accessToken = access
-        self.refreshToken = refresh
+        storage.set(access, forKey: "AccessTK")
+        storage.set(refresh, forKey: "RefreshTK")
     }
     
     func getAccessToken() -> String{
-        return self.accessToken
+        return storage.string(forKey: "AccessTK") ?? ""
     }
 }
