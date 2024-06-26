@@ -47,6 +47,8 @@ extension SceneDelegate{
             let nextNavigation = UINavigationController(rootViewController: swapToVC)
             window.rootViewController = nextNavigation
             nextNavigation.modalPresentationStyle = .fullScreen
+            
+            UIView.transition(with: window, duration: 0.75, options: .transitionFlipFromRight ,animations: nil, completion: nil)
         }
     }
 }
