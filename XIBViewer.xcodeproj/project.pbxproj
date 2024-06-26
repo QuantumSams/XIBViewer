@@ -37,6 +37,8 @@
 		7CDF31FE2C060A2100C01B06 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF31FD2C060A2100C01B06 /* Base */; };
 		7CE613112C2BC2AA001A3B96 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613102C2BC2AA001A3B96 /* ServerResponse.swift */; };
 		7CE613132C2BC5B9001A3B96 /* APIErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */; };
+		7CE613152C2BFB32001A3B96 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613142C2BFB32001A3B96 /* DataService.swift */; };
+		7CE613182C2C0CDF001A3B96 /* TokenSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613172C2C0CDF001A3B96 /* TokenSingleton.swift */; };
 		7CF6797E2C22D83B00C0389C /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6797D2C22D83B00C0389C /* RoleModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,8 @@
 		7CDF31FF2C060A2100C01B06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CE613102C2BC2AA001A3B96 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorTypes.swift; sourceTree = "<group>"; };
+		7CE613142C2BFB32001A3B96 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		7CE613172C2C0CDF001A3B96 /* TokenSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSingleton.swift; sourceTree = "<group>"; };
 		7CF6797D2C22D83B00C0389C /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,6 +164,7 @@
 		7CC831F82C2AD97500A97350 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				7CE613162C2C0CD1001A3B96 /* Singleton */,
 				7CC831F92C2AD98400A97350 /* Extensions */,
 				7C4013BA2C206C010019074D /* Constant */,
 			);
@@ -195,6 +200,7 @@
 				7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */,
 				7CC832062C2B096E00A97350 /* Endpoints.swift */,
 				7CC832082C2B0CC800A97350 /* HTTP.swift */,
+				7CE613142C2BFB32001A3B96 /* DataService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -245,6 +251,14 @@
 				7C4013BB2C208A600019074D /* Setting */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7CE613162C2C0CD1001A3B96 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				7CE613172C2C0CDF001A3B96 /* TokenSingleton.swift */,
+			);
+			path = Singleton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,7 +348,9 @@
 				7C911F362C06272B00D28629 /* SignInVC.swift in Sources */,
 				7C43D71A2C1D909D00B3E914 /* AccountVC.swift in Sources */,
 				7CC832122C2B148600A97350 /* SignupModel.swift in Sources */,
+				7CE613182C2C0CDF001A3B96 /* TokenSingleton.swift in Sources */,
 				7CDF31F22C060A2100C01B06 /* AppDelegate.swift in Sources */,
+				7CE613152C2BFB32001A3B96 /* DataService.swift in Sources */,
 				7CC832072C2B096E00A97350 /* Endpoints.swift in Sources */,
 				7CC8320C2C2B0F2500A97350 /* URLRequestExtension.swift in Sources */,
 				7CE613132C2BC5B9001A3B96 /* APIErrorTypes.swift in Sources */,

@@ -84,6 +84,10 @@ extension SignInVC{
         AuthService.login(request: request) {result in
             switch result{
             case .success(_):
+                
+                let token = TokenSingleton.getToken
+                print(token.getAccessToken())
+
                 self.navigateToTabBarController(toTabBarController: NC)
                 
             case .failure(let error):

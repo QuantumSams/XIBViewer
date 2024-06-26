@@ -24,7 +24,9 @@ class AuthService{
             
             //case: received data
             if let successData = try? decoder.decode(SuccessLoginResponse.self, from: data){
+                let token = TokenSingleton.getToken
                 completion(.success(successData.access))
+                token.setInitialToken(access: successData.access, refresh: successData.refresh)
                 return
             }
             
@@ -42,5 +44,5 @@ class AuthService{
             
         }.resume()
     }
-    
 }
+
