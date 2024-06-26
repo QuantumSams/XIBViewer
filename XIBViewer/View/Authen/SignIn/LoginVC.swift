@@ -17,7 +17,7 @@ final class SignInVC: UIViewController {
    
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         
-        print("Tapped")
+        loginButton.configuration?.showsActivityIndicator = true
         sendLoginRequest()
     }
 }

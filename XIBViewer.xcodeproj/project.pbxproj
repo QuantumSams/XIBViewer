@@ -13,7 +13,7 @@
 		7C43D71A2C1D909D00B3E914 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43D7182C1D909D00B3E914 /* AccountVC.swift */; };
 		7C43D71B2C1D909D00B3E914 /* AccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C43D7192C1D909D00B3E914 /* AccountVC.xib */; };
 		7C911F352C06272B00D28629 /* SignInVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C911F332C06272B00D28629 /* SignInVC.xib */; };
-		7C911F362C06272B00D28629 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C911F342C06272B00D28629 /* SignInVC.swift */; };
+		7C911F362C06272B00D28629 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C911F342C06272B00D28629 /* LoginVC.swift */; };
 		7C911F3A2C0627A700D28629 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C911F382C0627A700D28629 /* SignUpVC.swift */; };
 		7C911F3B2C0627A700D28629 /* SignUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C911F392C0627A700D28629 /* SignUpVC.xib */; };
 		7CA5ACC42C2172DB001F8648 /* SettingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA5ACC22C2172DB001F8648 /* SettingTabBarController.swift */; };
@@ -50,7 +50,7 @@
 		7C43D7182C1D909D00B3E914 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		7C43D7192C1D909D00B3E914 /* AccountVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountVC.xib; sourceTree = "<group>"; };
 		7C911F332C06272B00D28629 /* SignInVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInVC.xib; sourceTree = "<group>"; };
-		7C911F342C06272B00D28629 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		7C911F342C06272B00D28629 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		7C911F382C0627A700D28629 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		7C911F392C0627A700D28629 /* SignUpVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpVC.xib; sourceTree = "<group>"; };
 		7CA5ACC22C2172DB001F8648 /* SettingTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingTabBarController.swift; path = XIBViewer/View/Setting/SettingTabBarController.swift; sourceTree = SOURCE_ROOT; };
@@ -211,7 +211,7 @@
 		7CDA8AB62C06259700AAEE2F /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				7C911F342C06272B00D28629 /* SignInVC.swift */,
+				7C911F342C06272B00D28629 /* LoginVC.swift */,
 				7C911F332C06272B00D28629 /* SignInVC.xib */,
 			);
 			path = SignIn;
@@ -348,7 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CA5ACCC2C218C43001F8648 /* UsersTableCell.swift in Sources */,
-				7C911F362C06272B00D28629 /* SignInVC.swift in Sources */,
+				7C911F362C06272B00D28629 /* LoginVC.swift in Sources */,
 				7C43D71A2C1D909D00B3E914 /* AccountVC.swift in Sources */,
 				7CC832122C2B148600A97350 /* SignupModel.swift in Sources */,
 				7CE613182C2C0CDF001A3B96 /* TokenSingleton.swift in Sources */,

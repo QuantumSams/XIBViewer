@@ -17,6 +17,7 @@ final class SignUpVC: UIViewController {
     }
     
     @IBAction func registerTapped(_ sender: UIButton) {
+        signUpButton.configuration?.showsActivityIndicator = true
         navigateToTabBarController()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {

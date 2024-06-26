@@ -45,6 +45,7 @@ final class AccountVC: UIViewController {
         
     }
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
+        logoutButton.configuration?.showsActivityIndicator = true
         logoutAccount()
     }
 }
