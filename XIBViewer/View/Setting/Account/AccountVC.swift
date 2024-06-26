@@ -12,6 +12,7 @@ final class AccountVC: UIViewController {
     @IBOutlet private weak var lastNameField: UITextField!
     @IBOutlet private weak var firstNameField: UITextField!
     
+    @IBOutlet weak var logoutButton: UIButton!
     //Lifecycle
     
     init(user:UserModel){
@@ -36,9 +37,15 @@ final class AccountVC: UIViewController {
     //Action - event processing
     @IBAction func editButtonTapped(_ sender: UIButton) {
         changeButtonOnTap(editButton, firstNameField.isEnabled)
-        toggleTextFieldEnable(emailField)
-        toggleTextFieldEnable(firstNameField)
-        toggleTextFieldEnable(lastNameField)
+        toggleAvailability(for: emailField, currentStatus: emailField.isEnabled)
+        toggleAvailability(for: firstNameField, currentStatus: firstNameField.isEnabled)
+        toggleAvailability(for: lastNameField, currentStatus: lastNameField.isEnabled)
+        toggleAvailability(for: logoutButton, currentStatus: logoutButton.isEnabled)
+        
+        
+    }
+    @IBAction func logoutButtonTapped(_ sender: UIButton) {
+        logoutAccount()
     }
 }
 
@@ -56,7 +63,18 @@ extension AccountVC{
         setupTextField(emailField)
         setupTextField(lastNameField)
         setupTextField(firstNameField)
-        setupButton(editButton)
+        
+        editButton.setupButton(
+            borderColor: UIColor.systemPurple,
+            cornerRadius: 4,
+            buttonHeight: 40,
+            maskToBound: false
+        )
+        changeButtonOnTap(editButton, true)
+        logoutButton.setupButton(
+            tintColor: UIColor.systemRed,
+            borderWidth: 0
+        )
     }
     
     private func setupTextField(_ textField: UITextField){
@@ -67,14 +85,20 @@ extension AccountVC{
         textField.isEnabled = false
         NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
     }
-    private func toggleTextFieldEnable(_ textField: UITextField){
-        let currentTextFieldEnableStatus:Bool = textField.isEnabled
-        textField.isEnabled = !currentTextFieldEnableStatus
+    private func toggleAvailability(for control: UIControl, currentStatus: Bool){
+        control.isEnabled = !currentStatus
     }
-    private func setupButton(_ buttonToChange:UIButton){
-        buttonToChange.layer.borderColor = UIColor.systemPurple.cgColor
-        buttonToChange.layer.cornerRadius = 8
-        changeButtonOnTap(buttonToChange, true)
+    private func setupButton(_ buttonToChange: UIButton, defaultBorderColor: UIColor? = nil, defaultTintColor: UIColor? = nil){
+        
+        if let defaultBorderColor = defaultBorderColor{
+            buttonToChange.layer.borderColor = defaultBorderColor.cgColor
+        }
+        
+        if let defaultTintColor = defaultTintColor{
+            buttonToChange.tintColor = defaultTintColor
+        }
+        
+        buttonToChange.layer.cornerRadius = Constant.ButtonConstant.cornerRadius
         
     }
     
@@ -82,7 +106,8 @@ extension AccountVC{
         //border button
         //state: not editable -> editable
         if(currentTextFieldEnableStatus == false){
-            buttonToChange.layer.borderWidth = 2
+           
+            buttonToChange.layer.borderWidth = Constant.ButtonConstant.borderWidth
             buttonToChange.setTitle("Finish editing", for: .normal) //need explaination
             buttonToChange.tintColor = .clear
             buttonToChange.setTitleColor(.systemPurple, for: .normal)
@@ -104,6 +129,12 @@ extension AccountVC{
         emailField.text = adminUser.email
         firstNameField.text = seperatedName[0]
         lastNameField.text = seperatedName[1]
+    }
+    
+    private func logoutAccount(){
+        let token = TokenSingleton.getToken
+        token.removeToken()
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

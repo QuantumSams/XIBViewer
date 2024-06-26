@@ -24,4 +24,9 @@ extension TokenSingleton{
     func getAccessToken() -> String{
         return storage.string(forKey: "AccessTK") ?? ""
     }
+    
+    func removeToken(){
+        storage.removeObject(forKey: "AccessTK")
+        storage.removeObject(forKey: "RefreshTK")
+    }
 }

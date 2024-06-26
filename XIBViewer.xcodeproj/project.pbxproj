@@ -39,6 +39,7 @@
 		7CE613132C2BC5B9001A3B96 /* APIErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */; };
 		7CE613152C2BFB32001A3B96 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613142C2BFB32001A3B96 /* AccountService.swift */; };
 		7CE613182C2C0CDF001A3B96 /* TokenSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613172C2C0CDF001A3B96 /* TokenSingleton.swift */; };
+		7CE6131A2C2C5923001A3B96 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613192C2C5923001A3B96 /* UIButtonExtension.swift */; };
 		7CF6797E2C22D83B00C0389C /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6797D2C22D83B00C0389C /* RoleModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorTypes.swift; sourceTree = "<group>"; };
 		7CE613142C2BFB32001A3B96 /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		7CE613172C2C0CDF001A3B96 /* TokenSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSingleton.swift; sourceTree = "<group>"; };
+		7CE613192C2C5923001A3B96 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		7CF6797D2C22D83B00C0389C /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +180,7 @@
 				7CC831FA2C2ADA2200A97350 /* UIImageViewExtensions.swift */,
 				7CC832012C2AEB2B00A97350 /* StringExtension.swift */,
 				7CC8320B2C2B0F2500A97350 /* URLRequestExtension.swift */,
+				7CE613192C2C5923001A3B96 /* UIButtonExtension.swift */,
 			);
 			name = Extensions;
 			path = ../Extensions;
@@ -361,6 +364,7 @@
 				7CDF31F42C060A2100C01B06 /* SceneDelegate.swift in Sources */,
 				7CA5ACC42C2172DB001F8648 /* SettingTabBarController.swift in Sources */,
 				7CF6797E2C22D83B00C0389C /* RoleModel.swift in Sources */,
+				7CE6131A2C2C5923001A3B96 /* UIButtonExtension.swift in Sources */,
 				7CA5ACD12C227C75001F8648 /* UserModel.swift in Sources */,
 				7CC832102C2B119300A97350 /* LoginModel.swift in Sources */,
 				7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */,
