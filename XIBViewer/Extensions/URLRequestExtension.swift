@@ -3,13 +3,20 @@ import Foundation
 extension URLRequest{
     mutating func addValues(_ endpoints: Endpoints){
         switch endpoints{
-        case .login:
-            self.setValue(HTTP.Headers.Value.applicationJson.rawValue, 
-                          forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
+        case .login, 
+                .signup:
+                
+            self.setValue(HTTP.Headers.Value.applicationJson.HeaderValues,
+                          forHTTPHeaderField: HTTP.Headers.Key.contentType.HeadersKey)
             
-        case.signup:
-            self.setValue(HTTP.Headers.Value.applicationJson.rawValue, 
-                          forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
+        case .getAccountData:
+            self.setValue(HTTP.Headers.Value.applicationJson.HeaderValues,
+                          forHTTPHeaderField: HTTP.Headers.Key.contentType.HeadersKey)
+            
+            self.setValue(HTTP.Headers.Value.accessToken(accessToken:
+                                                            TokenSingleton.getToken.getAccessToken()).HeaderValues,
+                          forHTTPHeaderField: HTTP.Headers.Key.authorization.HeadersKey)
+            print("HERE!!!!!")
         }
     }
 }

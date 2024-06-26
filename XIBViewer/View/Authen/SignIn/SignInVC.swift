@@ -18,7 +18,7 @@ final class SignInVC: UIViewController {
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         
         print("Tapped")
-        sendLoginRequest(navigateTo: SettingTabBarController())
+        sendLoginRequest()
     }
 }
 
@@ -58,10 +58,10 @@ extension SignInVC{
         NSLayoutConstraint.activate([customButton.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
     }
     
-    private func navigateToTabBarController(toTabBarController: UIViewController){
+    private func checkAuthenToNavigate(){
         
         DispatchQueue.main.async {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(toTabBarController) //explaination needed
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen() //explaination needed
          
         }
         
@@ -72,7 +72,7 @@ extension SignInVC{
         self.view.endEditing(true)
     }
     
-    private func sendLoginRequest(navigateTo NC: UIViewController){
+    private func sendLoginRequest(){
         let loginRequestData =
         LoginModel(email: usernameField.text ?? "",
                    password: passwordField.text ?? "")
@@ -88,7 +88,7 @@ extension SignInVC{
                 let token = TokenSingleton.getToken
                 print(token.getAccessToken())
 
-                self.navigateToTabBarController(toTabBarController: NC)
+                self.checkAuthenToNavigate()
                 
             case .failure(let error):
                 guard let error = error as? APIErrorTypes else {return}

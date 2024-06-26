@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y6Q-zl-TA7" userLabel="Image">
-                        <rect key="frame" x="16" y="16" width="50" height="50"/>
+                        <rect key="frame" x="16" y="19" width="50" height="50"/>
                         <color key="tintColor" systemColor="systemFillColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="LjI-FY-qf9"/>
@@ -27,23 +27,23 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHf-kf-c17">
-                        <rect key="frame" x="78" y="15.999999999999998" width="44.333333333333343" height="20.333333333333329"/>
+                        <rect key="frame" x="78" y="16" width="44.333333333333343" height="28"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HC0-HB-VzE" userLabel="Email name">
-                        <rect key="frame" x="78" y="44.333333333333336" width="35.333333333333343" height="17"/>
+                        <rect key="frame" x="78" y="52" width="35.333333333333343" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSS-M6-KZq" userLabel="More Info Button">
-                        <rect key="frame" x="280" y="31.666666666666671" width="24" height="14"/>
+                        <rect key="frame" x="280" y="35.666666666666664" width="24" height="14"/>
                         <buttonConfiguration key="configuration" style="plain"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-pu-Z7b">
-                        <rect key="frame" x="190.33333333333334" y="21.666666666666668" width="85.666666666666657" height="34.333333333333329"/>
+                        <rect key="frame" x="190.33333333333334" y="25.333333333333332" width="85.666666666666657" height="34.333333333333343"/>
                         <menu key="menu" id="7jY-dD-qtr">
                             <children>
                                 <command title="Item 1" id="BcL-je-NsE"/>
@@ -64,7 +64,6 @@
                     <constraint firstItem="jHf-kf-c17" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="PAm-Pt-YTV"/>
                     <constraint firstItem="vSS-M6-KZq" firstAttribute="leading" secondItem="wxl-pu-Z7b" secondAttribute="trailing" constant="4" id="TnZ-A0-hXl"/>
                     <constraint firstItem="vSS-M6-KZq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cO6-qo-aDu"/>
-                    <constraint firstItem="Y6Q-zl-TA7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="dM2-rp-RA1"/>
                     <constraint firstItem="HC0-HB-VzE" firstAttribute="leading" secondItem="Y6Q-zl-TA7" secondAttribute="trailing" constant="12" id="e45-eI-h42"/>
                     <constraint firstAttribute="bottom" secondItem="HC0-HB-VzE" secondAttribute="bottom" constant="16" id="wTq-1N-Ane"/>
                 </constraints>

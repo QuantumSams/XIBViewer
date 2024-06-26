@@ -8,13 +8,35 @@ enum HTTP{
     
     enum Headers{
         
-        enum Key: String{
-            case contentType = "Content-Type"
+        enum Key{
+            case contentType
+            case authorization
+            
+            var HeadersKey: String{
+                switch self{
+                case .contentType:
+                    return "Content-Type"
+                case .authorization:
+                    return "Authorization"
+                }
+            }
         }
         
-        enum Value: String{
-            case applicationJson = "application/json"
+        enum Value{
+            case applicationJson
+            case accessToken(accessToken: String)
+            
+            var HeaderValues: String {
+                switch self{
+                case .applicationJson:
+                    return "application/json"
+                case .accessToken(let accessToken):
+                    return "Bearer \(accessToken)"
+                }
+                
+            }
         }
         
+       
     }
 }

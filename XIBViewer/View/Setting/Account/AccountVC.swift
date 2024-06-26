@@ -3,8 +3,7 @@ import UIKit
 final class AccountVC: UIViewController {
 
     //Property
-    
-    private let adminUser: UserModel = dummyData[0]
+    private var adminUser: UserModel
     
     //Outlet
     @IBOutlet private weak var scrollView: UIScrollView!
@@ -14,6 +13,16 @@ final class AccountVC: UIViewController {
     @IBOutlet private weak var firstNameField: UITextField!
     
     //Lifecycle
+    
+    init(user:UserModel){
+        adminUser = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

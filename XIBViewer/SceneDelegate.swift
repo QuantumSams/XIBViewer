@@ -15,14 +15,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScence = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScence)
-        let navigation = UINavigationController(rootViewController: SignUpVC())
-        
-        window.rootViewController = navigation
-        navigation.modalPresentationStyle = .fullScreen
         self.window = window
         self.window?.makeKeyAndVisible()
+        checkAuthen()
     }
     
+    public func checkAuthen(){
+        AccountService.getAccount(completion: {[weak self] result in
+            
+            DispatchQueue.main.async{
+                switch result{
+                case .success(let adminUser):
+                    self?.swapRootVC(SettingTabBarController(adminUser: adminUser))
+                case .failure(_):
+                    self?.swapRootVC(SignUpVC())
+                    }
+                }
+            }
+        )
+    }
     
     func swapRootVC(_ swapToVC: UIViewController){
         
@@ -33,6 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         DispatchQueue.main.async {
             let nextNavigation = UINavigationController(rootViewController: swapToVC)
             window.rootViewController = nextNavigation
+            nextNavigation.modalPresentationStyle = .fullScreen
         }
         
     }
