@@ -35,6 +35,7 @@
 		7CDF31F42C060A2100C01B06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF31F32C060A2100C01B06 /* SceneDelegate.swift */; };
 		7CDF31FB2C060A2100C01B06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF31FA2C060A2100C01B06 /* Assets.xcassets */; };
 		7CDF31FE2C060A2100C01B06 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF31FD2C060A2100C01B06 /* Base */; };
+		7CE52AE32C2D22D5005D8A6B /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE52AE22C2D22D5005D8A6B /* AlertManager.swift */; };
 		7CE613112C2BC2AA001A3B96 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613102C2BC2AA001A3B96 /* ServerResponse.swift */; };
 		7CE613132C2BC5B9001A3B96 /* APIErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */; };
 		7CE613152C2BFB32001A3B96 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613142C2BFB32001A3B96 /* AccountService.swift */; };
@@ -72,6 +73,7 @@
 		7CDF31FA2C060A2100C01B06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CDF31FD2C060A2100C01B06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CDF31FF2C060A2100C01B06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CE52AE22C2D22D5005D8A6B /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		7CE613102C2BC2AA001A3B96 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorTypes.swift; sourceTree = "<group>"; };
 		7CE613142C2BFB32001A3B96 /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				7CE613162C2C0CD1001A3B96 /* Singleton */,
 				7CC831F92C2AD98400A97350 /* Extensions */,
 				7C4013BA2C206C010019074D /* Constant */,
+				7CE52AE22C2D22D5005D8A6B /* AlertManager.swift */,
 			);
 			name = Common;
 			path = Model;
@@ -364,6 +367,7 @@
 				7CDF31F42C060A2100C01B06 /* SceneDelegate.swift in Sources */,
 				7CA5ACC42C2172DB001F8648 /* SettingTabBarController.swift in Sources */,
 				7CF6797E2C22D83B00C0389C /* RoleModel.swift in Sources */,
+				7CE52AE32C2D22D5005D8A6B /* AlertManager.swift in Sources */,
 				7CE6131A2C2C5923001A3B96 /* UIButtonExtension.swift in Sources */,
 				7CA5ACD12C227C75001F8648 /* UserModel.swift in Sources */,
 				7CC832102C2B119300A97350 /* LoginModel.swift in Sources */,
