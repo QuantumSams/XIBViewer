@@ -18,27 +18,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
-        checkAuthen()
+        checkAuthen(transition: false)
     }
 }
 
 extension SceneDelegate{
     
-    public func checkAuthen(){
+    public func checkAuthen(transition: Bool = true){
         AccountService.getAccount(completion: {[weak self] result in
             DispatchQueue.main.async{
                 switch result{
                 case .success(let adminUser):
-                    self?.swapRootVC(SettingTabBarController(adminUser: adminUser))
+                    self?.swapRootVC(SettingTabBarController(adminUser: adminUser), transition: transition)
                 case .failure(_):
-                    self?.swapRootVC(SignUpVC())
+                    self?.swapRootVC(SignUpVC(), transition: transition)
                     }
                 }
             }
         )
     }
     
-    func swapRootVC(_ swapToVC: UIViewController){
+    func swapRootVC(_ swapToVC: UIViewController, transition: Bool){
         
         guard let window = window else{
             return
@@ -48,7 +48,10 @@ extension SceneDelegate{
             window.rootViewController = nextNavigation
             nextNavigation.modalPresentationStyle = .fullScreen
             
-            UIView.transition(with: window, duration: 0.75, options: .transitionFlipFromRight ,animations: nil, completion: nil)
+            if(transition){
+                UIView.transition(with: window, duration: 0.75, options: .transitionFlipFromRight ,animations: nil, completion: nil)
+            }
+            
         }
     }
 }
