@@ -10,6 +10,8 @@ import SDWebImage
 
 class UsersTableCell: UITableViewCell {
     
+    private let roleData: [RoleModel] = RoleSingleton.accessSingleton.getRole()
+    
     @IBOutlet private weak var moreInfoButton: UIButton!
     @IBOutlet private weak var cellName: UILabel!
     @IBOutlet private weak var cellEmail: UILabel!
@@ -60,17 +62,22 @@ extension UsersTableCell{
         setupVisualPopupButton(popUpButton: roleSelectButton)
         setupMoreInfoButton(moreInfoButton: moreInfoButton)
     }
-    private func setupLogicPopupButton(popUpButton: UIButton){
-        
-        let changeNameClosure = {(incomingAction:UIAction) in
-            //MARK: update to DB about role changes
+    
+    private func convertRoleModel(from: [RoleModel]) -> [UIAction]{
+        let changeNameClosure = {(incomingAction: UIAction) in
+            //TODO: update to DB about role changes
         }
-        popUpButton.menu = UIMenu(children: [
-            
-            UIAction(title: dummyRole[0].name, handler: changeNameClosure),
-            UIAction(title: dummyRole[1].name, handler: changeNameClosure),
-            UIAction(title: dummyRole[2].name, handler: changeNameClosure)
-        ])
+        var out: [UIAction] = []
+        
+        from.forEach { role in
+            out.append(UIAction(title: role.name, handler: changeNameClosure))
+        }
+        return out
+    }
+    
+    private func setupLogicPopupButton(popUpButton: UIButton){
+    
+        popUpButton.menu = UIMenu(children: convertRoleModel(from: roleData))
         popUpButton.showsMenuAsPrimaryAction = true
         popUpButton.changesSelectionAsPrimaryAction = true
     }

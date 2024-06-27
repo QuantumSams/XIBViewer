@@ -6,6 +6,7 @@ enum Endpoints{
     case login (path: String = "/api/auth/login/", model: LoginModel)
     case signup(path: String = "/api/auth/register/", model: SignupModel)
     case getAccountData (path: String = "/api/users/me/")
+    case getRole(path: String = "/api/roles/")
 
     var request:URLRequest? {
         
@@ -26,6 +27,7 @@ enum Endpoints{
         component.host   = API_Constant.baseURL
         component.port   = API_Constant.port
         component.path = self.path
+        
         return component.url
     }
     
@@ -35,6 +37,7 @@ enum Endpoints{
         case .login(path: let path, _): return path
         case .signup(path: let path, _): return path
         case .getAccountData(path: let path): return path
+        case .getRole(path: let path): return path
             
         }
     }
@@ -51,6 +54,8 @@ enum Endpoints{
             
         case .getAccountData(_):
             return nil
+        case .getRole(_):
+            return nil
         }
     }
     
@@ -60,6 +65,8 @@ enum Endpoints{
         case .signup: return HTTP.Methods.post.rawValue
         case .getAccountData: return HTTP.Methods.get.rawValue
             
+        case .getRole(_):
+            return HTTP.Methods.get.rawValue
         }
     }
 }

@@ -18,11 +18,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
+        getRoles()
         checkAuthen(transition: false)
     }
 }
 
 extension SceneDelegate{
+    
+    private func getRoles(){
+        RoleService.getRole { result in
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let roleData):
+                    RoleSingleton.accessSingleton.setRole(newRole: roleData.results)
+                case .failure(let string):
+                    //TODO: HANDLE CASE
+                    print(string)
+                }
+            }
+            return
+        }
+    }
     
     public func checkAuthen(transition: Bool = true){
         AccountService.getAccount(completion: {[weak self] result in

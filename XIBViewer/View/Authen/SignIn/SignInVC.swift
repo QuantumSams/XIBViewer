@@ -2,6 +2,8 @@ import UIKit
 
 final class SignInVC: UIViewController {
 
+    //property
+    
     //Outlet
     @IBOutlet private weak var passwordField: UITextField!
     @IBOutlet private weak var usernameField: UITextField!
@@ -16,8 +18,6 @@ final class SignInVC: UIViewController {
     //Action - event processing
    
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        
-        loginButton.configuration?.showsActivityIndicator = true
         sendLoginRequest()
     }
 }
@@ -62,10 +62,7 @@ extension SignInVC{
         
         DispatchQueue.main.async {
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen() //explaination needed
-         
         }
-        
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -76,6 +73,7 @@ extension SignInVC{
         let loginRequestData =
         LoginModel(email: usernameField.text ?? "",
                    password: passwordField.text ?? "")
+        
         
         guard let request = Endpoints.login(model: loginRequestData).request else {
             return
@@ -99,8 +97,8 @@ extension SignInVC{
                     AlertManager.showDeviceError(on: self, message: string)
                 }
             }
+            
         }
-        
     }
 }
 

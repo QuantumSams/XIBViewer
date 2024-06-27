@@ -10,3 +10,10 @@ struct SuccessLoginResponse: Decodable{
 struct ErrorResponse: Decodable{
     let detail: String
 }
+
+struct RoleResponseModel: Decodable{
+    let count: Int
+    let next: URL?
+    let previous: URL?
+    let results: [RoleModel]
+}

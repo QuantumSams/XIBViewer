@@ -16,6 +16,9 @@ extension URLRequest{
             self.setValue(HTTP.Headers.Value.accessToken(accessToken:
                                                             TokenSingleton.getToken.getAccessToken()).HeaderValues,
                           forHTTPHeaderField: HTTP.Headers.Key.authorization.HeadersKey)
+        case .getRole:
+            self.setValue(HTTP.Headers.Value.applicationJson.HeaderValues,
+                          forHTTPHeaderField: HTTP.Headers.Key.contentType.HeadersKey)
         }
     }
 }
