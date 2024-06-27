@@ -9,7 +9,7 @@ class AuthService{
             guard let data = data else{
                 //case: error response exists
                 if let error = error{
-                    completion(.failure(APIErrorTypes.serverError(error.localizedDescription)))
+                    completion(.failure(APIErrorTypes.deviceError(error.localizedDescription)))
                 }
                 //case: no error response from sever
                 else{
@@ -22,7 +22,7 @@ class AuthService{
             //MARK: NO LOCAL ERROR - RESPONSE RECEIVED
             let decoder = JSONDecoder()
             
-            //case: received data
+            //case: received data - 2xx response
             if let successData = try? decoder.decode(SuccessLoginResponse.self, from: data){
                 
                 let token = TokenSingleton.getToken
@@ -31,7 +31,7 @@ class AuthService{
                 return
             }
             
-            //case: server error response
+            //case: server error response - 4xx response
             else if let errorData = try? decoder.decode(ErrorResponse.self, from: data){
                 completion(.failure(APIErrorTypes.serverError(errorData.detail)))
                 return

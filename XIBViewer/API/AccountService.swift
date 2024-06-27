@@ -14,7 +14,7 @@ class AccountService{
             guard let data = data else{
                 //case: error response exists
                 if let error = error{
-                    completion(.failure(APIErrorTypes.serverError(error.localizedDescription)))
+                    completion(.failure(APIErrorTypes.deviceError(error.localizedDescription)))
                 }
                 //case: no error response from sever
                 else{

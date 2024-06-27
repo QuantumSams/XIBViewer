@@ -32,8 +32,6 @@ final class AccountVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadData(with: adminUser)
-        
-        AlertManager.showNoWifiConnection(on: self)
     }
     
     //Action - event processing
@@ -47,8 +45,13 @@ final class AccountVC: UIViewController {
         
     }
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
-        logoutButton.configuration?.showsActivityIndicator = true
-        logoutAccount()
+        AlertManager.logOutConfirmation(on: self) { logoutConfirm in
+            if(logoutConfirm == true){
+                self.logoutButton.configuration?.showsActivityIndicator = true
+                self.logoutAccount()
+            }
+        }
+        
     }
 }
 
@@ -135,9 +138,8 @@ extension AccountVC{
     }
     
     private func logoutAccount(){
-        let token = TokenSingleton.getToken
-        token.removeToken()
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(SignUpVC(), transition: true)
+        TokenSingleton.getToken.removeToken()
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
