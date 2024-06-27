@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
         getRoles()
-        checkAuthen(transition: false)
+//        checkAuthen(transition: false)
     }
 }
 
@@ -31,6 +31,7 @@ extension SceneDelegate{
                 switch result{
                 case .success(let roleData):
                     RoleSingleton.accessSingleton.setRole(newRole: roleData.results)
+                    self.checkAuthen(transition: false)
                 case .failure(let string):
                     //TODO: HANDLE CASE
                     print(string)

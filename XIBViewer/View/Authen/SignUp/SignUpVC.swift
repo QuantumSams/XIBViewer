@@ -8,7 +8,7 @@ final class SignUpVC: UIViewController {
     @IBOutlet private weak var changeToLoginButton: UIButton!
     @IBOutlet private weak var confirmPasswordField: UITextField!
     @IBOutlet private weak var passwordField: UITextField!
-    @IBOutlet private weak var phoneField: UITextField!
+    @IBOutlet private weak var roleSelection: UIButton!
     @IBOutlet private weak var emailField: UITextField!
     
     override func viewDidLoad() {
@@ -37,9 +37,9 @@ extension SignUpVC {
     private func setupViews() {
         setupButton(signUpButton)
         setupButton(changeToLoginButton)
+        setupPopUpButton(for: roleSelection)
         setupTextField(fullNameField)
         setupTextField(emailField)
-        setupTextField(phoneField)
         setupTextField(passwordField)
         setupTextField(confirmPasswordField)
     }
@@ -74,4 +74,41 @@ extension SignUpVC {
         self.view.endEditing(true)
     }
 
+}
+extension SignUpVC{
+    
+    private func setupPopUpButton(for button: UIButton){
+        button.setupButton(tintColor: Constant.PopUpButtonConstant.tintColor,
+                           borderColor: Constant.PopUpButtonConstant.borderColor,
+                           cornerRadius: Constant.PopUpButtonConstant.cornerRadius,
+                           borderWidth: Constant.PopUpButtonConstant.borderWidth,
+                           maskToBound: false)
+        
+        setupLogicPopupButton(popUpButton: button)
+    }
+    
+    private func setupLogicPopupButton(popUpButton: UIButton){
+        
+        
+        DispatchQueue.main.async {
+            popUpButton.menu = UIMenu(children: self.convertRoleModel(from: RoleSingleton.accessSingleton.getRole()))
+            popUpButton.showsMenuAsPrimaryAction = true
+            popUpButton.changesSelectionAsPrimaryAction = true
+            (popUpButton.menu?.children[0] as? UIAction)?.state = .on
+        }
+    
+        
+    }
+    
+    private func convertRoleModel(from: [RoleModel]) -> [UIAction]{
+        let changeNameClosure = {(incomingAction: UIAction) in
+            //TODO: update to DB about role changes
+        }
+        var out: [UIAction] = []
+        
+        from.forEach { role in
+            out.append(UIAction(title: role.name, handler: changeNameClosure))
+        }
+        return out
+    }
 }

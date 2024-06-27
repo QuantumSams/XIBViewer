@@ -10,8 +10,6 @@ import SDWebImage
 
 class UsersTableCell: UITableViewCell {
     
-    private let roleData: [RoleModel] = RoleSingleton.accessSingleton.getRole()
-    
     @IBOutlet private weak var moreInfoButton: UIButton!
     @IBOutlet private weak var cellName: UILabel!
     @IBOutlet private weak var cellEmail: UILabel!
@@ -77,7 +75,7 @@ extension UsersTableCell{
     
     private func setupLogicPopupButton(popUpButton: UIButton){
     
-        popUpButton.menu = UIMenu(children: convertRoleModel(from: roleData))
+        popUpButton.menu = UIMenu(children: convertRoleModel(from: RoleSingleton.accessSingleton.getRole()))
         popUpButton.showsMenuAsPrimaryAction = true
         popUpButton.changesSelectionAsPrimaryAction = true
     }
