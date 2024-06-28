@@ -19,22 +19,6 @@ final class SignUpVC: UIViewController {
     @IBAction func registerTapped(_ sender: UIButton) {
         signUpButton.configuration?.showsActivityIndicator = true
 
-        
-        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title else{
-            //TODO: Handle case
-            AlertManager.showGenericError(on: self, message: "Development: Cannot select title from highlighted pop-up button (SignUpVC.swift)")
-            return
-        }
-        
-        guard let selectedRole = RoleSingleton.accessSingleton.getID(from: selectedTitle) else{
-            //TODO: Handle case
-            AlertManager.showGenericError(on: self, message: "Development: Cannot get role id from role title (SignUpVC.swift)")
-            return
-        }
-        let signUpData = SignupResponse(name: fullNameField.text ?? "",
-                                        email: emailField.text ?? "",
-                                        role: selectedRole,
-                                        password: passwordField.text ?? "")
         navigateToTabBarController()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
@@ -78,15 +62,6 @@ extension SignUpVC {
         NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
     }
     
-    private func navigateToCustomViewController(toViewController: UIViewController) {
-        navigationController?.pushViewController(toViewController, animated: true)
-    }
-    
-    private func navigateToTabBarController(){
-        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen() //explaination needed
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -121,13 +96,99 @@ extension SignUpVC{
         
         
     }
-    
-    
     private func whenPopUpButtonChanges() -> (UIAction) -> Void{
         let changeNameClosure = {(incomingAction: UIAction) in
             //TODO: update to DB about role changes
         }
         return changeNameClosure
+    }
+    
+}
+
+
+extension SignUpVC{
+    private func navigateToCustomViewController(toViewController: UIViewController) {
+        navigationController?.pushViewController(toViewController, animated: true)
+    }
+    
+    private func navigateToTabBarController(){
+        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title else{
+            //TODO: Handle case
+            AlertManager.showGenericError(on: self, message: "Development: Cannot select title from highlighted pop-up button (SignUpVC.swift)")
+            return
+        }
+        
+        guard let selectedRole = RoleSingleton.accessSingleton.getID(from: selectedTitle) else{
+            //TODO: Handle case
+            AlertManager.showGenericError(on: self, message: "Development: Cannot get role id from role title (SignUpVC.swift)")
+            return
+        }
+        let signUpData = SignupResponse(name: fullNameField.text ?? "",
+                                        email: emailField.text ?? "",
+                                        role: selectedRole,
+                                        password: passwordField.text ?? "")
+        
+        guard let request = Endpoints.signup(model: signUpData).request else{
+            //TODO: HANDLE
+            return
+        }
+        
+        AuthService.signUp(request: request) { result in
+            switch result {
+            case .success(let successData):
+                self.loginAftersignUp(email: successData.email, password: successData.password)
+            case .failure(let errorData):
+                guard let errorData = errorData as? APIErrorTypes else {return}
+                
+                switch errorData{
+                    
+                case .serverError(let string):
+                    AlertManager.showServerErrorResponse(on: self, message: string)
+                case .decodingError(let string),
+                        .unknownError(let string):
+                    AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
+                case .deviceError(let string):
+                    AlertManager.showDeviceError(on: self, message: string)
+                }
+            }
+        }
+    }
+    
+    
+    private func loginAftersignUp(email: String, password: String){
+        let loginData = LoginModel(email: email, password: password)
+        
+        
+        guard let request = Endpoints.login(model: loginData).request else{
+            return
+            //TODO: Handle
+        }
+        
+        AuthService.login(request: request) { result in
+            switch result{
+            case .success(_):
+                DispatchQueue.main.async {
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen() //explaination needed
+                }
+                
+            case .failure(let error):
+                guard let error = error as? APIErrorTypes else {return}
+                
+                switch error{
+//                case .serverError(let string):
+//                    AlertManager.showServerErrorResponse(on: self, message: string)
+//                case .decodingError(let string),
+//                        .unknownError(let string):
+//                    AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
+//                case .deviceError(let string):
+//                    AlertManager.showDeviceError(on: self, message: string)
+                    
+                    
+                default: print(error)
+                }
+            }
+        }
+        
     }
     
 }

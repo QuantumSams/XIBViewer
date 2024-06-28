@@ -4,7 +4,7 @@ import Foundation
 enum Endpoints{
         
     case login (path: String = "/api/auth/login/", model: LoginModel)
-    case signup(path: String = "/api/auth/register/", model: SignupModel)
+    case signup(path: String = "/api/auth/register/", model: SignupResponse)
     case getAccountData (path: String = "/api/users/me/")
     case getRole(path: String = "/api/roles/")
 
@@ -27,7 +27,7 @@ enum Endpoints{
         component.host   = API_Constant.baseURL
         component.port   = API_Constant.port
         component.path = self.path
-        print()
+        print(component.url)
         return component.url
     }
     

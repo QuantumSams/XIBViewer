@@ -50,7 +50,7 @@ class AuthService{
 extension AuthService{
     static func signUp(request: URLRequest, completion: @escaping (Result<SignupResponse, Error>) -> Void){
         
-        URLSession.shared.dataTask(with: request) { data, _, error in
+        URLSession.shared.dataTask(with: request) { data, errorCode, error in
             
             //MARK: LOCAL ERROR OCCURRED
             guard let data = data else{
@@ -83,6 +83,7 @@ extension AuthService{
             
             //case: local server response model does not match that of server
             else {
+                print(errorCode)
                 completion(.failure(APIErrorTypes.decodingError()))
                 return
             }
