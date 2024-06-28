@@ -27,7 +27,7 @@ enum Endpoints{
         component.host   = API_Constant.baseURL
         component.port   = API_Constant.port
         component.path = self.path
-        
+        print()
         return component.url
     }
     

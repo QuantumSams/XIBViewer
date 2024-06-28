@@ -20,15 +20,21 @@ final class SignUpVC: UIViewController {
         signUpButton.configuration?.showsActivityIndicator = true
 
         
+        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title else{
+            //TODO: Handle case
+            AlertManager.showGenericError(on: self, message: "Development: Cannot select title from highlighted pop-up button (SignUpVC.swift)")
+            return
+        }
+        
+        guard let selectedRole = RoleSingleton.accessSingleton.getID(from: selectedTitle) else{
+            //TODO: Handle case
+            AlertManager.showGenericError(on: self, message: "Development: Cannot get role id from role title (SignUpVC.swift)")
+            return
+        }
         let signUpData = SignupResponse(name: fullNameField.text ?? "",
-                                        email: emailField.text ?? "", 
-                                        role: <#Int#>,
+                                        email: emailField.text ?? "",
+                                        role: selectedRole,
                                         password: passwordField.text ?? "")
-        
-        
-        
-        
-        
         navigateToTabBarController()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
@@ -102,25 +108,26 @@ extension SignUpVC{
         
         
         DispatchQueue.main.async {
-            popUpButton.menu = UIMenu(children: self.convertRoleModel(from: RoleSingleton.accessSingleton.getRole()))
+            popUpButton.menu = UIMenu(children:
+                                        RoleSingleton.accessSingleton.convertToUIAction(
+                                            handler: self.whenPopUpButtonChanges()
+                                        )
+            )
+            
             popUpButton.showsMenuAsPrimaryAction = true
             popUpButton.changesSelectionAsPrimaryAction = true
             (popUpButton.menu?.children[0] as? UIAction)?.state = .on
         }
-    
+        
         
     }
     
-    private func convertRoleModel(from: [RoleModel]) -> [UIAction]{
+    
+    private func whenPopUpButtonChanges() -> (UIAction) -> Void{
         let changeNameClosure = {(incomingAction: UIAction) in
             //TODO: update to DB about role changes
         }
-        var out: [UIAction] = []
-        
-        from.forEach { role in
-        
-            out.append(UIAction(title: role.name ,handler: changeNameClosure))
-        }
-        return out
+        return changeNameClosure
     }
+    
 }

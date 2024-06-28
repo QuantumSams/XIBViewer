@@ -71,8 +71,6 @@ extension AuthService{
             
             //case: received data - 2xx response
             if let signUpData = try? decoder.decode(SignupResponse.self, from: data){
-                
-                let token = TokenSingleton.getToken
                 completion(.success(signUpData))
                 return
             }

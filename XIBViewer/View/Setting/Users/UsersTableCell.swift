@@ -10,6 +10,17 @@ import SDWebImage
 
 class UsersTableCell: UITableViewCell {
     
+    let popUpButtonTappedClosure: (UIAction) -> Void
+    
+    init(popUpButtonTappedClosure passingClosure: @escaping (UIAction) -> Void){
+        self.popUpButtonTappedClosure = passingClosure
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     @IBOutlet private weak var moreInfoButton: UIButton!
     @IBOutlet private weak var cellName: UILabel!
     @IBOutlet private weak var cellEmail: UILabel!
@@ -61,21 +72,23 @@ extension UsersTableCell{
         setupMoreInfoButton(moreInfoButton: moreInfoButton)
     }
     
-    private func convertRoleModel(from: [RoleModel]) -> [UIAction]{
-        let changeNameClosure = {(incomingAction: UIAction) in
-            //TODO: update to DB about role changes
-        }
-        var out: [UIAction] = []
-        
-        from.forEach { role in
-            out.append(UIAction(title: role.name, handler: changeNameClosure))
-        }
-        return out
-    }
+//    private func convertRoleModel(from: [RoleModel]) -> [UIAction]{
+//        let changeNameClosure = {(incomingAction: UIAction) in
+//            //TODO: update to DB about role changes
+//        }
+//        var out: [UIAction] = []
+//        
+//        from.forEach { role in
+//            out.append(UIAction(title: role.name, handler: changeNameClosure))
+//        }
+//        return out
+//    }
     
     private func setupLogicPopupButton(popUpButton: UIButton){
     
-        popUpButton.menu = UIMenu(children: convertRoleModel(from: RoleSingleton.accessSingleton.getRole()))
+        popUpButton.menu = UIMenu(
+            children: RoleSingleton.accessSingleton.convertToUIAction(handler: popUpButtonTappedClosure)
+        )
         popUpButton.showsMenuAsPrimaryAction = true
         popUpButton.changesSelectionAsPrimaryAction = true
     }
@@ -92,7 +105,6 @@ extension UsersTableCell{
         moreInfoButton.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
         moreInfoButton.tintColor = UIColor.black
     }
-    
 }
 
 

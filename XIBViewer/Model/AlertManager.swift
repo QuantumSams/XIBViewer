@@ -42,8 +42,8 @@ extension AlertManager{
         self.showAlert(on: onVC, title: "Server error response", message: message)
     }
     
-    public static func showGenericError(on onVC:UIViewController){
-        self.showAlert(on: onVC, title: "Something went wrong", message: "Plese try again")
+    public static func showGenericError(on onVC:UIViewController, message: String = "Plese try again"){
+        self.showAlert(on: onVC, title: "Something went wrong", message: message)
     }
 }
 

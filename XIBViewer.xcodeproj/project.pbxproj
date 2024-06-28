@@ -37,6 +37,7 @@
 		7CE52AE32C2D22D5005D8A6B /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE52AE22C2D22D5005D8A6B /* AlertManager.swift */; };
 		7CE52AE52C2D63EC005D8A6B /* RoleSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE52AE42C2D63EC005D8A6B /* RoleSingleton.swift */; };
 		7CE52AE82C2D6B39005D8A6B /* RoleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE52AE72C2D6B39005D8A6B /* RoleService.swift */; };
+		7CE52AEC2C2E7909005D8A6B /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE52AEB2C2E7909005D8A6B /* SignupModel.swift */; };
 		7CE613112C2BC2AA001A3B96 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613102C2BC2AA001A3B96 /* ServerResponse.swift */; };
 		7CE613132C2BC5B9001A3B96 /* APIErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */; };
 		7CE613152C2BFB32001A3B96 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613142C2BFB32001A3B96 /* AccountService.swift */; };
@@ -76,6 +77,7 @@
 		7CE52AE22C2D22D5005D8A6B /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		7CE52AE42C2D63EC005D8A6B /* RoleSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleSingleton.swift; sourceTree = "<group>"; };
 		7CE52AE72C2D6B39005D8A6B /* RoleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleService.swift; sourceTree = "<group>"; };
+		7CE52AEB2C2E7909005D8A6B /* SignupModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
 		7CE613102C2BC2AA001A3B96 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorTypes.swift; sourceTree = "<group>"; };
 		7CE613142C2BFB32001A3B96 /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
@@ -162,9 +164,11 @@
 				7CF6797D2C22D83B00C0389C /* RoleModel.swift */,
 				7CC8320F2C2B119300A97350 /* LoginModel.swift */,
 				7CE613102C2BC2AA001A3B96 /* ServerResponse.swift */,
+				7CE52AEB2C2E7909005D8A6B /* SignupModel.swift */,
 			);
-			path = Model;
-			sourceTree = "<group>";
+			name = Model;
+			path = XIBViewer/Model;
+			sourceTree = SOURCE_ROOT;
 		};
 		7CC831F82C2AD97500A97350 /* Common */ = {
 			isa = PBXGroup;
@@ -376,6 +380,7 @@
 				7CC832102C2B119300A97350 /* LoginModel.swift in Sources */,
 				7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */,
 				7CC832022C2AEB2B00A97350 /* StringExtension.swift in Sources */,
+				7CE52AEC2C2E7909005D8A6B /* SignupModel.swift in Sources */,
 				7CE52AE52C2D63EC005D8A6B /* RoleSingleton.swift in Sources */,
 				7C4013B92C206BEA0019074D /* Constant.swift in Sources */,
 				7CC832052C2B05C600A97350 /* AuthService.swift in Sources */,
