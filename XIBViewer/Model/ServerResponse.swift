@@ -17,3 +17,11 @@ struct RoleResponseModel: Decodable{
     let previous: URL?
     let results: [RoleModel]
 }
+
+
+struct SignupResponse: Decodable{
+    let name: String
+    let email: String
+    let role: Int
+    let password: String
+}

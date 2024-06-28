@@ -18,6 +18,17 @@ final class SignUpVC: UIViewController {
     
     @IBAction func registerTapped(_ sender: UIButton) {
         signUpButton.configuration?.showsActivityIndicator = true
+
+        
+        let signUpData = SignupResponse(name: fullNameField.text ?? "",
+                                        email: emailField.text ?? "", 
+                                        role: <#Int#>,
+                                        password: passwordField.text ?? "")
+        
+        
+        
+        
+        
         navigateToTabBarController()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
@@ -107,7 +118,8 @@ extension SignUpVC{
         var out: [UIAction] = []
         
         from.forEach { role in
-            out.append(UIAction(title: role.name, handler: changeNameClosure))
+        
+            out.append(UIAction(title: role.name ,handler: changeNameClosure))
         }
         return out
     }

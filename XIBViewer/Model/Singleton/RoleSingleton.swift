@@ -16,4 +16,15 @@ extension RoleSingleton{
     func getRole() -> [RoleModel]{
         self.roleList
     }
+    
+    
+    func getIDFromName(name: String) -> RoleModel?{
+        var returnRole: RoleModel?
+        roleList.forEach { role in
+            if name == role.name{
+                returnRole = role
+            }
+        }
+        return returnRole
+    }
 }
