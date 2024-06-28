@@ -19,9 +19,11 @@ struct RoleResponseModel: Decodable{
 }
 
 
-struct SignupResponse: Codable{
-    let name: String
-    let email: String
-    let role: Int
-    let password: String
+struct SignupResponse: Decodable{
+    let message: String
+    let data: SignupModel
+//    let name: String
+//    let email: String
+//    let role: Int
+//    let password: String
 }

@@ -123,7 +123,7 @@ extension SignUpVC{
             AlertManager.showGenericError(on: self, message: "Development: Cannot get role id from role title (SignUpVC.swift)")
             return
         }
-        let signUpData = SignupResponse(name: fullNameField.text ?? "",
+        let signUpData = SignupModel(name: fullNameField.text ?? "",
                                         email: emailField.text ?? "",
                                         role: selectedRole,
                                         password: passwordField.text ?? "")
@@ -136,17 +136,16 @@ extension SignUpVC{
         AuthService.signUp(request: request) { result in
             switch result {
             case .success(let successData):
-                self.loginAftersignUp(email: successData.email, password: successData.password)
+                self.loginAftersignUp(email: signUpData.email, password: signUpData.password)
             case .failure(let errorData):
                 guard let errorData = errorData as? APIErrorTypes else {return}
-                
                 switch errorData{
-                    
                 case .serverError(let string):
                     AlertManager.showServerErrorResponse(on: self, message: string)
-                case .decodingError(let string),
-                        .unknownError(let string):
+                case .decodingError(let string):
                     AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
+                case  .unknownError(let string):
+                    AlertManager.showDevelopmentError(on: self, message: string, errorType: .unknownError())
                 case .deviceError(let string):
                     AlertManager.showDeviceError(on: self, message: string)
                 }

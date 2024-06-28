@@ -4,7 +4,8 @@ import Foundation
 enum Endpoints{
         
     case login (path: String = "/api/auth/login/", model: LoginModel)
-    case signup(path: String = "/api/auth/register/", model: SignupResponse)
+    case signup(path: String = "/api/auth/register/", model: SignupModel
+    )
     case getAccountData (path: String = "/api/users/me/")
     case getRole(path: String = "/api/roles/")
 

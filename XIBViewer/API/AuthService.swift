@@ -39,6 +39,7 @@ class AuthService{
             
             //case: local server response model does not match that of server
             else {
+                print("log in error code:\n")
                 completion(.failure(APIErrorTypes.decodingError()))
                 return
             }
@@ -48,11 +49,11 @@ class AuthService{
 }
 
 extension AuthService{
-    static func signUp(request: URLRequest, completion: @escaping (Result<SignupResponse, Error>) -> Void){
+    static func signUp(request: URLRequest, completion: @escaping (Result<Void.Type, Error>) -> Void){
         
-        URLSession.shared.dataTask(with: request) { data, errorCode, error in
+        URLSession.shared.dataTask(with: request) { data, responseCode, error in
             
-            //MARK: LOCAL ERROR OCCURRED
+            //MARK: LOCAL ERROR OCCURRED - cannot send request
             guard let data = data else{
                 //case: error response exists
                 if let error = error{
@@ -66,28 +67,35 @@ extension AuthService{
             }
             
             
-            //MARK: NO LOCAL ERROR - RESPONSE RECEIVED
+            //MARK: REQUEST SENT
             let decoder = JSONDecoder()
             
-            //case: received data - 2xx response
-            if let signUpData = try? decoder.decode(SignupResponse.self, from: data){
-                completion(.success(signUpData))
+            //case: local server response model does not match that of server
+            guard let responseCode = responseCode as? HTTPURLResponse else{
+                completion(.failure(APIErrorTypes.unknownError("No response from server")))
                 return
             }
             
+            
+            //case: received data - 2xx response
+            if(responseCode.statusCode >= 200 || responseCode.statusCode <= 299){
+                completion(.success(Void.self))
+                return
+                
+            }
+
             //case: server error response - 4xx response
             else if let errorData = try? decoder.decode(ErrorResponse.self, from: data){
                 completion(.failure(APIErrorTypes.serverError(errorData.detail)))
                 return
             }
             
-            //case: local server response model does not match that of server
             else {
-                print(errorCode)
+                print("sign up error code:\n")
+                print(responseCode)
                 completion(.failure(APIErrorTypes.decodingError()))
                 return
             }
         }.resume()
     }
 }
-
