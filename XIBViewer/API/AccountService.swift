@@ -41,7 +41,6 @@ class AccountService{
             
             //case: local server response model does not match that of server
             else {
-                print("account error code:\n")
                 completion(.failure(APIErrorTypes.decodingError()))
                 return
             }

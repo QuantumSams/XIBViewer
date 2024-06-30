@@ -5,10 +5,13 @@ struct SuccessLoginResponse: Decodable{
     let refresh: String
     let access: String
 }
-
-
 struct ErrorResponse: Decodable{
     let detail: String
+}
+
+struct SignupErrorResponse: Decodable{
+    let email: [String]?
+    let role: [String]?
 }
 
 struct RoleResponseModel: Decodable{
@@ -16,14 +19,4 @@ struct RoleResponseModel: Decodable{
     let next: URL?
     let previous: URL?
     let results: [RoleModel]
-}
-
-
-struct SignupResponse: Decodable{
-    let message: String
-    let data: SignupModel
-//    let name: String
-//    let email: String
-//    let role: Int
-//    let password: String
 }

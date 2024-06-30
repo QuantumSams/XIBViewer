@@ -17,4 +17,25 @@ extension String{
         
         return [firstName, lastName]
     }
+    
+    
+    static func concatenateString(from errorList:[String]) -> String?{
+        return errorList.isEmpty ? nil : errorList.joined(separator: "\n")
+    }
+    
+    static func getOneString(from listOfStringList: [[String]?], defaut defaultReturnString: String) -> String{
+        
+        var returnString: String = ""
+        
+        for list in listOfStringList{
+            guard let list = list else{
+                continue
+            }
+            
+            if let validString = concatenateString(from: list){
+                returnString += validString
+            }
+        }
+        return returnString != "" ? returnString : defaultReturnString
+    }
 }

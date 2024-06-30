@@ -1,7 +1,7 @@
 import UIKit
 
 class AlertManager{
-    private static func showAlert(on onVC:UIViewController,
+    static func showAlert(on onVC:UIViewController,
                                 title: String,
                                 message: String)
     {

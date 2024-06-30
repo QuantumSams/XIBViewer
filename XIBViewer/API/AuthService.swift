@@ -49,7 +49,7 @@ class AuthService{
 }
 
 extension AuthService{
-    static func signUp(request: URLRequest, completion: @escaping (Result<Void.Type, Error>) -> Void){
+    static func signUp(request: URLRequest, completion: @escaping (Result<String, Error>) -> Void){
         
         URLSession.shared.dataTask(with: request) { data, responseCode, error in
             
@@ -76,17 +76,23 @@ extension AuthService{
                 return
             }
             
+            print(responseCode)
+            
             
             //case: received data - 2xx response
-            if(responseCode.statusCode >= 200 || responseCode.statusCode <= 299){
-                completion(.success(Void.self))
+            if(responseCode.statusCode >= 200 && responseCode.statusCode <= 299){
+                completion(.success("Sucess"))
                 return
-                
             }
 
             //case: server error response - 4xx response
-            else if let errorData = try? decoder.decode(ErrorResponse.self, from: data){
-                completion(.failure(APIErrorTypes.serverError(errorData.detail)))
+            else if let errorData = try? decoder.decode(SignupErrorResponse.self, from: data){
+                let returnString = String.getOneString(from: [errorData.email, errorData.role], defaut: "No error description was given")
+                
+                print("HERE2")
+
+                
+                completion(.failure(APIErrorTypes.serverError(returnString)))
                 return
             }
             
