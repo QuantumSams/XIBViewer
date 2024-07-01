@@ -78,7 +78,7 @@ extension FieldTableViewCell{
             return
         }
         
-        delegate?.setData(for: formType.id, value: textField.text!)
+        delegate?.setData(id: formType.uuid, value: textField.text!)
         
     }
 }

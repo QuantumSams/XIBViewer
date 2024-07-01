@@ -2,15 +2,15 @@ import UIKit
 
 
 protocol setValueDelegate{
-    func setData(for key: FieldType, value: String) -> Void
+    func setData(id: String, value: String) -> Void
 }
 
 final class SignUpVC: UIViewController, setValueDelegate{
     var sample: OneForm = OneForm(formOrder: [
-        FormItemModel(id: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
-        FormItemModel(id: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
-        FormItemModel(id: .password, fieldPlaceholder: "Password", validationMethod: Validator.validatePasswordSingle),
-        FormItemModel(id: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePasswordSingle)
+        FormItemModel(fieldType: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
+        FormItemModel(fieldType: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
+        FormItemModel(fieldType: .password, fieldPlaceholder: "Password", validationMethod: Validator.validatePasswordSingle),
+        FormItemModel(fieldType: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePasswordSingle)
         ]
     )
  
@@ -95,7 +95,9 @@ extension SignUpVC{
     }
     
     private func navigateToTabBarController(){
-        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title else {
+        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title
+        
+        else {
             return
         }
         
@@ -105,10 +107,10 @@ extension SignUpVC{
         
         
         let signUpData = SignupModel(
-            name: sample.getValue(type: .name) ?? "",
-            email: sample.getValue(type: .email) ?? "" ,
+            name: sample.getValue(id: sample.formOrder[0].uuid) ?? "",
+            email: sample.getValue(id: sample.formOrder[1].uuid) ?? "" ,
             role: selectedID,
-            password: sample.getValue(type: .password) ?? "")
+            password: sample.getValue(id: sample.formOrder[2].uuid) ?? "")
         
         
         print(signUpData)
@@ -198,8 +200,7 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
         table.register(FieldTableViewCell.nib, forCellReuseIdentifier: FieldTableViewCell.id)
     }
     
-    func setData(for key: FieldType, value: String){
-        sample.setValue(ofKey: key, value: value)
-        print(sample.getValue(type: .email) ?? "no data")
+    func setData(id: String, value: String){
+        sample.setValue(id: id, value: value)
     }
 }

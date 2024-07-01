@@ -13,13 +13,41 @@ enum FieldType: String{
     case email = "email"
     case password = "password"
     case confirmPassword = "confirmPassword"
+    case custom = "custom"
 }
 
 
 struct FormItemModel{
-    let id: FieldType
+    let uuid: String = UUID().uuidString
+    let fieldType: FieldType
     let fieldPlaceholder: String?
     let validationMethod: (String) -> String?
+    
+    var keyboardType: UIKeyboardType {
+        switch fieldType{
+            
+        case .name:
+                .default
+        case .email:
+                .emailAddress
+        case .password:
+                .default
+        case .confirmPassword:
+                .default
+        default: 
+                .default
+        }
+    }
+    
+    var secureEntry: Bool{
+        
+        switch fieldType{
+            
+        case .password, .confirmPassword: true
+            
+        default: false
+        }
+    }
 }
 
 
@@ -34,16 +62,16 @@ struct OneForm{
     
     mutating func assignReturnValue(){
         for item in formOrder{
-            self.returnValue[item.id.rawValue] = "abc"
+            self.returnValue[item.uuid] = " "
         }
     }
     
-    mutating func setValue(ofKey key: FieldType, value: String){
-        returnValue[key.rawValue] = value
+    mutating func setValue(id: String, value: String){
+        returnValue[id] = value
     }
     
-    func getValue(type key: FieldType) -> String?{
-        returnValue[key.rawValue]
+    func getValue(id: String) -> String?{
+        returnValue[id]
     }
 }
 
