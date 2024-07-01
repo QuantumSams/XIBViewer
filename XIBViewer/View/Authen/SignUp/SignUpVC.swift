@@ -1,9 +1,20 @@
 import UIKit
 
 
-final class SignUpVC: UIViewController{
-    
-    
+protocol setValueDelegate{
+    func setData(for key: FieldType, value: String) -> Void
+}
+
+
+final class SignUpVC: UIViewController, setValueDelegate{
+    var sample: OneForm = OneForm(formOrder: [
+        FormItemModel(id: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
+        FormItemModel(id: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
+        FormItemModel(id: .password, fieldPlaceholder: "Password", validationMethod: Validator.validatePasswordSingle),
+        FormItemModel(id: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePasswordSingle)
+        ]
+    )
+ 
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var fullNameField: UITextField!
     @IBOutlet private weak var changeToLoginButton: UIButton!
@@ -11,10 +22,8 @@ final class SignUpVC: UIViewController{
     @IBOutlet private weak var passwordField: UITextField!
     @IBOutlet private weak var roleSelection: UIButton!
     @IBOutlet private weak var emailField: UITextField!
-    
+
     @IBOutlet weak var tableField: UITableView!
-    
-    
     
     @IBOutlet weak var emailValidationLabel: UILabel!
     @IBOutlet weak var nameValidationLabel: UILabel!
@@ -224,10 +233,11 @@ extension SignUpVC{
 
 extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        sample.formOrder.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: FieldTableViewCell.id,
             for: indexPath) as? FieldTableViewCell
@@ -235,15 +245,19 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
             fatalError("Cannot dequeue cell in SignUpVC")
         }
         
-        cell.setupCell(fieldPlaceholder: "Email", validationMethod: Validator.validateEmail)
-        print(indexPath.row)
+        cell.delegate = self
+        cell.setupCell(form: sample.formOrder[indexPath.row])
         return cell
     }
-    
     
     private func setupTableView(for table:UITableView){
         table.dataSource = self
         table.delegate = self
         table.register(FieldTableViewCell.nib, forCellReuseIdentifier: FieldTableViewCell.id)
+    }
+    
+    func setData(for key: FieldType, value: String){
+        sample.setValue(ofKey: key, value: value)
+        print(sample.getValue(type: .email) ?? "no data")
     }
 }

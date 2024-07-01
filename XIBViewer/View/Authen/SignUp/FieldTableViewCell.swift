@@ -13,8 +13,9 @@ class FieldTableViewCell: UITableViewCell {
     static var nib: UINib {
         UINib(nibName: "FieldTableViewCell", bundle: nil)
     }
-    private var validationMethod: ((String) -> String?)?
-    private var fieldData: String? = nil
+    
+    private var formType: FormItemModel?
+    var delegate : setValueDelegate?
     
     
     @IBOutlet private weak var textField: UITextField!
@@ -32,35 +33,42 @@ class FieldTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction private func fieldDidEdit(_ sender: UITextField) {
-        guard let validationMethod = validationMethod else{
-            fatalError("Validation method is nil")
+        if delegate == nil{
+            print("Delegate is nil")
+            return
         }
         
+        guard let validationMethod = formType?.validationMethod else{
+            print("Validation method is nil")
+            return
+        }
         
+        guard let formType else{
+            print("Type of form is nil")
+            return
+        }
         
         if let checkValid = validationMethod(textField.text ?? " "){
             validationLabel.text = checkValid
+            return
         }
         
-        fieldData = textField.text
+        delegate?.setData(for: formType.id, value: textField.text!)
+        
     }
     @IBAction private func fieldEditing(_ sender: UITextField) {
-        validationLabel.text = ""
+        validationLabel.text = " "
     }
-    
 }
 
 extension FieldTableViewCell{
-    func setupCell(fieldPlaceholder: String, validationMethod: @escaping (String) -> String?){
+   
+    func setupCell(form: FormItemModel){
+        formType = form
         
-        self.validationMethod = validationMethod
+        self.textField.placeholder = formType?.fieldPlaceholder
         setupTextField(textField)
-        textField.placeholder = fieldPlaceholder
         validationLabel.text = " "
-    }
-    
-    func getFieldData() -> String?{
-        return fieldData
     }
 }
 
