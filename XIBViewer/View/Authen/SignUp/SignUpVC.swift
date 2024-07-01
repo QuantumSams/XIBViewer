@@ -5,7 +5,6 @@ protocol setValueDelegate{
     func setData(for key: FieldType, value: String) -> Void
 }
 
-
 final class SignUpVC: UIViewController, setValueDelegate{
     var sample: OneForm = OneForm(formOrder: [
         FormItemModel(id: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
@@ -16,19 +15,11 @@ final class SignUpVC: UIViewController, setValueDelegate{
     )
  
     @IBOutlet private weak var signUpButton: UIButton!
-    @IBOutlet private weak var fullNameField: UITextField!
     @IBOutlet private weak var changeToLoginButton: UIButton!
-    @IBOutlet private weak var confirmPasswordField: UITextField!
-    @IBOutlet private weak var passwordField: UITextField!
     @IBOutlet private weak var roleSelection: UIButton!
-    @IBOutlet private weak var emailField: UITextField!
+    
 
     @IBOutlet weak var tableField: UITableView!
-    
-    @IBOutlet weak var emailValidationLabel: UILabel!
-    @IBOutlet weak var nameValidationLabel: UILabel!
-    @IBOutlet weak var passwordValidationLabel: UILabel!
-    @IBOutlet weak var confirmPasswordValidationLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,43 +36,17 @@ final class SignUpVC: UIViewController, setValueDelegate{
     }
 }
 
-extension SignUpVC: UITextFieldDelegate{
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
-}
-
 extension SignUpVC {
     private func setupViews() {
         setupButton(signUpButton)
         setupButton(changeToLoginButton)
         setupPopUpButton(for: roleSelection)
-        setupTextField(fullNameField)        
-        setupTextField(emailField)
-        setupTextField(passwordField)
-        setupTextField(confirmPasswordField)
     }
     
     private func setupButton(_ button: UIButton) {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = Constant.ButtonConstant.cornerRadius
         NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
-    }
-    
-    private func setupTextField(_ textField: UITextField) {
-        textField.delegate = self // explaination needed
-        textField.layer.masksToBounds = true
-        textField.borderStyle = .roundedRect
-        textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
-        textField.layer.borderColor = UIColor.systemIndigo.cgColor
-        textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
-        
-        NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
 
 }
@@ -130,11 +95,24 @@ extension SignUpVC{
     }
     
     private func navigateToTabBarController(){
-        guard let signUpData = validateData(name: fullNameField.text ?? "",
-                                            email: emailField.text ?? "",
-                                            password: passwordField.text ?? "", 
-                                            confirmPassword: confirmPasswordField.text ?? "") 
-        else {return}
+        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title else {
+            return
+        }
+        
+        guard let selectedID = RoleSingleton.accessSingleton.getID(from: selectedTitle) else{
+            return
+        }
+        
+        
+        let signUpData = SignupModel(
+            name: sample.getValue(type: .name) ?? "",
+            email: sample.getValue(type: .email) ?? "" ,
+            role: selectedID,
+            password: sample.getValue(type: .password) ?? "")
+        
+        
+        print(signUpData)
+                                        
         
         guard let request = Endpoints.signup(model: signUpData).request else{
             //TODO: HANDLE
@@ -193,42 +171,6 @@ extension SignUpVC{
         }
         
     }
-    
-    private func validateData(name: String,
-                              email: String,
-                              password: String,
-                              confirmPassword: String) -> SignupModel?
-    {
-        
-        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title else{
-            //TODO: Handle case
-            AlertManager.showGenericError(on: self, message: "Development: Cannot select title from highlighted pop-up button (SignUpVC.swift)")
-            return nil
-        }
-        
-        guard let selectedRole = RoleSingleton.accessSingleton.getID(from: selectedTitle) else{
-            //TODO: Handle case
-            AlertManager.showGenericError(on: self, message: "Development: Cannot get role id from role title (SignUpVC.swift)")
-            return nil
-        }
-        
-        if let nameError = Validator.validateName(for: name){
-            AlertManager.showAlert(on: self, title: "Name error", message: nameError)
-            return nil
-        }
-        if let emailError = Validator.validateEmail(for: email){
-            AlertManager.showAlert(on: self, title: "Email error", message: emailError)
-            return nil
-        }
-        
-        if let passwordError = Validator.validatePassword(for: password, and: confirmPassword){
-            AlertManager.showAlert(on: self, title: "Password error", message: passwordError)
-            return nil
-        }
-        
-        return SignupModel(name: name, email: email, role: selectedRole, password: password)
-    }
-    
 }
 
 extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{

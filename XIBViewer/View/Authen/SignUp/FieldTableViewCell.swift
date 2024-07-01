@@ -1,10 +1,3 @@
-//
-//  FieldTableViewCell.swift
-//  XIBViewer
-//
-//  Created by Huy on 30/6/24.
-//
-
 import UIKit
 
 class FieldTableViewCell: UITableViewCell {
@@ -17,7 +10,6 @@ class FieldTableViewCell: UITableViewCell {
     private var formType: FormItemModel?
     var delegate : setValueDelegate?
     
-    
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var validationLabel: UILabel!
     
@@ -26,13 +18,46 @@ class FieldTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
     @IBAction private func fieldDidEdit(_ sender: UITextField) {
+        editCompleted()
+    }
+    @IBAction private func fieldEditing(_ sender: UITextField) {
+        validationLabel.text = " "
+    }
+}
+
+extension FieldTableViewCell{
+   
+    func setupCell(form: FormItemModel){
+        formType = form
+        
+        self.textField.placeholder = formType?.fieldPlaceholder
+        setupTextField(textField)
+        validationLabel.text = " \n"
+    }
+}
+
+
+extension FieldTableViewCell: UITextFieldDelegate{
+    private func setupTextField(_ textField: UITextField) {
+        textField.delegate = self // explaination needed
+        textField.layer.masksToBounds = true
+        textField.borderStyle = .roundedRect
+        textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
+        textField.layer.borderColor = UIColor.systemIndigo.cgColor
+        textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
+        NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.endEditing(true)
+        return false
+    }
+}
+
+extension FieldTableViewCell{
+    private func editCompleted(){
         if delegate == nil{
             print("Delegate is nil")
             return
@@ -55,32 +80,5 @@ class FieldTableViewCell: UITableViewCell {
         
         delegate?.setData(for: formType.id, value: textField.text!)
         
-    }
-    @IBAction private func fieldEditing(_ sender: UITextField) {
-        validationLabel.text = " "
-    }
-}
-
-extension FieldTableViewCell{
-   
-    func setupCell(form: FormItemModel){
-        formType = form
-        
-        self.textField.placeholder = formType?.fieldPlaceholder
-        setupTextField(textField)
-        validationLabel.text = " "
-    }
-}
-
-
-extension FieldTableViewCell: UITextFieldDelegate{
-    private func setupTextField(_ textField: UITextField) {
-        textField.delegate = self // explaination needed
-        textField.layer.masksToBounds = true
-        textField.borderStyle = .roundedRect
-        textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
-        textField.layer.borderColor = UIColor.systemIndigo.cgColor
-        textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
-        NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
     }
 }

@@ -20,7 +20,7 @@ extension Validator{
     }
     
     static func validatePasswordSingle(for password: String) -> String?{
-        return validateString(for: password, with: RegexConstant.email) ? nil : "Password must be at least 8 characters long, with at least 1 number, 1 letter and 1 special character"
+        return validateString(for: password, with: RegexConstant.password) ? nil : "Password must be at least 8 characters long, with at least 1 number, 1 letter and 1 special character"
     }
     
     static func validateName(for name: String) -> String?{
