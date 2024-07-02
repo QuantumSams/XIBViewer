@@ -63,12 +63,14 @@ final class TextFieldComponent: TableFieldComponent{
 
 final class PopupButtonFieldComponent: TableFieldComponent{
     
-    init(selection: UIMenu, fieldType: TableFieldTypes) {
-        self.selection = selection
+    init(fieldType: TableFieldTypes, label: String?, selection: [String]) {
+        self.choices = selection
+        self.label = label
         super.init(fieldType: fieldType)
     }
     
-    let selection: UIMenu
+    let choices: [String]
+    let label: String?
 }
 
 

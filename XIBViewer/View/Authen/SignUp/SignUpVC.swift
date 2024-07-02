@@ -2,8 +2,9 @@ import UIKit
 
 
 protocol cellCommunicationDelegate{
-    func setData(id: String, value: String) -> Void
+    func setData(id: String, value: Any) -> Void
     func getPassword(from passwordField: TextFieldComponent?) -> String?
+    func contructPopUpChoices(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu
 }
 
 final class SignUpVC: UIViewController, cellCommunicationDelegate{
@@ -11,13 +12,13 @@ final class SignUpVC: UIViewController, cellCommunicationDelegate{
         TextFieldComponent(fieldType: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
         TextFieldComponent(fieldType: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
         TextFieldComponent(fieldType: .password, fieldPlaceholder: "Password", validationMethod: Validator.validatePasswordSingle),
-        TextFieldComponent(fieldType: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePasswordSingle)
+        TextFieldComponent(fieldType: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePasswordSingle),
+        PopupButtonFieldComponent(fieldType: .roleSelection, label: "Role", selection: RoleSingleton.accessSingleton.getAllValue())
         ]
     )
  
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var changeToLoginButton: UIButton!
-    @IBOutlet private weak var roleSelection: UIButton!
     
 
     @IBOutlet weak var tableField: UITableView!
@@ -40,7 +41,6 @@ extension SignUpVC {
     private func setupViews() {
         setupButton(signUpButton)
         setupButton(changeToLoginButton)
-        setupPopUpButton(for: roleSelection)
     }
     
     private func setupButton(_ button: UIButton) {
@@ -51,68 +51,23 @@ extension SignUpVC {
 
 }
 extension SignUpVC{
-    
-    private func setupPopUpButton(for button: UIButton){
-        button.setupButton(tintColor: Constant.PopUpButtonConstant.tintColor,
-                           borderColor: Constant.PopUpButtonConstant.borderColor,
-                           cornerRadius: Constant.PopUpButtonConstant.cornerRadius,
-                           borderWidth: Constant.PopUpButtonConstant.borderWidth,
-                           maskToBound: false)
-        
-        setupLogicPopupButton(popUpButton: button)
-    }
-    
-    private func setupLogicPopupButton(popUpButton: UIButton){
-        
-        
-        DispatchQueue.main.async {
-            popUpButton.menu = UIMenu(children:
-                                        RoleSingleton.accessSingleton.convertToUIAction(
-                                            handler: self.whenPopUpButtonChanges()
-                                        )
-            )
-
-            popUpButton.showsMenuAsPrimaryAction = true
-            popUpButton.changesSelectionAsPrimaryAction = true
-            (popUpButton.menu?.children[0] as? UIAction)?.state = .on
-        }
-        
-        
-    }
-    private func whenPopUpButtonChanges() -> (UIAction) -> Void{
-        let changeNameClosure = {(incomingAction: UIAction) in
-            //TODO: update to DB about role changes
-        }
-        return changeNameClosure
-    }
-    
-}
-
-
-extension SignUpVC{
     private func navigateToCustomViewController(toViewController: UIViewController) {
         navigationController?.pushViewController(toViewController, animated: true)
     }
     
     private func navigateToTabBarController(){
-        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title,
-              let name = sample.getValue(id: sample.formOrder[0].id),
+        guard let name = sample.getValue(id: sample.formOrder[0].id),
               let email = sample.getValue(id: sample.formOrder[1].id),
-              let password = sample.getValue(id: sample.formOrder[2].id)
+              let password = sample.getValue(id: sample.formOrder[2].id),
+              let roleID = sample.getValue(id: sample.formOrder[4].id)
         else {
             return
         }
         
-        guard let selectedID = RoleSingleton.accessSingleton.getID(from: selectedTitle) else{
-            print("Cannot get id from popup menu")
-            return
-        }
-        
-        
         let signUpData = SignupModel(
             name: name as! String,
             email: email as! String ,
-            role: selectedID,
+            role: roleID as! Int,
             password: password as! String)
     
         
@@ -182,31 +137,58 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: TextFieldTableViewCell.id,
-            for: indexPath) as? TextFieldTableViewCell
-        else{
-            fatalError("Cannot dequeue cell in SignUpVC")
+        switch sample.formOrder[indexPath.row].fieldType{
+            
+        case .name, .email, .password, .confirmPassword, .custom:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: TextFieldTableViewCell.id,
+                for: indexPath) as? TextFieldTableViewCell
+            else{
+                fatalError("Cannot dequeue cell in SignUpVC")
+            }
+            
+            cell.delegate = self
+            cell.setupCell(form: sample.formOrder[indexPath.row] as! TextFieldComponent)
+            return cell
+        
+        case .roleSelection:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopUpButtonTableViewCell.id, for: indexPath) as? PopUpButtonTableViewCell else{
+                fatalError("Cannot dequeue cell in SignUpVC")
+            }
+            cell.delegate = self
+            cell.setupCell(formType: sample.formOrder[indexPath.row] as! PopupButtonFieldComponent)
+            return cell
         }
         
-        cell.delegate = self
-        cell.setupCell(form: sample.formOrder[indexPath.row] as! TextFieldComponent)
-        return cell
+       
     }
     
     private func setupTableView(for table:UITableView){
         table.dataSource = self
         table.delegate = self
         table.register(TextFieldTableViewCell.nib, forCellReuseIdentifier: TextFieldTableViewCell.id)
+        table.register(PopUpButtonTableViewCell.nib, forCellReuseIdentifier: PopUpButtonTableViewCell.id)
     }
     
-    func setData(id: String, value: String){
+    func setData(id: String, value: Any){
         sample.setValue(id: id, value: value)
+        print(value)
     }
     
     func getPassword(from passwordField: TextFieldComponent? = nil) -> String?{
         let passwordField = passwordField ?? sample.formOrder[2]
         let passwordString = sample.getValue(id: passwordField.id) as? String
         return passwordString
+    }
+    
+    func contructPopUpChoices(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu{
+        
+        var toReturn: [UIAction] = []
+        
+        literalStringChoices.forEach({ choice in
+            toReturn.append(UIAction(title: choice, handler: actionWhenChoiceChanged))
+        })
+        
+        return UIMenu(children: toReturn)
     }
 }

@@ -40,4 +40,9 @@ extension RoleSingleton{
         }
         return out
     }
+    
+    func getAllValue() ->[String]{
+        let array = Array(roleList.values.sorted())
+        return array
+    }
 }

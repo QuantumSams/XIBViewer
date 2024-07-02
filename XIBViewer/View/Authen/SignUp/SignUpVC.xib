@@ -5,14 +5,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignUpVC" customModule="XIBViewer" customModuleProvider="target">
             <connections>
                 <outlet property="changeToLoginButton" destination="7eT-vx-QYs" id="PRF-uJ-uz1"/>
-                <outlet property="roleSelection" destination="8Vp-jC-ZAh" id="iZf-mO-WrJ"/>
                 <outlet property="signUpButton" destination="UlM-Ow-UdO" id="q8P-WU-Zan"/>
                 <outlet property="tableField" destination="m4I-G5-Uqk" id="qb6-lX-X9B"/>
                 <outlet property="view" destination="zBO-4f-TXb" id="9Dg-cQ-FUi"/>
@@ -36,37 +34,15 @@
                             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="az5-8U-uke">
-                                    <rect key="frame" x="20" y="0.0" width="353" height="542.33333333333337"/>
+                                    <rect key="frame" x="20" y="0.0" width="353" height="550"/>
                                     <subviews>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="m4I-G5-Uqk">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="480"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="550"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="480" id="WOJ-2J-RLN"/>
+                                                <constraint firstAttribute="height" constant="550" id="WOJ-2J-RLN"/>
                                             </constraints>
                                         </tableView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nG2-bK-knX">
-                                            <rect key="frame" x="0.0" y="507.99999999999994" width="353" height="34.333333333333314"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select role" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wut-AM-uVw" userLabel="Role">
-                                                    <rect key="frame" x="0.0" y="8.6666666666666288" width="69" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" systemColor="placeholderTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Vp-jC-ZAh" userLabel="Select Role">
-                                                    <rect key="frame" x="267.33333333333331" y="0.0" width="85.666666666666686" height="34.333333333333336"/>
-                                                    <menu key="menu" id="2Lb-Qd-FIa">
-                                                        <children>
-                                                            <command title="Item 1" id="8T0-GI-NyI"/>
-                                                            <command title="Item 2" id="Cr6-FS-Eea"/>
-                                                        </children>
-                                                    </menu>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="tinted" title="Button"/>
-                                                </button>
-                                            </subviews>
-                                        </stackView>
                                     </subviews>
                                     <viewLayoutGuide key="safeArea" id="xqg-3a-5qq"/>
                                     <constraints>
@@ -76,7 +52,7 @@
                                     </constraints>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7eT-vx-QYs">
-                                    <rect key="frame" x="20" y="608.66666666666663" width="353" height="34.333333333333371"/>
+                                    <rect key="frame" x="20" y="616.33333333333337" width="353" height="34.333333333333371"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" title="Have account? Sign In">
                                         <color key="baseBackgroundColor" systemColor="systemIndigoColor"/>
@@ -86,7 +62,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UlM-Ow-UdO">
-                                    <rect key="frame" x="20" y="566.33333333333337" width="353" height="34.333333333333371"/>
+                                    <rect key="frame" x="20" y="574" width="353" height="34.333333333333371"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" title="Register">
                                         <color key="baseBackgroundColor" systemColor="systemPurpleColor"/>
@@ -136,9 +112,6 @@
         </view>
     </objects>
     <resources>
-        <systemColor name="placeholderTextColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -1,7 +1,6 @@
 import UIKit
 
-class 
-TextFieldTableViewCell: UITableViewCell {
+final class TextFieldTableViewCell: UITableViewCell {
     
     static let id: String = "TextFieldTableViewCell"
     static var nib: UINib {
@@ -14,24 +13,16 @@ TextFieldTableViewCell: UITableViewCell {
     @IBOutlet private  weak var textField: UITextField!
     
     
-    @IBOutlet weak var validationLabel: UILabel!
-    
+    @IBOutlet private weak var validationLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-//    @IBAction private func fieldDidEdit(_ sender: UITextField) {
-//        determineTypeOfTextField()
-//    }
-    
-    
     @IBAction private func fieldDidEdit(_ sender: UITextField) {
         determineTypeOfTextField()
     }
-    
-    
     
     @IBAction private func fieldEditing(_ sender: UITextField) {
         validationLabel.text = " \n"
@@ -109,17 +100,17 @@ extension TextFieldTableViewCell{
     }
     
     private func confirmPasswordEditComplete(){
-        if delegate == nil{
-            print("Delegate is nil")
-            return
+        guard let delegate else{
+            fatalError("Delegate is nil")
+            
         }
         
         guard let formType else{
-            print("Type of form is nil")
-            return
+            fatalError("FormType is nil")
+            
         }
         
-        guard let passwordString = delegate?.getPassword(from: nil) else{
+        guard let passwordString = delegate.getPassword(from: nil) else{
             return
         }
         
@@ -128,6 +119,6 @@ extension TextFieldTableViewCell{
             return
         }
         
-        delegate?.setData(id: formType.id, value: textField.text!)
+        delegate.setData(id: formType.id, value: textField.text!)
     }
 }
