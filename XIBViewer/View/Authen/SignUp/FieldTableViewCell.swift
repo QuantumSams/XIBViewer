@@ -8,7 +8,7 @@ class FieldTableViewCell: UITableViewCell {
     }
     
     private var formType: FormItemModel?
-    var delegate : setValueDelegate?
+    var delegate : cellCommunicationDelegate?
     
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var validationLabel: UILabel!
@@ -20,7 +20,7 @@ class FieldTableViewCell: UITableViewCell {
     }
     
     @IBAction private func fieldDidEdit(_ sender: UITextField) {
-        editCompleted()
+        determineTypeOfTextField()
     }
     @IBAction private func fieldEditing(_ sender: UITextField) {
         validationLabel.text = " "
@@ -31,13 +31,11 @@ extension FieldTableViewCell{
    
     func setupCell(form: FormItemModel){
         formType = form
-        
-        self.textField.placeholder = formType?.fieldPlaceholder
         setupTextField(textField)
+        setupKeyboardType(textField)
         validationLabel.text = " \n"
     }
 }
-
 
 extension FieldTableViewCell: UITextFieldDelegate{
     private func setupTextField(_ textField: UITextField) {
@@ -48,6 +46,13 @@ extension FieldTableViewCell: UITextFieldDelegate{
         textField.layer.borderColor = UIColor.systemIndigo.cgColor
         textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
         NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
+        
+        self.textField.placeholder = formType?.fieldPlaceholder
+    }
+    
+    private func setupKeyboardType(_ textField: UITextField){
+        textField.keyboardType = formType?.keyboardType ?? .default
+        textField.isSecureTextEntry = formType?.secureEntry ?? false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -57,6 +62,16 @@ extension FieldTableViewCell: UITextFieldDelegate{
 }
 
 extension FieldTableViewCell{
+    
+    private func determineTypeOfTextField(){
+        switch formType?.fieldType {
+        case .confirmPassword:
+            confirmPasswordEditComplete()
+        default:
+            editCompleted()
+        }
+    }
+    
     private func editCompleted(){
         if delegate == nil{
             print("Delegate is nil")
@@ -80,5 +95,28 @@ extension FieldTableViewCell{
         
         delegate?.setData(id: formType.uuid, value: textField.text!)
         
+    }
+    
+    private func confirmPasswordEditComplete(){
+        if delegate == nil{
+            print("Delegate is nil")
+            return
+        }
+        
+        guard let formType else{
+            print("Type of form is nil")
+            return
+        }
+        
+        guard let passwordString = delegate?.getPassword(from: nil) else{
+            return
+        }
+        
+        if (passwordString != textField.text){
+            validationLabel.text = "The passwords are not matching"
+            return
+        }
+        
+        delegate?.setData(id: formType.uuid, value: textField.text!)
     }
 }

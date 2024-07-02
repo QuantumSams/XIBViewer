@@ -23,6 +23,7 @@ struct FormItemModel{
     let fieldPlaceholder: String?
     let validationMethod: (String) -> String?
     
+    
     var keyboardType: UIKeyboardType {
         switch fieldType{
             
@@ -40,7 +41,7 @@ struct FormItemModel{
     }
     
     var secureEntry: Bool{
-        
+
         switch fieldType{
             
         case .password, .confirmPassword: true
@@ -57,7 +58,7 @@ struct OneForm{
         self.formOrder = formOrder
     }
     var formOrder: [FormItemModel]
-    var returnValue: [String : String] = [:]
+    var returnValue: [String : Any] = [:]
     
     
     mutating func assignReturnValue(){
@@ -66,11 +67,11 @@ struct OneForm{
         }
     }
     
-    mutating func setValue(id: String, value: String){
+    mutating func setValue(id: String, value: Any){
         returnValue[id] = value
     }
     
-    func getValue(id: String) -> String?{
+    func getValue(id: String) -> Any?{
         returnValue[id]
     }
 }

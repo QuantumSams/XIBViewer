@@ -1,11 +1,12 @@
 import UIKit
 
 
-protocol setValueDelegate{
+protocol cellCommunicationDelegate{
     func setData(id: String, value: String) -> Void
+    func getPassword(from passwordField: FormItemModel?) -> String?
 }
 
-final class SignUpVC: UIViewController, setValueDelegate{
+final class SignUpVC: UIViewController, cellCommunicationDelegate{
     var sample: OneForm = OneForm(formOrder: [
         FormItemModel(fieldType: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
         FormItemModel(fieldType: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
@@ -28,7 +29,6 @@ final class SignUpVC: UIViewController, setValueDelegate{
     }
     
     @IBAction func registerTapped(_ sender: UIButton) {
-        signUpButton.configuration?.showsActivityIndicator = true
         navigateToTabBarController()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
@@ -95,26 +95,26 @@ extension SignUpVC{
     }
     
     private func navigateToTabBarController(){
-        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title
-        
+        guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title,
+              let name = sample.getValue(id: sample.formOrder[0].uuid),
+              let email = sample.getValue(id: sample.formOrder[1].uuid),
+              let password = sample.getValue(id: sample.formOrder[2].uuid)
         else {
             return
         }
         
         guard let selectedID = RoleSingleton.accessSingleton.getID(from: selectedTitle) else{
+            print("Cannot get id from popup menu")
             return
         }
         
         
         let signUpData = SignupModel(
-            name: sample.getValue(id: sample.formOrder[0].uuid) ?? "",
-            email: sample.getValue(id: sample.formOrder[1].uuid) ?? "" ,
+            name: name as! String,
+            email: email as! String ,
             role: selectedID,
-            password: sample.getValue(id: sample.formOrder[2].uuid) ?? "")
-        
-        
-        print(signUpData)
-                                        
+            password: password as! String)
+    
         
         guard let request = Endpoints.signup(model: signUpData).request else{
             //TODO: HANDLE
@@ -202,5 +202,11 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
     
     func setData(id: String, value: String){
         sample.setValue(id: id, value: value)
+    }
+    
+    func getPassword(from passwordField: FormItemModel? = nil) -> String?{
+        let passwordField = passwordField ?? sample.formOrder[2]
+        let passwordString = sample.getValue(id: passwordField.uuid) as? String
+        return passwordString
     }
 }
