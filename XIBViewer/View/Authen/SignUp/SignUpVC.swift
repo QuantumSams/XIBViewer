@@ -3,15 +3,15 @@ import UIKit
 
 protocol cellCommunicationDelegate{
     func setData(id: String, value: String) -> Void
-    func getPassword(from passwordField: FormItemModel?) -> String?
+    func getPassword(from passwordField: TextFieldComponent?) -> String?
 }
 
 final class SignUpVC: UIViewController, cellCommunicationDelegate{
-    var sample: OneForm = OneForm(formOrder: [
-        FormItemModel(fieldType: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
-        FormItemModel(fieldType: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
-        FormItemModel(fieldType: .password, fieldPlaceholder: "Password", validationMethod: Validator.validatePasswordSingle),
-        FormItemModel(fieldType: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePasswordSingle)
+    var sample: TableForm = TableForm(formOrder: [
+        TextFieldComponent(fieldType: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
+        TextFieldComponent(fieldType: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
+        TextFieldComponent(fieldType: .password, fieldPlaceholder: "Password", validationMethod: Validator.validatePasswordSingle),
+        TextFieldComponent(fieldType: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePasswordSingle)
         ]
     )
  
@@ -96,9 +96,9 @@ extension SignUpVC{
     
     private func navigateToTabBarController(){
         guard let selectedTitle = roleSelection.menu?.selectedElements.first?.title,
-              let name = sample.getValue(id: sample.formOrder[0].uuid),
-              let email = sample.getValue(id: sample.formOrder[1].uuid),
-              let password = sample.getValue(id: sample.formOrder[2].uuid)
+              let name = sample.getValue(id: sample.formOrder[0].id),
+              let email = sample.getValue(id: sample.formOrder[1].id),
+              let password = sample.getValue(id: sample.formOrder[2].id)
         else {
             return
         }
@@ -183,30 +183,30 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: FieldTableViewCell.id,
-            for: indexPath) as? FieldTableViewCell
+            withIdentifier: TextFieldTableViewCell.id,
+            for: indexPath) as? TextFieldTableViewCell
         else{
             fatalError("Cannot dequeue cell in SignUpVC")
         }
         
         cell.delegate = self
-        cell.setupCell(form: sample.formOrder[indexPath.row])
+        cell.setupCell(form: sample.formOrder[indexPath.row] as! TextFieldComponent)
         return cell
     }
     
     private func setupTableView(for table:UITableView){
         table.dataSource = self
         table.delegate = self
-        table.register(FieldTableViewCell.nib, forCellReuseIdentifier: FieldTableViewCell.id)
+        table.register(TextFieldTableViewCell.nib, forCellReuseIdentifier: TextFieldTableViewCell.id)
     }
     
     func setData(id: String, value: String){
         sample.setValue(id: id, value: value)
     }
     
-    func getPassword(from passwordField: FormItemModel? = nil) -> String?{
+    func getPassword(from passwordField: TextFieldComponent? = nil) -> String?{
         let passwordField = passwordField ?? sample.formOrder[2]
-        let passwordString = sample.getValue(id: passwordField.uuid) as? String
+        let passwordString = sample.getValue(id: passwordField.id) as? String
         return passwordString
     }
 }

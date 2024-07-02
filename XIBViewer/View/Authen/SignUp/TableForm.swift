@@ -8,21 +8,33 @@
 import UIKit
 import Foundation
 
-enum FieldType: String{
+enum TableFieldTypes: String{
     case name = "name"
     case email = "email"
     case password = "password"
     case confirmPassword = "confirmPassword"
+    case roleSelection = "roleSelection"
     case custom = "custom"
 }
 
-
-struct FormItemModel{
-    let uuid: String = UUID().uuidString
-    let fieldType: FieldType
-    let fieldPlaceholder: String?
-    let validationMethod: (String) -> String?
+class TableFieldComponent{
     
+    init(fieldType: TableFieldTypes) {
+        self.fieldType = fieldType
+    }
+    let id: String = UUID().uuidString
+    let fieldType: TableFieldTypes
+}
+
+final class TextFieldComponent: TableFieldComponent{
+    
+    init(fieldType: TableFieldTypes ,fieldPlaceholder: String? = nil, validationMethod: @escaping (String) -> String?) {
+        self.fieldPlaceholder = fieldPlaceholder
+        self.validationMethod = validationMethod
+        super.init(fieldType: fieldType)
+    }
+    var fieldPlaceholder: String?
+    let validationMethod: (String) -> String?
     
     var keyboardType: UIKeyboardType {
         switch fieldType{
@@ -41,29 +53,37 @@ struct FormItemModel{
     }
     
     var secureEntry: Bool{
-
         switch fieldType{
-            
         case .password, .confirmPassword: true
-            
+
         default: false
         }
     }
 }
 
-
-struct OneForm{
+final class PopupButtonFieldComponent: TableFieldComponent{
     
-    init(formOrder: [FormItemModel]) {
+    init(selection: UIMenu, fieldType: TableFieldTypes) {
+        self.selection = selection
+        super.init(fieldType: fieldType)
+    }
+    
+    let selection: UIMenu
+}
+
+
+struct TableForm{
+    
+    init(formOrder: [TableFieldComponent]) {
         self.formOrder = formOrder
     }
-    var formOrder: [FormItemModel]
+    var formOrder: [TableFieldComponent]
     var returnValue: [String : Any] = [:]
     
     
     mutating func assignReturnValue(){
         for item in formOrder{
-            self.returnValue[item.uuid] = " "
+            self.returnValue[item.id] = " "
         }
     }
     

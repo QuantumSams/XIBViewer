@@ -1,17 +1,20 @@
 import UIKit
 
-class FieldTableViewCell: UITableViewCell {
+class 
+TextFieldTableViewCell: UITableViewCell {
     
-    static let id: String = "FieldTableViewCell"
+    static let id: String = "TextFieldTableViewCell"
     static var nib: UINib {
-        UINib(nibName: "FieldTableViewCell", bundle: nil)
+        UINib(nibName: "TextFieldTableViewCell", bundle: nil)
     }
     
-    private var formType: FormItemModel?
+    private var formType: TextFieldComponent?
     var delegate : cellCommunicationDelegate?
     
-    @IBOutlet private weak var textField: UITextField!
-    @IBOutlet private weak var validationLabel: UILabel!
+    @IBOutlet private  weak var textField: UITextField!
+    
+    
+    @IBOutlet weak var validationLabel: UILabel!
     
     
     override func awakeFromNib() {
@@ -19,17 +22,25 @@ class FieldTableViewCell: UITableViewCell {
         // Initialization code
     }
     
+//    @IBAction private func fieldDidEdit(_ sender: UITextField) {
+//        determineTypeOfTextField()
+//    }
+    
+    
     @IBAction private func fieldDidEdit(_ sender: UITextField) {
         determineTypeOfTextField()
     }
+    
+    
+    
     @IBAction private func fieldEditing(_ sender: UITextField) {
-        validationLabel.text = " "
+        validationLabel.text = " \n"
     }
 }
 
-extension FieldTableViewCell{
+extension TextFieldTableViewCell{
    
-    func setupCell(form: FormItemModel){
+    func setupCell(form: TextFieldComponent){
         formType = form
         setupTextField(textField)
         setupKeyboardType(textField)
@@ -37,7 +48,7 @@ extension FieldTableViewCell{
     }
 }
 
-extension FieldTableViewCell: UITextFieldDelegate{
+extension TextFieldTableViewCell: UITextFieldDelegate{
     private func setupTextField(_ textField: UITextField) {
         textField.delegate = self // explaination needed
         textField.layer.masksToBounds = true
@@ -61,7 +72,7 @@ extension FieldTableViewCell: UITextFieldDelegate{
     }
 }
 
-extension FieldTableViewCell{
+extension TextFieldTableViewCell{
     
     private func determineTypeOfTextField(){
         switch formType?.fieldType {
@@ -93,7 +104,7 @@ extension FieldTableViewCell{
             return
         }
         
-        delegate?.setData(id: formType.uuid, value: textField.text!)
+        delegate?.setData(id: formType.id, value: textField.text!)
         
     }
     
@@ -117,6 +128,6 @@ extension FieldTableViewCell{
             return
         }
         
-        delegate?.setData(id: formType.uuid, value: textField.text!)
+        delegate?.setData(id: formType.id, value: textField.text!)
     }
 }
