@@ -10,8 +10,7 @@ struct ErrorResponse: Decodable{
 }
 
 struct SignupErrorResponse: Decodable{
-    let email: [String]?
-    let role: [String]?
+    let email: [String: String]?
 }
 
 struct RoleResponseModel: Decodable{

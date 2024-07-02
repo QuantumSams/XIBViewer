@@ -87,17 +87,12 @@ extension AuthService{
 
             //case: server error response - 4xx response
             else if let errorData = try? decoder.decode(SignupErrorResponse.self, from: data){
-                let returnString = String.getOneString(from: [errorData.email, errorData.role], defaut: "No error description was given")
-                
-                print("HERE2")
-
-                
-                completion(.failure(APIErrorTypes.serverError(returnString)))
+                let errorString = errorData.email?.first?.value.capitalized ?? "No error response was given"
+                completion(.failure(APIErrorTypes.serverError(errorString)))
                 return
             }
             
             else {
-                print("sign up error code:\n")
                 print(responseCode)
                 completion(.failure(APIErrorTypes.decodingError()))
                 return
