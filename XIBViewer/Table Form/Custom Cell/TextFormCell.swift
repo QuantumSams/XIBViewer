@@ -1,19 +1,18 @@
 import UIKit
 
-final class TextFieldTableViewCell: UITableViewCell {
+final class TextFormCell: UITableViewCell {
     
-    static let id: String = "TextFieldTableViewCell"
+    static let id: String = "TextFormCell"
     static var nib: UINib {
-        UINib(nibName: "TextFieldTableViewCell", bundle: nil)
+        UINib(nibName: "TextFormCell", bundle: nil)
     }
     
-    private var formType: TextFieldComponent?
+    private var formType: TextFormCellModel?
     var delegate : cellCommunicationDelegate?
     
-    @IBOutlet private  weak var textField: UITextField!
-    
-    
+
     @IBOutlet private weak var validationLabel: UILabel!
+    @IBOutlet private weak var textField: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,9 +28,9 @@ final class TextFieldTableViewCell: UITableViewCell {
     }
 }
 
-extension TextFieldTableViewCell{
+extension TextFormCell{
    
-    func setupCell(form: TextFieldComponent){
+    func setupCell(form: TextFormCellModel){
         formType = form
         setupTextField(textField)
         setupKeyboardType(textField)
@@ -39,7 +38,7 @@ extension TextFieldTableViewCell{
     }
 }
 
-extension TextFieldTableViewCell: UITextFieldDelegate{
+extension TextFormCell: UITextFieldDelegate{
     private func setupTextField(_ textField: UITextField) {
         textField.delegate = self // explaination needed
         textField.layer.masksToBounds = true
@@ -63,7 +62,7 @@ extension TextFieldTableViewCell: UITextFieldDelegate{
     }
 }
 
-extension TextFieldTableViewCell{
+extension TextFormCell{
     
     private func determineTypeOfTextField(){
         switch formType?.fieldType {

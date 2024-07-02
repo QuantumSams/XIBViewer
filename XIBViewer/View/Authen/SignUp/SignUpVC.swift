@@ -2,19 +2,19 @@ import UIKit
 
 
 protocol cellCommunicationDelegate{
-    func getPassword(from passwordField: TextFieldComponent?) -> String?
+    func getPassword(from passwordField: TextFormCellModel?) -> String?
     func contructPopUpChoices(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu
 }
 
 final class SignUpVC: UIViewController, cellCommunicationDelegate{
-    var sample: TableForm = TableForm(formOrder: [
-        TextFieldComponent(fieldType: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
-        TextFieldComponent(fieldType: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
-        TextFieldComponent(fieldType: .password, fieldPlaceholder: "Password", validationMethod: Validator.validatePasswordSingle),
-        TextFieldComponent(fieldType: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePasswordSingle),
-        PopupButtonFieldComponent(fieldType: .roleSelection, label: "Role", selection: RoleSingleton.accessSingleton.getAllValue())
-        ]
-    )
+    
+    var tableFormFieldList: [TableFormCellModel] = [
+        TextFormCellModel(fieldType: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
+        TextFormCellModel(fieldType: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
+        TextFormCellModel(fieldType: .password, fieldPlaceholder: "Password", validationMethod: Validator.validatePassword),
+        TextFormCellModel(fieldType: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePassword),
+        PopupButtonFormCellModel(fieldType: .roleSelection, label: "Role", selection: RoleSingleton.accessSingleton.getAllValue())
+    ]
  
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var changeToLoginButton: UIButton!
@@ -55,10 +55,10 @@ extension SignUpVC{
     }
     
     private func navigateToTabBarController(){
-        guard let name = sample.formOrder[0].value,
-              let email = sample.formOrder[1].value,
-              let password = sample.formOrder[2].value,
-              let roleID = sample.formOrder[4].value
+        guard let name = tableFormFieldList[0].value,
+              let email = tableFormFieldList[1].value,
+              let password = tableFormFieldList[2].value,
+              let roleID = tableFormFieldList[4].value
         else {
             return
         }
@@ -131,31 +131,31 @@ extension SignUpVC{
 
 extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sample.formOrder.count
+        tableFormFieldList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch sample.formOrder[indexPath.row].fieldType{
+        switch tableFormFieldList[indexPath.row].fieldType{
             
         case .name, .email, .password, .confirmPassword, .custom:
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: TextFieldTableViewCell.id,
-                for: indexPath) as? TextFieldTableViewCell
+                withIdentifier: TextFormCell.id,
+                for: indexPath) as? TextFormCell
             else{
                 fatalError("Cannot dequeue cell in SignUpVC")
             }
             
             cell.delegate = self
-            cell.setupCell(form: sample.formOrder[indexPath.row] as! TextFieldComponent)
+            cell.setupCell(form: tableFormFieldList[indexPath.row] as! TextFormCellModel)
             return cell
         
         case .roleSelection:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopUpButtonTableViewCell.id, for: indexPath) as? PopUpButtonTableViewCell else{
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopupButtonFormCell.id, for: indexPath) as? PopupButtonFormCell else{
                 fatalError("Cannot dequeue cell in SignUpVC")
             }
             cell.delegate = self
-            cell.setupCell(formType: sample.formOrder[indexPath.row] as! PopupButtonFieldComponent)
+            cell.setupCell(formType: tableFormFieldList[indexPath.row] as! PopupButtonFormCellModel)
             return cell
         }
         
@@ -165,13 +165,13 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
     private func setupTableView(for table:UITableView){
         table.dataSource = self
         table.delegate = self
-        table.register(TextFieldTableViewCell.nib, forCellReuseIdentifier: TextFieldTableViewCell.id)
-        table.register(PopUpButtonTableViewCell.nib, forCellReuseIdentifier: PopUpButtonTableViewCell.id)
+        table.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
+        table.register(PopupButtonFormCell.nib, forCellReuseIdentifier: PopupButtonFormCell.id)
     }
 
     
-    func getPassword(from passwordField: TextFieldComponent? = nil) -> String?{
-        let passwordField = passwordField ?? sample.formOrder[2]
+    func getPassword(from passwordField: TextFormCellModel? = nil) -> String?{
+        let passwordField = passwordField ?? tableFormFieldList[2]
         return passwordField.value as? String
     }
     

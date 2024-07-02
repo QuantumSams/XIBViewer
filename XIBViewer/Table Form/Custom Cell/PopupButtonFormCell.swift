@@ -7,17 +7,17 @@
 
 import UIKit
 
-class PopUpButtonTableViewCell: UITableViewCell {
+class PopupButtonFormCell: UITableViewCell {
     
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var popUpButton: UIButton!
     
-    static let id: String = "PopUpButtonTableViewCell"
+    static let id: String = "PopupButtonFormCell"
     static var nib: UINib {
-        UINib(nibName: "PopUpButtonTableViewCell", bundle: nil)
+        UINib(nibName: "PopupButtonFormCell", bundle: nil)
     }
     
-    private var formType: PopupButtonFieldComponent?
+    private var formType: PopupButtonFormCellModel?
     var delegate: cellCommunicationDelegate?
 
     override func awakeFromNib() {
@@ -32,9 +32,9 @@ class PopUpButtonTableViewCell: UITableViewCell {
     }
 }
 
-extension PopUpButtonTableViewCell{
+extension PopupButtonFormCell{
     
-    func setupCell(formType: PopupButtonFieldComponent){
+    func setupCell(formType: PopupButtonFormCellModel){
         guard delegate != nil else {
             fatalError("Delegate is nil")
         }
@@ -62,7 +62,7 @@ extension PopUpButtonTableViewCell{
     }
 }
 
-extension PopUpButtonTableViewCell{
+extension PopupButtonFormCell{
     private func PopUpButtonSelected() -> (UIAction) -> Void{
         return{ (chosen: UIAction) in
             

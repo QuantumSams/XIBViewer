@@ -14,15 +14,10 @@ extension Validator{
     static func validateEmail(for email: String) -> String?{
         return validateString(for: email, with: RegexConstant.email) ? nil : "Email is not valid"
     }
-    static func validatePassword(for password: String, and confirmPassword: String) -> String?{
-        if password != confirmPassword {return "Passwords do not match each other"}
+  
+    static func validatePassword(for password: String) -> String?{
         return validateString(for: password, with: RegexConstant.password) ? nil : "Password must be at least 8 characters long, with at least 1 number, 1 letter and 1 special character"
     }
-    
-    static func validatePasswordSingle(for password: String) -> String?{
-        return validateString(for: password, with: RegexConstant.password) ? nil : "Password must be at least 8 characters long, with at least 1 number, 1 letter and 1 special character"
-    }
-    
     static func validateName(for name: String) -> String?{
         return validateString(for: name, with: nil) ? nil : "Name is not valid"
     }
