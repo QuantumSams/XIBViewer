@@ -1,6 +1,5 @@
 import UIKit
 
-
 protocol cellCommunicationDelegate{
     func getPassword(from passwordField: TextFormCellModel?) -> String?
     func contructPopUpChoices(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu
@@ -8,18 +7,17 @@ protocol cellCommunicationDelegate{
 
 final class SignUpVC: UIViewController, cellCommunicationDelegate{
     
-    var tableFormFieldList: [TableFormCellModel] = [
-        TextFormCellModel(fieldType: .name, fieldPlaceholder: "Name", validationMethod: Validator.validateName),
-        TextFormCellModel(fieldType: .email, fieldPlaceholder: "Email", validationMethod: Validator.validateEmail),
-        TextFormCellModel(fieldType: .password, fieldPlaceholder: "Password", validationMethod: Validator.validatePassword),
-        TextFormCellModel(fieldType: .confirmPassword, fieldPlaceholder: "Confirm password", validationMethod: Validator.validatePassword),
-        PopupButtonFormCellModel(fieldType: .roleSelection, label: "Role", selection: RoleSingleton.accessSingleton.getAllValue())
-    ]
+    var tableFormFieldList: [TableFormCellModel] = TableForm.signup.getForm
+    var isLoading: Bool = false {
+        didSet{
+            signUpButton.setNeedsUpdateConfiguration()
+            changeToLoginButton.setNeedsUpdateConfiguration()
+        }
+    }
  
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var changeToLoginButton: UIButton!
     
-
     @IBOutlet weak var tableField: UITableView!
     
     override func viewDidLoad() {
@@ -29,13 +27,14 @@ final class SignUpVC: UIViewController, cellCommunicationDelegate{
     }
     
     @IBAction func registerTapped(_ sender: UIButton) {
-        navigateToTabBarController()
+        callSignUpAPI()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
         navigateToCustomViewController(toViewController: SignInVC())
     }
 }
 
+// Setup view
 extension SignUpVC {
     private func setupViews() {
         setupButton(signUpButton)
@@ -46,30 +45,51 @@ extension SignUpVC {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = Constant.ButtonConstant.cornerRadius
         NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
+        
+        button.configurationUpdateHandler = { [unowned self] button in
+            var config = button.configuration
+            config?.showsActivityIndicator = self.isLoading
+            button.configuration = config
+            button.isEnabled = !self.isLoading
+        }
     }
-
 }
+// Retrive data from fields
 extension SignUpVC{
-    private func navigateToCustomViewController(toViewController: UIViewController) {
-        navigationController?.pushViewController(toViewController, animated: true)
-    }
-    
-    private func navigateToTabBarController(){
+    private func getDataFromTableFields() -> SignupModel?{
         guard let name = tableFormFieldList[0].value,
               let email = tableFormFieldList[1].value,
               let password = tableFormFieldList[2].value,
               let roleID = tableFormFieldList[4].value
         else {
-            return
+            return nil
         }
-        
-        let signUpData = SignupModel(
+        return SignupModel(
             name: name as! String,
             email: email as! String ,
             role: roleID as! Int,
             password: password as! String)
+    }
+}
+
+
+// Create API calls
+extension SignUpVC{
+    private func navigateToCustomViewController(toViewController: UIViewController) {
+        navigationController?.pushViewController(toViewController, animated: true)
+    }
     
+    private func callSignUpAPI(){
         
+        
+        guard let signUpData = getDataFromTableFields() else{
+            AlertManager.showAlert(on: self, title: "Form not completed", 
+                                   message: "Please check the sign up form again.")
+            return
+            
+        }
+        isLoading = true
+
         guard let request = Endpoints.signup(model: signUpData).request else{
             //TODO: HANDLE
             return
@@ -80,6 +100,8 @@ extension SignUpVC{
             case .success(_):
                 self.loginAftersignUp(email: signUpData.email, password: signUpData.password)
             case .failure(let errorData):
+                DispatchQueue.main.async {
+                    self.isLoading = false
                 guard let errorData = errorData as? APIErrorTypes else {return}
                 switch errorData{
                 case .serverError(let string):
@@ -93,6 +115,9 @@ extension SignUpVC{
                 }
             }
         }
+        
+        }
+        
     }
     
     
@@ -113,7 +138,9 @@ extension SignUpVC{
                 
             case .failure(let error):
                 guard let error = error as? APIErrorTypes else {return}
-                
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                }
                 switch error{
                 case .serverError(let string):
                     AlertManager.showServerErrorResponse(on: self, message: string)
@@ -125,10 +152,10 @@ extension SignUpVC{
                 }
             }
         }
-        
     }
 }
 
+//Manage Table form
 extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tableFormFieldList.count
@@ -168,8 +195,10 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
         table.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
         table.register(PopupButtonFormCell.nib, forCellReuseIdentifier: PopupButtonFormCell.id)
     }
+}
 
-    
+//Protocol methods - manage communication with table form cell
+extension SignUpVC{
     func getPassword(from passwordField: TextFormCellModel? = nil) -> String?{
         let passwordField = passwordField ?? tableFormFieldList[2]
         return passwordField.value as? String

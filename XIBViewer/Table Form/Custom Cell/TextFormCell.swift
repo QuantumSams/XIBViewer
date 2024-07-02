@@ -74,9 +74,9 @@ extension TextFormCell{
     }
     
     private func editCompleted(){
-        if delegate == nil{
-            print("Delegate is nil")
-            return
+        
+        guard delegate != nil else{
+            fatalError("Delegate has not been set")
         }
         
         guard let validationMethod = formType?.validationMethod else{
@@ -89,23 +89,22 @@ extension TextFormCell{
             return
         }
         
+        
         if let checkValid = validationMethod(textField.text ?? " "){
+            print(checkValid)
             validationLabel.text = checkValid
             return
         }
         formType.value = textField.text
-        
     }
     
     private func confirmPasswordEditComplete(){
         guard let delegate else{
             fatalError("Delegate is nil")
-            
         }
         
         guard let formType else{
             fatalError("FormType is nil")
-            
         }
         
         guard let passwordString = delegate.getPassword(from: nil) else{

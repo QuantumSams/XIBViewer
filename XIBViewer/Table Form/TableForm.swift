@@ -13,10 +13,10 @@ enum TableFieldTypes: String{
 enum TableForm{
     case login
     case signup
-    
+  
     var getForm: [TableFormCellModel] {
         switch self{
-        case .login:
+        case .signup:
             return [
                 TextFormCellModel(fieldType: .name, 
                                   fieldPlaceholder: "Name",
@@ -38,7 +38,7 @@ enum TableForm{
                 PopupButtonFormCellModel(fieldType: .roleSelection,
                                         label: "Role",
                                         selection: RoleSingleton.accessSingleton.getAllValue())]
-        case .signup:
+        case .login:
             return [
                 TextFormCellModel(fieldType: .email,
                                   validationMethod: Validator.validateName),
