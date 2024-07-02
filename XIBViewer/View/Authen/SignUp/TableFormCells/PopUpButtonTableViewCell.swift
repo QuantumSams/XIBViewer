@@ -57,6 +57,7 @@ extension PopUpButtonTableViewCell{
         
         popUpButton.showsMenuAsPrimaryAction = true
         popUpButton.changesSelectionAsPrimaryAction = true
+        saveInitialValue()
 
     }
 }
@@ -71,5 +72,12 @@ extension PopUpButtonTableViewCell{
             self.formType?.value = roleID
         }
         
+    }
+    
+    private func saveInitialValue(){
+        guard let title = popUpButton.menu?.selectedElements.first?.title else{
+            return
+        }
+        self.formType?.value = RoleSingleton.accessSingleton.getID(from: title)
     }
 }
