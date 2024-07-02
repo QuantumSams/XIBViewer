@@ -94,8 +94,7 @@ extension TextFieldTableViewCell{
             validationLabel.text = checkValid
             return
         }
-        
-        delegate?.setData(id: formType.id, value: textField.text!)
+        formType.value = textField.text
         
     }
     
@@ -118,7 +117,7 @@ extension TextFieldTableViewCell{
             validationLabel.text = "The passwords are not matching"
             return
         }
-        
-        delegate.setData(id: formType.id, value: textField.text!)
+
+        formType.value = textField.text
     }
 }

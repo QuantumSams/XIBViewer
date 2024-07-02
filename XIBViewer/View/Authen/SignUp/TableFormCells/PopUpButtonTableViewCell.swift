@@ -51,28 +51,24 @@ extension PopUpButtonTableViewCell{
                            borderWidth: Constant.PopUpButtonConstant.borderWidth,
                            maskToBound: false)
         
-            popUpButton.menu = delegate?.contructPopUpChoices(
-                from: formType!.choices,
-                actionWhenChoiceChanged: PopUpButtonSelected())
+        popUpButton.menu = delegate?.contructPopUpChoices(
+            from: formType!.choices,
+            actionWhenChoiceChanged: PopUpButtonSelected())
         
-            popUpButton.showsMenuAsPrimaryAction = true
-            popUpButton.changesSelectionAsPrimaryAction = true
-            (popUpButton.menu?.children[0] as? UIAction)?.state = .on
+        popUpButton.showsMenuAsPrimaryAction = true
+        popUpButton.changesSelectionAsPrimaryAction = true
+
     }
 }
 
 extension PopUpButtonTableViewCell{
     private func PopUpButtonSelected() -> (UIAction) -> Void{
-        guard let delegate else{
-            fatalError("Delegate is nil")
-        }
-        
         return{ (chosen: UIAction) in
             
             guard let roleID = RoleSingleton.accessSingleton.getID(from: chosen.title) else{
                 fatalError("Cannot convert from value to key using RoleSingleton")
             }
-            delegate.setData(id: self.formType!.id, value: roleID)
+            self.formType?.value = roleID
         }
         
     }

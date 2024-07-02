@@ -2,7 +2,6 @@ import UIKit
 
 
 protocol cellCommunicationDelegate{
-    func setData(id: String, value: Any) -> Void
     func getPassword(from passwordField: TextFieldComponent?) -> String?
     func contructPopUpChoices(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu
 }
@@ -56,10 +55,10 @@ extension SignUpVC{
     }
     
     private func navigateToTabBarController(){
-        guard let name = sample.getValue(id: sample.formOrder[0].id),
-              let email = sample.getValue(id: sample.formOrder[1].id),
-              let password = sample.getValue(id: sample.formOrder[2].id),
-              let roleID = sample.getValue(id: sample.formOrder[4].id)
+        guard let name = sample.formOrder[0].value,
+              let email = sample.formOrder[1].value,
+              let password = sample.formOrder[2].value,
+              let roleID = sample.formOrder[4].value
         else {
             return
         }
@@ -169,16 +168,11 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
         table.register(TextFieldTableViewCell.nib, forCellReuseIdentifier: TextFieldTableViewCell.id)
         table.register(PopUpButtonTableViewCell.nib, forCellReuseIdentifier: PopUpButtonTableViewCell.id)
     }
-    
-    func setData(id: String, value: Any){
-        sample.setValue(id: id, value: value)
-        print(value)
-    }
+
     
     func getPassword(from passwordField: TextFieldComponent? = nil) -> String?{
         let passwordField = passwordField ?? sample.formOrder[2]
-        let passwordString = sample.getValue(id: passwordField.id) as? String
-        return passwordString
+        return passwordField.value as? String
     }
     
     func contructPopUpChoices(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu{

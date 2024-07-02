@@ -24,6 +24,8 @@ class TableFieldComponent{
     }
     let id: String = UUID().uuidString
     let fieldType: TableFieldTypes
+    var value: Any?
+    
 }
 
 final class TextFieldComponent: TableFieldComponent{
@@ -80,21 +82,6 @@ struct TableForm{
         self.formOrder = formOrder
     }
     var formOrder: [TableFieldComponent]
-    var returnValue: [String : Any] = [:]
     
-    
-    mutating func assignReturnValue(){
-        for item in formOrder{
-            self.returnValue[item.id] = " "
-        }
-    }
-    
-    mutating func setValue(id: String, value: Any){
-        returnValue[id] = value
-    }
-    
-    func getValue(id: String) -> Any?{
-        returnValue[id]
-    }
 }
 
