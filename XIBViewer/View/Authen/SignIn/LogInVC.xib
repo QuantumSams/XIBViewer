@@ -9,17 +9,17 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginVC" customModule="XIBViewer" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LogInVC" customModule="XIBViewer" customModuleProvider="target">
             <connections>
-                <outlet property="loginButton" destination="7NC-TB-Gqs" id="VUl-cN-ciE"/>
-                <outlet property="loginTableField" destination="L0P-ND-FrN" id="S9e-19-LET"/>
-                <outlet property="passwordField" destination="QKk-BT-t8d" id="2ox-4I-eyZ"/>
-                <outlet property="usernameField" destination="80E-qr-33f" id="5WL-kE-e6b"/>
-                <outlet property="view" destination="y1y-ns-bfp" id="sUg-2F-p6P"/>
+                <outlet property="loginButton" destination="7NC-TB-Gqs" id="9Je-DX-boE"/>
+                <outlet property="loginTableField" destination="L0P-ND-FrN" id="l2n-X1-y9A"/>
+                <outlet property="passwordField" destination="QKk-BT-t8d" id="nHZ-fA-uvx"/>
+                <outlet property="usernameField" destination="80E-qr-33f" id="OxX-sM-Hmb"/>
+                <outlet property="view" destination="y1y-ns-bfp" id="0rL-dy-htV"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="y1y-ns-bfp">
+        <view contentMode="scaleToFill" id="y1y-ns-bfp" userLabel="View" customClass="LogIn" customModule="XIBViewer" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -54,9 +54,6 @@
                                     <rect key="frame" x="20" y="366" width="65.666666666666671" height="34.333333333333314"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" title="Login"/>
-                                    <connections>
-                                        <action selector="loginButtonTapped:" destination="-1" eventType="touchUpInside" id="YmL-Gy-Zs4"/>
-                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

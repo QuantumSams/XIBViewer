@@ -1,17 +1,31 @@
 import UIKit
 
-final class SignInVC: UIViewController{
+final class LogInVC: UIViewController{
 
     //property
     private let tableForm = TableForm.login.getForm
     
     //Outlet
-    @IBOutlet private weak var passwordField: UITextField!
-    @IBOutlet private weak var usernameField: UITextField!
-    @IBOutlet private weak var loginButton: UIButton!
+//    @IBOutlet private weak var passwordField: UITextField!
+//    @IBOutlet private weak var usernameField: UITextField!
+//    @IBOutlet private weak var loginButton: UIButton!
+//    
+//    @IBOutlet private weak var loginTableField: UITableView!
     
-    @IBOutlet private weak var loginTableField: UITableView!
+    
+    
+    @IBOutlet weak var usernameField: UITextField!
+    
+    @IBOutlet weak var passwordField: UITextField!
+    
+    @IBOutlet weak var loginButton: UIButton!
+    
+    @IBOutlet weak var loginTableField: UITableView!
+    
+    
     //Life cycle
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -25,7 +39,7 @@ final class SignInVC: UIViewController{
 }
 
 
-extension SignInVC: UITableViewDelegate, UITableViewDataSource{
+extension LogInVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableForm.count
     }
@@ -43,7 +57,7 @@ extension SignInVC: UITableViewDelegate, UITableViewDataSource{
 }
 
 
-extension SignInVC:UITextFieldDelegate{
+extension LogInVC:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
@@ -51,7 +65,7 @@ extension SignInVC:UITextFieldDelegate{
 }
 
 
-extension SignInVC{
+extension LogInVC{
     private func setupViews(){
         setupTextField(usernameField)
         setupTextField(passwordField)

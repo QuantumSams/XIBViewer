@@ -27,7 +27,7 @@ final class SignUpVC: UIViewController, TableFormPasswordDelegate, TableFromPopU
         callSignUpAPI()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
-        navigateToCustomViewController(toViewController: SignInVC())
+        navigateToCustomViewController(toViewController: LogInVC())
     }
 }
 

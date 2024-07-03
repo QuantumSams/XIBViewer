@@ -23,8 +23,8 @@
 		7C455DF82C315B5B00F4CECB /* TextFormCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C455DF72C315B5B00F4CECB /* TextFormCell.xib */; };
 		7C455DF92C315B5B00F4CECB /* TextFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C455DF62C315B5B00F4CECB /* TextFormCell.swift */; };
 		7C455DFB2C31AA6200F4CECB /* TableFormCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C455DFA2C31AA6200F4CECB /* TableFormCellModel.swift */; };
-		7C911F352C06272B00D28629 /* SignInVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C911F332C06272B00D28629 /* SignInVC.xib */; };
-		7C911F362C06272B00D28629 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C911F342C06272B00D28629 /* SignInVC.swift */; };
+		7C911F352C06272B00D28629 /* LogInVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C911F332C06272B00D28629 /* LogInVC.xib */; };
+		7C911F362C06272B00D28629 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C911F342C06272B00D28629 /* LogInVC.swift */; };
 		7C911F3A2C0627A700D28629 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C911F382C0627A700D28629 /* SignUpVC.swift */; };
 		7C911F3B2C0627A700D28629 /* SignUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C911F392C0627A700D28629 /* SignUpVC.xib */; };
 		7CA5ACC42C2172DB001F8648 /* SettingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA5ACC22C2172DB001F8648 /* SettingTabBarController.swift */; };
@@ -76,8 +76,8 @@
 		7C455DF62C315B5B00F4CECB /* TextFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormCell.swift; sourceTree = "<group>"; };
 		7C455DF72C315B5B00F4CECB /* TextFormCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFormCell.xib; sourceTree = "<group>"; };
 		7C455DFA2C31AA6200F4CECB /* TableFormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableFormCellModel.swift; sourceTree = "<group>"; };
-		7C911F332C06272B00D28629 /* SignInVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInVC.xib; sourceTree = "<group>"; };
-		7C911F342C06272B00D28629 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		7C911F332C06272B00D28629 /* LogInVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogInVC.xib; sourceTree = "<group>"; };
+		7C911F342C06272B00D28629 /* LogInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		7C911F382C0627A700D28629 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		7C911F392C0627A700D28629 /* SignUpVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpVC.xib; sourceTree = "<group>"; };
 		7CA5ACC22C2172DB001F8648 /* SettingTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingTabBarController.swift; path = XIBViewer/View/Setting/SettingTabBarController.swift; sourceTree = SOURCE_ROOT; };
@@ -288,8 +288,8 @@
 		7CDA8AB62C06259700AAEE2F /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				7C911F342C06272B00D28629 /* SignInVC.swift */,
-				7C911F332C06272B00D28629 /* SignInVC.xib */,
+				7C911F342C06272B00D28629 /* LogInVC.swift */,
+				7C911F332C06272B00D28629 /* LogInVC.xib */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -412,7 +412,7 @@
 				7CA5ACCE2C218EE8001F8648 /* UsersTableCell.xib in Resources */,
 				7C911F3B2C0627A700D28629 /* SignUpVC.xib in Resources */,
 				7CA5ACC52C2172DB001F8648 /* SettingTabBarController.xib in Resources */,
-				7C911F352C06272B00D28629 /* SignInVC.xib in Resources */,
+				7C911F352C06272B00D28629 /* LogInVC.xib in Resources */,
 				7CDF31FB2C060A2100C01B06 /* Assets.xcassets in Resources */,
 				7C455DF82C315B5B00F4CECB /* TextFormCell.xib in Resources */,
 				7C4327472C33E1270027C0FB /* PopupButtonFormCell.xib in Resources */,
@@ -430,7 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CA5ACCC2C218C43001F8648 /* UsersTableCell.swift in Sources */,
-				7C911F362C06272B00D28629 /* SignInVC.swift in Sources */,
+				7C911F362C06272B00D28629 /* LogInVC.swift in Sources */,
 				7CD877362C344B9F006713CF /* TableFromPopUpMenuDelegate.swift in Sources */,
 				7C455DFB2C31AA6200F4CECB /* TableFormCellModel.swift in Sources */,
 				7C43D71A2C1D909D00B3E914 /* AccountVC.swift in Sources */,
