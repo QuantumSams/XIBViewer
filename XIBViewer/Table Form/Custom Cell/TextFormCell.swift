@@ -8,7 +8,6 @@ final class TextFormCell: UITableViewCell {
     static let id: String = "TextFormCell"
     
     private var formType:   TextFormCellModel?
-    var popUpMenuDelegate:  TableFromPopUpMenuDelegate?
     var passwordDelegate:   TableFormPasswordDelegate?
     
 
@@ -77,17 +76,12 @@ extension TextFormCell{
     private func editCompleted(){
         
         guard let formType else{
-            print("Type of form is nil")
-            return
+            fatalError("Form type is Nil - cell.Setup() haven't been called on parent's view")
         }
         
         guard let validationMethod = formType.validationMethod else{
             formType.value = textField.text
             return
-        }
-        
-        guard popUpMenuDelegate != nil else{
-            fatalError("Delegate has not been set")
         }
         
         
@@ -100,12 +94,11 @@ extension TextFormCell{
     }
     
     private func confirmPasswordEditComplete(){
+        guard let formType else{
+            fatalError("Form type is Nil - cell.Setup() haven't been called on parent's view")
+        }
         guard let passwordDelegate else{
             fatalError("passwordDelegate is nil")
-        }
-        
-        guard let formType else{
-            fatalError("FormType is nil")
         }
         
         guard let passwordString = passwordDelegate.TableFormPasswordCollector(from: nil) else{

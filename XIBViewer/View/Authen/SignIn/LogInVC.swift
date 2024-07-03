@@ -1,43 +1,23 @@
 import UIKit
 
 final class LogInVC: UIViewController{
-
     //property
     private let tableForm = TableForm.login.getForm
     
     //Outlet
-//    @IBOutlet private weak var passwordField: UITextField!
-//    @IBOutlet private weak var usernameField: UITextField!
-//    @IBOutlet private weak var loginButton: UIButton!
-//    
-//    @IBOutlet private weak var loginTableField: UITableView!
-    
-    
-    
-    @IBOutlet weak var usernameField: UITextField!
-    
-    @IBOutlet weak var passwordField: UITextField!
-    
-    @IBOutlet weak var loginButton: UIButton!
-    
+    @IBOutlet weak var loginButton:     UIButton!
     @IBOutlet weak var loginTableField: UITableView!
-    
-    
     //Life cycle
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
-    
     //Action - event processing
    
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         sendLoginRequest()
     }
 }
-
 
 extension LogInVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,7 +32,21 @@ extension LogInVC: UITableViewDelegate, UITableViewDataSource{
         else{
             fatalError("Cannot dequeue cell in SignUpVC")
         }
+        cell.setupCell(form: tableForm[indexPath.row] as! TextFormCellModel)
         return cell
+    }
+}
+
+
+extension LogInVC{
+    func getDataFromTableFields() -> LoginModel?{
+        guard let email = tableForm[0].value,
+              let password = tableForm[1].value
+        else{
+            return nil
+        }
+        
+        return LoginModel(email: email as! String, password: password as! String)
     }
 }
 
@@ -67,9 +61,12 @@ extension LogInVC:UITextFieldDelegate{
 
 extension LogInVC{
     private func setupViews(){
-        setupTextField(usernameField)
-        setupTextField(passwordField)
         setupButton(loginButton)
+        
+        loginTableField.delegate = self
+        loginTableField.dataSource = self
+        
+        loginTableField.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
     }
     
     private func setupTextField(_ customTextField:UITextField){
@@ -102,11 +99,12 @@ extension LogInVC{
     }
     
     private func sendLoginRequest(){
-        let loginRequestData =
-        LoginModel(email: usernameField.text ?? "",
-                   password: passwordField.text ?? "")
-        
-        
+        guard let loginRequestData = getDataFromTableFields() else{
+            AlertManager.showAlert(on: self,
+                                   title: "Form not complete",
+                                   message: "Please check the sign in form again.")
+            return
+        }
         guard let request = Endpoints.login(model: loginRequestData).request else {
             //TODO: HANDLE
             return
@@ -134,4 +132,3 @@ extension LogInVC{
         }
     }
 }
-

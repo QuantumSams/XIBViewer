@@ -181,7 +181,7 @@
 		7C4327482C3420B80027C0FB /* Table Form */ = {
 			isa = PBXGroup;
 			children = (
-				7CD877342C344B78006713CF /* Protocols */,
+				7CD877342C344B78006713CF /* Delegates */,
 				7C43274A2C3425210027C0FB /* TableForm.swift */,
 				7C4327492C3421380027C0FB /* Cell Model */,
 				7C455DFA2C31AA6200F4CECB /* TableFormCellModel.swift */,
@@ -276,13 +276,13 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		7CD877342C344B78006713CF /* Protocols */ = {
+		7CD877342C344B78006713CF /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
 				7CD877352C344B9F006713CF /* TableFromPopUpMenuDelegate.swift */,
 				7CD877372C350387006713CF /* TableFormPasswordDelegate.swift */,
 			);
-			path = Protocols;
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		7CDA8AB62C06259700AAEE2F /* SignIn */ = {

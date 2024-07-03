@@ -80,8 +80,10 @@ extension SignUpVC{
         
         
         guard let signUpData = getDataFromTableFields() else{
-            AlertManager.showAlert(on: self, title: "Form not completed", 
+            
+            AlertManager.showAlert(on: self, title: "Form not completed",
                                    message: "Please check the sign up form again.")
+            
             return
             
         }
@@ -170,7 +172,7 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
                 fatalError("Cannot dequeue cell in SignUpVC")
             }
             
-            cell.popUpMenuDelegate = self
+            cell.passwordDelegate = self
             cell.setupCell(form: tableFormFieldList[indexPath.row] as! TextFormCellModel)
             return cell
         
