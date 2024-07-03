@@ -12,7 +12,7 @@
             <connections>
                 <outlet property="changeToLoginButton" destination="7eT-vx-QYs" id="PRF-uJ-uz1"/>
                 <outlet property="signUpButton" destination="UlM-Ow-UdO" id="q8P-WU-Zan"/>
-                <outlet property="tableField" destination="m4I-G5-Uqk" id="qb6-lX-X9B"/>
+                <outlet property="tableForm" destination="m4I-G5-Uqk" id="qb6-lX-X9B"/>
                 <outlet property="view" destination="zBO-4f-TXb" id="9Dg-cQ-FUi"/>
             </connections>
         </placeholder>

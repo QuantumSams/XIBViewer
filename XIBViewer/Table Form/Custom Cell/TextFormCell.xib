@@ -22,7 +22,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" textContentType="email"/>
                         <connections>
-                            <action selector="fieldDidEdit:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="VRf-Kc-mmk"/>
+                            <action selector="fieldDidEdit:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="PeE-uf-baM"/>
                             <action selector="fieldEditing:" destination="KGk-i7-Jjw" eventType="editingChanged" id="CMA-LG-yov"/>
                         </connections>
                     </textField>

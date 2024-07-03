@@ -15,15 +15,15 @@ final class SignUpVC: UIViewController, TableFormPasswordDelegate, TableFromPopU
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var changeToLoginButton: UIButton!
     
-    @IBOutlet weak var tableField: UITableView!
+    @IBOutlet weak var tableForm: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView(for: tableField)
         setupViews()
     }
     
     @IBAction func registerTapped(_ sender: UIButton) {
+        yieldAllField()
         callSignUpAPI()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
@@ -36,6 +36,7 @@ extension SignUpVC {
     private func setupViews() {
         setupButton(signUpButton)
         setupButton(changeToLoginButton)
+        setupTableView(for: tableForm)
     }
     
     private func setupButton(_ button: UIButton) {
@@ -50,9 +51,21 @@ extension SignUpVC {
             button.isEnabled = !self.isLoading
         }
     }
+    
+    private func setupTableView(for table:UITableView){
+        table.dataSource = self
+        table.delegate = self
+        table.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
+        table.register(PopupButtonFormCell.nib, forCellReuseIdentifier: PopupButtonFormCell.id)
+    }
 }
-// Retrive data from fields
+
+// Get data from all field + Create API calls
 extension SignUpVC{
+    private func navigateToCustomViewController(toViewController: UIViewController) {
+        navigationController?.pushViewController(toViewController, animated: true)
+    }
+    
     private func getDataFromTableFields() -> SignupModel?{
         guard let name = tableFormFieldList[0].value,
               let email = tableFormFieldList[1].value,
@@ -67,27 +80,14 @@ extension SignUpVC{
             role: roleID as! Int,
             password: password as! String)
     }
-}
-
-
-// Create API calls
-extension SignUpVC{
-    private func navigateToCustomViewController(toViewController: UIViewController) {
-        navigationController?.pushViewController(toViewController, animated: true)
-    }
     
     private func callSignUpAPI(){
-        
-        
         guard let signUpData = getDataFromTableFields() else{
-            
             AlertManager.showAlert(on: self, title: "Form not completed",
                                    message: "Please check the sign up form again.")
-            
+            isLoading = true
             return
-            
         }
-        isLoading = true
 
         guard let request = Endpoints.signup(model: signUpData).request else{
             //TODO: HANDLE
@@ -114,11 +114,8 @@ extension SignUpVC{
                 }
             }
         }
-        
-        }
-        
     }
-    
+}
     
     private func loginAftersignUp(email: String, password: String){
         let loginData = LoginModel(email: email, password: password)
@@ -154,6 +151,7 @@ extension SignUpVC{
     }
 }
 
+
 //Manage Table form
 extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -184,20 +182,22 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
             cell.setupCell(formType: tableFormFieldList[indexPath.row] as! PopupButtonFormCellModel)
             return cell
         }
-        
-       
-    }
-    
-    private func setupTableView(for table:UITableView){
-        table.dataSource = self
-        table.delegate = self
-        table.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
-        table.register(PopupButtonFormCell.nib, forCellReuseIdentifier: PopupButtonFormCell.id)
     }
 }
 
-//Protocol methods - manage communication with table form cell
+//Manage communication with table form cell
 extension SignUpVC{
+    func yieldAllField(){
+        for row in 0..<tableFormFieldList.count{
+            let indexPath = IndexPath(row: row, section: 0)
+            guard let cell = tableForm.cellForRow(at: indexPath) as? TextFormCell else{
+                return
+            }
+            cell.textField.resignFirstResponder()
+        }
+    }
+    
+    
     func TableFormPasswordCollector(from passwordField: TextFormCellModel? = nil) -> String?{
         let passwordField = passwordField ?? tableFormFieldList[2]
         return passwordField.value as? String

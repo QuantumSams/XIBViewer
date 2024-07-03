@@ -6,13 +6,12 @@ final class TextFormCell: UITableViewCell {
         UINib(nibName: "TextFormCell", bundle: nil)
     }
     static let id: String = "TextFormCell"
-    
     private var formType:   TextFormCellModel?
     var passwordDelegate:   TableFormPasswordDelegate?
     
 
     @IBOutlet private weak var validationLabel: UILabel!
-    @IBOutlet private weak var textField: UITextField!
+    @IBOutlet weak var textField: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,6 +34,7 @@ extension TextFormCell{
         setupTextField(textField)
         setupKeyboardType(textField)
         validationLabel.text = " \n"
+        
     }
 }
 
