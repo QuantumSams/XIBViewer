@@ -2,7 +2,7 @@ import UIKit
 
 
 
-final class SignUpVC: UIViewController, cellCommunicationDelegate{
+final class SignUpVC: UIViewController, TableFormPasswordDelegate, TableFromPopUpMenuDelegate{
     
     var tableFormFieldList: [TableFormCellModel] = TableForm.signup.getForm
     var isLoading: Bool = false {
@@ -170,7 +170,7 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
                 fatalError("Cannot dequeue cell in SignUpVC")
             }
             
-            cell.delegate = self
+            cell.popUpMenuDelegate = self
             cell.setupCell(form: tableFormFieldList[indexPath.row] as! TextFormCellModel)
             return cell
         
@@ -196,12 +196,12 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
 
 //Protocol methods - manage communication with table form cell
 extension SignUpVC{
-    func getPassword(from passwordField: TextFormCellModel? = nil) -> String?{
+    func TableFormPasswordCollector(from passwordField: TextFormCellModel? = nil) -> String?{
         let passwordField = passwordField ?? tableFormFieldList[2]
         return passwordField.value as? String
     }
     
-    func contructPopUpChoices(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu{
+    func TableFormPopUpMenuConstructor(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu{
         
         var toReturn: [UIAction] = []
         

@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginVC" customModule="XIBViewer" customModuleProvider="target">
             <connections>
                 <outlet property="loginButton" destination="7NC-TB-Gqs" id="VUl-cN-ciE"/>
+                <outlet property="loginTableField" destination="L0P-ND-FrN" id="S9e-19-LET"/>
                 <outlet property="passwordField" destination="QKk-BT-t8d" id="2ox-4I-eyZ"/>
                 <outlet property="usernameField" destination="80E-qr-33f" id="5WL-kE-e6b"/>
                 <outlet property="view" destination="y1y-ns-bfp" id="sUg-2F-p6P"/>
@@ -29,24 +30,28 @@
                             <rect key="frame" x="0.0" y="0.0" width="105.66666666666667" height="852"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="0hT-Xn-V2I">
-                                    <rect key="frame" x="20" y="0.0" width="361" height="200.33333333333334"/>
+                                    <rect key="frame" x="20" y="0.0" width="361" height="342"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="80E-qr-33f">
-                                            <rect key="frame" x="0.0" y="0.0" width="361" height="89.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="100"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" textContentType="username"/>
                                         </textField>
                                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="QKk-BT-t8d">
-                                            <rect key="frame" x="0.0" y="110.66666666666666" width="361" height="89.666666666666657"/>
+                                            <rect key="frame" x="0.0" y="121" width="361" height="100"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" textContentType="password"/>
                                         </textField>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="L0P-ND-FrN">
+                                            <rect key="frame" x="0.0" y="242" width="361" height="100"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </tableView>
                                     </subviews>
                                     <viewLayoutGuide key="safeArea" id="Cd8-e3-O7R"/>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7NC-TB-Gqs">
-                                    <rect key="frame" x="20" y="224.33333333333331" width="65.666666666666671" height="34.333333333333314"/>
+                                    <rect key="frame" x="20" y="366" width="65.666666666666671" height="34.333333333333314"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" title="Login"/>
                                     <connections>

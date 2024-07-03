@@ -3,13 +3,16 @@ import UIKit
 
 final class TextFormCellModel: TableFormCellModel{
     
-    init(fieldType: TableFieldTypes ,fieldPlaceholder: String? = nil, validationMethod: @escaping (String) -> String?) {
+    init(fieldType: TableFieldTypes ,fieldPlaceholder: String? = nil, 
+         validationMethod: ((String) -> String?)? = nil
+    )
+    {
         self.fieldPlaceholder = fieldPlaceholder
         self.validationMethod = validationMethod
         super.init(fieldType: fieldType)
     }
     var fieldPlaceholder: String?
-    let validationMethod: (String) -> String?
+    var validationMethod: ((String) -> String?)?
     
     var keyboardType: UIKeyboardType {
         switch fieldType{

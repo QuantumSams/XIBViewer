@@ -22,4 +22,8 @@ extension Validator{
         return validateString(for: name, with: nil) ? nil : "Name is not valid"
     }
     
+    static func isDataEmpty(for anyString: String) -> String?{
+        return !anyString.isEmpty ? nil : "Field can not empty"
+    }
+    
 }

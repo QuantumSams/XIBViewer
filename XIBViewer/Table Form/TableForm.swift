@@ -33,18 +33,18 @@ enum TableForm{
                 
                 TextFormCellModel(fieldType: .confirmPassword, 
                                   fieldPlaceholder: "Confirm password",
-                                  validationMethod: Validator.validatePassword),
+                                  validationMethod: nil),
                 
                 PopupButtonFormCellModel(fieldType: .roleSelection,
                                         label: "Role",
                                         selection: RoleSingleton.accessSingleton.getAllValue())]
         case .login:
             return [
-                TextFormCellModel(fieldType: .email,
-                                  validationMethod: Validator.validateName),
+                TextFormCellModel(fieldType: .email, 
+                                  validationMethod: Validator.isDataEmpty),
                 
                 TextFormCellModel(fieldType: .password,
-                                  validationMethod: Validator.validatePassword)
+                                  validationMethod: Validator.isDataEmpty)
             ]
         }
     }

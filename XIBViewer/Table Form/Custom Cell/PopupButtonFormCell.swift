@@ -18,7 +18,7 @@ class PopupButtonFormCell: UITableViewCell {
     }
     
     private var formType: PopupButtonFormCellModel?
-    var delegate: cellCommunicationDelegate?
+    var delegate: TableFromPopUpMenuDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,7 +51,7 @@ extension PopupButtonFormCell{
                            borderWidth: Constant.PopUpButtonConstant.borderWidth,
                            maskToBound: false)
         
-        popUpButton.menu = delegate?.contructPopUpChoices(
+        popUpButton.menu = delegate?.TableFormPopUpMenuConstructor(
             from: formType!.choices,
             actionWhenChoiceChanged: PopUpButtonSelected())
         

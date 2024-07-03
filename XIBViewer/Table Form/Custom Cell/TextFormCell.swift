@@ -2,13 +2,14 @@ import UIKit
 
 final class TextFormCell: UITableViewCell {
     
-    static let id: String = "TextFormCell"
     static var nib: UINib {
         UINib(nibName: "TextFormCell", bundle: nil)
     }
+    static let id: String = "TextFormCell"
     
-    private var formType: TextFormCellModel?
-    var delegate : cellCommunicationDelegate?
+    private var formType:   TextFormCellModel?
+    var popUpMenuDelegate:  TableFromPopUpMenuDelegate?
+    var passwordDelegate:   TableFormPasswordDelegate?
     
 
     @IBOutlet private weak var validationLabel: UILabel!
@@ -75,18 +76,18 @@ extension TextFormCell{
     
     private func editCompleted(){
         
-        guard delegate != nil else{
-            fatalError("Delegate has not been set")
-        }
-        
-        guard let validationMethod = formType?.validationMethod else{
-            print("Validation method is nil")
-            return
-        }
-        
         guard let formType else{
             print("Type of form is nil")
             return
+        }
+        
+        guard let validationMethod = formType.validationMethod else{
+            formType.value = textField.text
+            return
+        }
+        
+        guard popUpMenuDelegate != nil else{
+            fatalError("Delegate has not been set")
         }
         
         
@@ -99,15 +100,15 @@ extension TextFormCell{
     }
     
     private func confirmPasswordEditComplete(){
-        guard let delegate else{
-            fatalError("Delegate is nil")
+        guard let passwordDelegate else{
+            fatalError("passwordDelegate is nil")
         }
         
         guard let formType else{
             fatalError("FormType is nil")
         }
         
-        guard let passwordString = delegate.getPassword(from: nil) else{
+        guard let passwordString = passwordDelegate.TableFormPasswordCollector(from: nil) else{
             return
         }
         

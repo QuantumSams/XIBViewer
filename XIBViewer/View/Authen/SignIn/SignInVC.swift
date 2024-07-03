@@ -1,14 +1,16 @@
 import UIKit
 
-final class SignInVC: UIViewController {
+final class SignInVC: UIViewController{
 
     //property
+    private let tableForm = TableForm.login.getForm
     
     //Outlet
     @IBOutlet private weak var passwordField: UITextField!
     @IBOutlet private weak var usernameField: UITextField!
     @IBOutlet private weak var loginButton: UIButton!
     
+    @IBOutlet private weak var loginTableField: UITableView!
     //Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,25 @@ final class SignInVC: UIViewController {
         sendLoginRequest()
     }
 }
+
+
+extension SignInVC: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableForm.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: TextFormCell.id,
+            for: indexPath) as? TextFormCell
+        else{
+            fatalError("Cannot dequeue cell in SignUpVC")
+        }
+        return cell
+    }
+}
+
 
 extension SignInVC:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -35,9 +56,6 @@ extension SignInVC{
         setupTextField(usernameField)
         setupTextField(passwordField)
         setupButton(loginButton)
-        
-        usernameField.text = "sampleUser@gmail.com"
-        passwordField.text = "1sampleUserP@ssword"
     }
     
     private func setupTextField(_ customTextField:UITextField){
