@@ -45,11 +45,11 @@ extension PopupButtonFormCell{
     
     private func setupPopUpButton(for button: UIButton){
         
-        button.setupButton(tintColor: Constant.PopUpButtonConstant.tintColor,
-                           borderColor: Constant.PopUpButtonConstant.borderColor,
-                           cornerRadius: Constant.PopUpButtonConstant.cornerRadius,
-                           borderWidth: Constant.PopUpButtonConstant.borderWidth,
-                           maskToBound: false)
+//        button.setupButton(tintColor: Constant.PopUpButtonConstant.tintColor,
+//                           borderColor: Constant.PopUpButtonConstant.borderColor,
+//                           cornerRadius: Constant.PopUpButtonConstant.cornerRadius,
+//                           borderWidth: Constant.PopUpButtonConstant.borderWidth,
+//                           maskToBound: false)
         
         popUpButton.menu = delegate?.TableFormPopUpMenuConstructor(
             from: formType!.choices,
