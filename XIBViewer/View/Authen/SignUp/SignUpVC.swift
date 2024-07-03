@@ -85,9 +85,9 @@ extension SignUpVC{
         guard let signUpData = getDataFromTableFields() else{
             AlertManager.showAlert(on: self, title: "Form not completed",
                                    message: "Please check the sign up form again.")
-            isLoading = true
             return
         }
+        isLoading = true
 
         guard let request = Endpoints.signup(model: signUpData).request else{
             //TODO: HANDLE

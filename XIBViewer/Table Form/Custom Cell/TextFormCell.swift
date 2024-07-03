@@ -41,13 +41,13 @@ extension TextFormCell{
 extension TextFormCell: UITextFieldDelegate{
     private func setupTextField(_ textField: UITextField) {
         textField.delegate = self // explaination needed
-        textField.layer.masksToBounds = true
-        textField.borderStyle = .roundedRect
         textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
-        textField.layer.borderColor = UIColor.systemIndigo.cgColor
+        textField.layer.borderColor = Constant.TextBoxConstant.borderColor.cgColor
         textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
+        textField.backgroundColor = Constant.TextBoxConstant.backgroundColor
+        textField.leftViewMode = .always
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.size.height))
         NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
-        
         self.textField.placeholder = formType?.fieldPlaceholder
     }
     

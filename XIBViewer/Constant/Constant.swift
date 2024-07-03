@@ -1,12 +1,14 @@
 import UIKit
 struct Constant{
     struct TextBoxConstant{
-        static let cornerRadius:CGFloat = 20
-        static let borderWidth = 1.5
+        static let cornerRadius:CGFloat = 12
+        static let borderWidth: CGFloat = 2
         static let heightAnchor:CGFloat = 64
+        static let backgroundColor: UIColor = .secondarySystemBackground
+        static let borderColor: UIColor = .clear
     }
     struct ButtonConstant{
-        static let cornerRadius:CGFloat = 20
+        static let cornerRadius:CGFloat = 12
         static let heightAnchor:CGFloat = 50
         static let borderWidth:CGFloat = 2
     }
@@ -21,9 +23,9 @@ struct Constant{
     struct PopUpButtonConstant{
         static let cornerRadius:CGFloat = 12
         static let borderWidth:CGFloat = 2
-        static let borderColor:UIColor = UIColor.gray
-        static let backgroundColor:UIColor = UIColor.white
-        static let tintColor:UIColor = UIColor.black
+        static let borderColor:UIColor = UIColor.tintColor
+        static let backgroundColor:UIColor = UIColor.tintColor
+        static let tintColor:UIColor = UIColor.tintColor
     }
     
     struct TabBarConstant{

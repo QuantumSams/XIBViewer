@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6Kz-l8-ijJ" userLabel="Field">
-                        <rect key="frame" x="0.0" y="8" width="320" height="91"/>
+                        <rect key="frame" x="0.0" y="4" width="320" height="103.33333333333333"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" textContentType="email"/>
                         <connections>
@@ -27,9 +27,9 @@
                         </connections>
                     </textField>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password is invalid" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82K-K2-jLo" userLabel="Validation label">
-                        <rect key="frame" x="4" y="103" width="312" height="17"/>
+                        <rect key="frame" x="4" y="108.33333333333333" width="312" height="15.666666666666671"/>
                         <color key="tintColor" systemColor="systemRedColor"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" systemColor="systemRedColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -38,10 +38,10 @@
                     <constraint firstAttribute="trailing" secondItem="82K-K2-jLo" secondAttribute="trailing" constant="4" id="0v1-pY-oWg"/>
                     <constraint firstItem="82K-K2-jLo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="2FI-iv-eac"/>
                     <constraint firstItem="6Kz-l8-ijJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="GOG-Ja-OY8"/>
-                    <constraint firstItem="82K-K2-jLo" firstAttribute="top" secondItem="6Kz-l8-ijJ" secondAttribute="bottom" constant="4" id="MEm-E2-ftN"/>
+                    <constraint firstItem="82K-K2-jLo" firstAttribute="top" secondItem="6Kz-l8-ijJ" secondAttribute="bottom" constant="1" id="MEm-E2-ftN"/>
                     <constraint firstAttribute="trailing" secondItem="6Kz-l8-ijJ" secondAttribute="trailing" id="hcK-s9-fBf"/>
-                    <constraint firstAttribute="bottom" secondItem="82K-K2-jLo" secondAttribute="bottom" constant="8" id="oGH-d7-wh5"/>
-                    <constraint firstItem="6Kz-l8-ijJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="pOU-VW-pMl"/>
+                    <constraint firstAttribute="bottom" secondItem="82K-K2-jLo" secondAttribute="bottom" constant="4" id="oGH-d7-wh5"/>
+                    <constraint firstItem="6Kz-l8-ijJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="pOU-VW-pMl"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
