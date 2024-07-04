@@ -110,11 +110,10 @@ extension LogInVC: UITableViewDelegate, UITableViewDataSource{
 
 //API Calls
 extension LogInVC{
-    private func checkAuthenToNavigate(){
-           
-           DispatchQueue.main.async {
-               (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen() //explaination needed
-           }
+    private func checkAuthenToNavigate(token tokenData: SuccessLoginResponse){
+        DispatchQueue.main.async {
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData) //explaination needed
+        }
        }
     
     private func callLogInAPI(){
@@ -134,8 +133,8 @@ extension LogInVC{
         
         AuthService.login(request: request) {result in
             switch result{
-            case .success(_):
-                self.checkAuthenToNavigate()
+            case .success(let tokenData):
+                self.checkAuthenToNavigate(token: tokenData)
                 
             case .failure(let error):
                 guard let error = error as? APIErrorTypes else {return}

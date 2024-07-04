@@ -36,7 +36,6 @@ class RoleService{
             
             //case: server error response
             else if let errorData = try? decoder.decode(ErrorResponse.self, from: data){
-                print("HERE2")
                 completion(.failure(APIErrorTypes.serverError(errorData.detail)))
                 return
             }

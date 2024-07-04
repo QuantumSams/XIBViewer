@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C0CC30D2C3657A400B79459 /* RefreshTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0CC30C2C3657A400B79459 /* RefreshTokenModel.swift */; };
 		7C4013B92C206BEA0019074D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4013B82C206BEA0019074D /* Constant.swift */; };
 		7C4013C82C208C180019074D /* UsersVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C4013C72C208C180019074D /* UsersVC.xib */; };
 		7C4013C92C208C180019074D /* UsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4013C62C208C180019074D /* UsersVC.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C0CC30C2C3657A400B79459 /* RefreshTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenModel.swift; sourceTree = "<group>"; };
 		7C4013B82C206BEA0019074D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		7C4013C62C208C180019074D /* UsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersVC.swift; sourceTree = "<group>"; };
 		7C4013C72C208C180019074D /* UsersVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UsersVC.xib; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				7CC8320F2C2B119300A97350 /* LoginModel.swift */,
 				7CE613102C2BC2AA001A3B96 /* ServerResponse.swift */,
 				7CE52AEB2C2E7909005D8A6B /* SignupModel.swift */,
+				7C0CC30C2C3657A400B79459 /* RefreshTokenModel.swift */,
 			);
 			name = Model;
 			path = XIBViewer/Model;
@@ -467,6 +470,7 @@
 				7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */,
 				7CC832022C2AEB2B00A97350 /* StringExtension.swift in Sources */,
 				7C455DF92C315B5B00F4CECB /* TextFormCell.swift in Sources */,
+				7C0CC30D2C3657A400B79459 /* RefreshTokenModel.swift in Sources */,
 				7CE52AEC2C2E7909005D8A6B /* SignupModel.swift in Sources */,
 				7CE52AE52C2D63EC005D8A6B /* RoleSingleton.swift in Sources */,
 				7C4013B92C206BEA0019074D /* Constant.swift in Sources */,
