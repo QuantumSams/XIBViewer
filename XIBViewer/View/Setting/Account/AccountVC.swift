@@ -14,10 +14,9 @@ final class AccountVC: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var emailField: UITextField!
     @IBOutlet private weak var editButton: UIButton!
-    @IBOutlet private weak var lastNameField: UITextField!
-    @IBOutlet private weak var firstNameField: UITextField!
-    
-    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet private weak var nameField: UITextField!
+    @IBOutlet private weak var roleField: UITextField!
+    @IBOutlet private weak var logoutButton: UIButton!
     //Lifecycle
     
     init(){
@@ -50,11 +49,6 @@ final class AccountVC: UIViewController {
     
     //Action - event processing
     @IBAction func editButtonTapped(_ sender: UIButton) {
-        changeButtonOnTap(editButton, firstNameField.isEnabled)
-        toggleAvailability(for: emailField, currentStatus: emailField.isEnabled)
-        toggleAvailability(for: firstNameField, currentStatus: firstNameField.isEnabled)
-        toggleAvailability(for: lastNameField, currentStatus: lastNameField.isEnabled)
-        toggleAvailability(for: logoutButton, currentStatus: logoutButton.isEnabled)
         
         
     }
@@ -82,19 +76,15 @@ extension AccountVC{
     
     private func setupViews(){
         setupTextField(emailField)
-        setupTextField(lastNameField)
-        setupTextField(firstNameField)
+        setupTextField(nameField)
+        setupTextField(roleField)
         
-        editButton.setupButton(
-            borderColor: UIColor.systemPurple,
-            cornerRadius: 4,
-            buttonHeight: 40,
-            maskToBound: false
-        )
-        changeButtonOnTap(editButton, true)
+        
         logoutButton.setupButton(
-            tintColor: UIColor.systemRed,
-            borderWidth: 0
+            cornerRadius: Constant.ButtonConstant.cornerRadius,
+            borderWidth: 0,
+            buttonHeight: Constant.ButtonConstant.heightAnchor,
+            maskToBound: true
         )
         
         logoutButton.configurationUpdateHandler = { [unowned self] button in
@@ -106,58 +96,23 @@ extension AccountVC{
     }
     
     private func setupTextField(_ textField: UITextField){
-        textField.layer.masksToBounds = true
-        textField.borderStyle = .roundedRect
         textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
+        textField.layer.borderColor = Constant.TextBoxConstant.borderColor.cgColor
         textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
-        textField.isEnabled = false
+        textField.backgroundColor = Constant.TextBoxConstant.backgroundColor
+        textField.leftViewMode = .always
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.size.height))
         NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
+        textField.isEnabled = false
     }
-    private func toggleAvailability(for control: UIControl, currentStatus: Bool){
-        control.isEnabled = !currentStatus
-    }
-    private func setupButton(_ buttonToChange: UIButton, defaultBorderColor: UIColor? = nil, defaultTintColor: UIColor? = nil){
-        
-        if let defaultBorderColor = defaultBorderColor{
-            buttonToChange.layer.borderColor = defaultBorderColor.cgColor
-        }
-        
-        if let defaultTintColor = defaultTintColor{
-            buttonToChange.tintColor = defaultTintColor
-        }
-        
-        buttonToChange.layer.cornerRadius = Constant.ButtonConstant.cornerRadius
-        
-    }
-    
-    private func changeButtonOnTap(_ buttonToChange:UIButton, _ currentTextFieldEnableStatus:Bool){
-        //border button
-        //state: not editable -> editable
-        if(currentTextFieldEnableStatus == false){
-           
-            buttonToChange.layer.borderWidth = Constant.ButtonConstant.borderWidth
-            buttonToChange.setTitle("Finish editing", for: .normal) //need explaination
-            buttonToChange.tintColor = .clear
-            buttonToChange.setTitleColor(.tintColor, for: .normal)
-        }
-        
-        //filled button
-        //status: editable->not editable
-        else{
-            buttonToChange.layer.borderWidth = 0
-            buttonToChange.setTitle("Edit", for: .normal) //need explaination
-            buttonToChange.tintColor = .tintColor
-            buttonToChange.setTitleColor(.white, for: .normal)
-        }
-    }
-    
+   
+   
     private func loadData(with adminUser: UserModel){
         
         DispatchQueue.main.async {
-            let seperatedName = adminUser.name.getFirstAndLastName()
             self.emailField.text = adminUser.email
-            self.firstNameField.text = seperatedName[0]
-            self.lastNameField.text = seperatedName[1]
+            self.nameField.text = adminUser.name
+            self.roleField.text = adminUser.role.name.capitalized
         }
     }
     
