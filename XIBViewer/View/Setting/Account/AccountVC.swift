@@ -49,7 +49,9 @@ final class AccountVC: UIViewController {
     
     //Action - event processing
     @IBAction func editButtonTapped(_ sender: UIButton) {
-        
+        navigateToCustomController(
+            to:  UINavigationController(rootViewController: EditVC())
+        )
         
     }
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
@@ -123,5 +125,11 @@ extension AccountVC{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+}
+
+extension AccountVC{
+    private func navigateToCustomController(to vc: UIViewController){
+        self.present(vc, animated: true)
     }
 }
