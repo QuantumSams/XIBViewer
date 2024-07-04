@@ -9,7 +9,7 @@ import UIKit
 
 class UsersVC: UIViewController {
     
-    private let userList: [UserModel] = dummyData
+    private let userList: [UserModel] = []
 
     @IBOutlet private weak var userTableView: UITableView!
     override func viewDidLoad() {

@@ -3,10 +3,8 @@ import UIKit
 
 final class SettingTabBarController: UITabBarController {
     
-    var adminUser:UserModel
     
-    init(adminUser: UserModel) {
-        self.adminUser = adminUser
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -37,7 +35,7 @@ extension SettingTabBarController: UITabBarControllerDelegate{
     private func setupNav(){
         initialSetup()
         
-        let firstTab = modifyVC(viewController: AccountVC(user: adminUser), title: "Account", tag: 0)
+        let firstTab = modifyVC(viewController: AccountVC(), title: "Account", tag: 0)
         let secondTab = modifyVC(viewController: UsersVC(), title: "Users", tag: 1)
         
         setViewControllers([firstTab, secondTab], animated: true)

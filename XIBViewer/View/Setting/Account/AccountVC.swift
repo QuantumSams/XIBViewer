@@ -3,7 +3,7 @@ import UIKit
 final class AccountVC: UIViewController {
 
     //Property
-    private var adminUser: UserModel
+    private var adminUser: UserModel? = nil
     
     //Outlet
     @IBOutlet private weak var scrollView: UIScrollView!
@@ -15,8 +15,7 @@ final class AccountVC: UIViewController {
     @IBOutlet weak var logoutButton: UIButton!
     //Lifecycle
     
-    init(user:UserModel){
-        adminUser = user
+    init(){
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,9 +28,19 @@ final class AccountVC: UIViewController {
         setupViews()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loadData(with: adminUser)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        AccountService.getAccount { [weak self] result in
+            switch result{
+            case .success(let adminUser):
+                self?.adminUser = adminUser
+                self?.loadData(with: adminUser)
+            case .failure(_):
+                AlertManager.showDeviceError(on: self!, message: "Something went wrong, please login again")
+                self?.logoutAccount()
+            }
+        }
     }
     
     //Action - event processing
@@ -130,11 +139,13 @@ extension AccountVC{
     }
     
     private func loadData(with adminUser: UserModel){
-        let seperatedName = adminUser.name.getFirstAndLastName()
         
-        emailField.text = adminUser.email
-        firstNameField.text = seperatedName[0]
-        lastNameField.text = seperatedName[1]
+        DispatchQueue.main.async {
+            let seperatedName = adminUser.name.getFirstAndLastName()
+            self.emailField.text = adminUser.email
+            self.firstNameField.text = seperatedName[0]
+            self.lastNameField.text = seperatedName[1]
+        }
     }
     
     private func logoutAccount(){
