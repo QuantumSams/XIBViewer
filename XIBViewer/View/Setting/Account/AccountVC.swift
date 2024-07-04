@@ -4,6 +4,11 @@ final class AccountVC: UIViewController {
 
     //Property
     private var adminUser: UserModel? = nil
+    private var isLoading: Bool = false {
+        didSet{
+            editButton.setNeedsUpdateConfiguration()
+        }
+    }
     
     //Outlet
     @IBOutlet private weak var scrollView: UIScrollView!
@@ -57,10 +62,11 @@ final class AccountVC: UIViewController {
         AlertManager.logOutConfirmation(on: self) { logoutConfirm in
             if(logoutConfirm == true){
                 self.logoutButton.configuration?.showsActivityIndicator = true
+                self.logoutButton.isEnabled = false
+                self.editButton.isEnabled = false
                 self.logoutAccount()
             }
         }
-        
     }
 }
 
@@ -90,6 +96,13 @@ extension AccountVC{
             tintColor: UIColor.systemRed,
             borderWidth: 0
         )
+        
+        logoutButton.configurationUpdateHandler = { [unowned self] button in
+            var config = button.configuration
+            config?.showsActivityIndicator = self.isLoading
+            button.isEnabled = !self.isLoading
+            button.configuration = config
+        }
     }
     
     private func setupTextField(_ textField: UITextField){
@@ -125,7 +138,7 @@ extension AccountVC{
             buttonToChange.layer.borderWidth = Constant.ButtonConstant.borderWidth
             buttonToChange.setTitle("Finish editing", for: .normal) //need explaination
             buttonToChange.tintColor = .clear
-            buttonToChange.setTitleColor(.systemPurple, for: .normal)
+            buttonToChange.setTitleColor(.tintColor, for: .normal)
         }
         
         //filled button
@@ -133,7 +146,7 @@ extension AccountVC{
         else{
             buttonToChange.layer.borderWidth = 0
             buttonToChange.setTitle("Edit", for: .normal) //need explaination
-            buttonToChange.tintColor = .systemPurple
+            buttonToChange.tintColor = .tintColor
             buttonToChange.setTitleColor(.white, for: .normal)
         }
     }
