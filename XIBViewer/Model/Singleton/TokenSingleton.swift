@@ -16,13 +16,24 @@ class TokenSingleton{
 
 
 extension TokenSingleton{
-    func setInitialToken(access: String, refresh: String){
+    func setInitialToken(access: String, refresh: String? = nil){
         storage.set(access, forKey: "AccessTK")
-        storage.set(refresh, forKey: "RefreshTK")
+        
+        if let refresh = refresh{
+            storage.set(refresh, forKey: "RefreshTK")
+            
+        }
     }
     
     func getAccessToken() -> String{
-        return storage.string(forKey: "AccessTK") ?? ""
+        
+
+        
+        return storage.string(forKey: "AccessTK") ?? "."
+    }
+    
+    func getRequestToken() -> String{
+        return storage.string(forKey: "RefreshTK") ?? "."
     }
     
     func removeToken(){

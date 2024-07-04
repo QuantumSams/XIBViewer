@@ -127,10 +127,10 @@ extension SignUpVC{
         
         AuthService.login(request: request) { result in
             switch result{
-            case .success(_):
-                DispatchQueue.main.async {
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen() //explaination needed
-                }
+            case .success(let tokenData):
+                
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData) //explaination needed
+                
                 
             case .failure(let error):
                 guard let error = error as? APIErrorTypes else {return}
