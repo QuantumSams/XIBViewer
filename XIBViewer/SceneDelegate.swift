@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
         getRoles()
-//        checkAuthen(transition: false)
     }
 }
 
@@ -40,19 +39,27 @@ extension SceneDelegate{
             return
         }
     }
-    
+
     public func checkAuthen(transition: Bool = true){
-        AccountService.getAccount(completion: {[weak self] result in
+        AuthService.refreshToken { [weak self] result in
             DispatchQueue.main.async{
                 switch result{
-                case .success(let adminUser):
-                    self?.swapRootVC(SettingTabBarController(adminUser: adminUser), transition: transition)
+                case .success(let accessToken):
+                    TokenSingleton.getToken.setInitialToken(access: accessToken)
+                    self?.swapRootVC(SettingTabBarController(), transition: transition)
                 case .failure(_):
                     self?.swapRootVC(SignUpVC(), transition: transition)
-                    }
                 }
             }
-        )
+        }
+    }
+    
+    public func afterLogin(transition: Bool = true, token tokenData: SuccessLoginResponse){
+        
+        DispatchQueue.main.async {
+            TokenSingleton.getToken.setInitialToken(access: tokenData.access, refresh: tokenData.refresh)
+            self.swapRootVC(SettingTabBarController(), transition: transition)
+        }
     }
     
     func swapRootVC(_ swapToVC: UIViewController, transition: Bool){

@@ -86,7 +86,6 @@ extension TextFormCell{
         
         
         if let checkValid = validationMethod(textField.text ?? " "){
-            print(checkValid)
             validationLabel.text = checkValid
             return
         }

@@ -1,8 +1,8 @@
 import Foundation
 
-//Sending request
+//Login request
 class AuthService{
-    static func login(request: URLRequest, completion: @escaping (Result<String, Error>) -> Void){
+    static func login(request: URLRequest, completion: @escaping (Result<SuccessLoginResponse, Error>) -> Void){
         URLSession.shared.dataTask(with: request) { data, _, error in
             
             //MARK: LOCAL ERROR OCCURRED
@@ -24,10 +24,7 @@ class AuthService{
             
             //case: received data - 2xx response
             if let successData = try? decoder.decode(SuccessLoginResponse.self, from: data){
-                
-                let token = TokenSingleton.getToken
-                completion(.success(successData.access))
-                token.setInitialToken(access: successData.access, refresh: successData.refresh)
+                completion(.success(successData))
                 return
             }
             
@@ -39,7 +36,6 @@ class AuthService{
             
             //case: local server response model does not match that of server
             else {
-                print("log in error code:\n")
                 completion(.failure(APIErrorTypes.decodingError()))
                 return
             }
@@ -48,6 +44,7 @@ class AuthService{
     }
 }
 
+//Sign up request
 extension AuthService{
     static func signUp(request: URLRequest, completion: @escaping (Result<String, Error>) -> Void){
         
@@ -75,10 +72,6 @@ extension AuthService{
                 completion(.failure(APIErrorTypes.unknownError("No response from server")))
                 return
             }
-            
-            print(responseCode)
-            
-            
             //case: received data - 2xx response
             if(responseCode.statusCode >= 200 && responseCode.statusCode <= 299){
                 completion(.success("Sucess"))
@@ -93,8 +86,50 @@ extension AuthService{
             }
             
             else {
-                print(responseCode)
                 completion(.failure(APIErrorTypes.decodingError()))
+                return
+            }
+        }.resume()
+    }
+}
+
+//Refresh token request
+
+extension AuthService{
+    static func refreshToken(completion: @escaping (Result<String, Error>) -> Void){
+        
+        let model = RefreshTokenModel(refresh: TokenSingleton.getToken.getRequestToken())
+        guard let request = Endpoints.refreshToken(model: model).request else {return}
+        
+
+        
+        URLSession.shared.dataTask(with: request) { data, responseCode, error in
+            
+            guard let data = data else{
+                if let error = error{
+                    completion(.failure(APIErrorTypes.serverError(error.localizedDescription)))
+                }
+                else{
+                    completion(.failure(APIErrorTypes.unknownError("UNKNOWN ERROR: no response from server")))
+                }
+                return
+            }
+            
+            let code = responseCode as! HTTPURLResponse
+            let decoder = JSONDecoder()
+            
+            if let successData = try? decoder.decode(RefreshTokenResponse.self, from: data){
+                completion(.success(successData.access))
+                return
+            }
+            
+            else if let errorData = try? decoder.decode(ErrorResponse.self, from: data){
+                completion(.failure(APIErrorTypes.serverError(errorData.detail)))
+                return
+            }
+            
+            else{
+                completion(.failure(APIErrorTypes.deviceError("Cannot parse neither to data type nor error type\n Error code: \(code)")))
                 return
             }
         }.resume()
