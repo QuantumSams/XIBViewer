@@ -50,7 +50,7 @@ final class AccountVC: UIViewController {
     //Action - event processing
     @IBAction func editButtonTapped(_ sender: UIButton) {
         navigateToCustomController(
-            to:  UINavigationController(rootViewController: EditVC())
+            to:  EditVC()
         )
         
     }
@@ -130,6 +130,8 @@ extension AccountVC{
 
 extension AccountVC{
     private func navigateToCustomController(to vc: UIViewController){
-        self.present(vc, animated: true)
+        vc.modalPresentationStyle = .popover
+        self.present(UINavigationController(rootViewController: vc), animated: true)
+            
     }
 }

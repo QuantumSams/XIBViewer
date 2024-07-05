@@ -19,8 +19,8 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-iw-ffd">
-                    <rect key="frame" x="20" y="59" width="353" height="759"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-iw-ffd">
+                    <rect key="frame" x="20" y="95" width="353" height="723"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
@@ -29,7 +29,7 @@
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5Ez-iw-ffd" secondAttribute="trailing" constant="20" id="LwA-RH-pGn"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="5Ez-iw-ffd" secondAttribute="bottom" id="Qtb-Es-osd"/>
-                <constraint firstItem="5Ez-iw-ffd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="dez-Ml-ZZP"/>
+                <constraint firstItem="5Ez-iw-ffd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="36" id="dez-Ml-ZZP"/>
                 <constraint firstItem="5Ez-iw-ffd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="eml-c6-7Tf"/>
             </constraints>
             <point key="canvasLocation" x="65" y="20"/>

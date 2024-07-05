@@ -26,24 +26,27 @@ class EditVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-    }
-}
-
-extension EditVC{
-    private func setup(){
-        setupTable(for: editTableForm)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: #selector(cancelButtonSelected))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: nil, action: #selector(saveButtonPressed))
+        
     }
-    
     @objc private func cancelButtonSelected(){
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc private func saveButtonPressed(){
-        print("Save selected")
+        self.dismiss(animated: true, completion: nil)
         
+    }
+    
+   
+}
+
+extension EditVC{
+    private func setup(){
+        setupTable(for: editTableForm)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonSelected))
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed))
     }
     
     private func setupTable(for table:UITableView){
