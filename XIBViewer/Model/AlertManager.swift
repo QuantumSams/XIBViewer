@@ -77,4 +77,13 @@ extension AlertManager{
 }
 
 
+//Form not complete response
+extension AlertManager{
+    public static func FormNotCompleted(on onVC:UIViewController, message: String = "Please fill all the requried fields"){
+        self.showAlert(on: onVC, title: "Form not complete", message: message)
+    }
+    
+}
+
+
 

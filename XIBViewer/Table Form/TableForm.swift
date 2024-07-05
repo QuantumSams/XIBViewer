@@ -34,7 +34,7 @@ enum TableForm{
                                                       fieldPlaceholder: "Name",
                                                       validationMethod: Validator.validateName),
                 
-                "Emai":             TextFormCellModel(fieldType: .email,
+                "Email":             TextFormCellModel(fieldType: .email,
                                                       fieldPlaceholder: "Email",
                                                       validationMethod: Validator.validateEmail),
                 

@@ -4,6 +4,7 @@ enum HTTP{
     enum Methods: String{
         case get = "GET"
         case post = "POST"
+        case put = "PUT"
     }
     
     enum Headers{

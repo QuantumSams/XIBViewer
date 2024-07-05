@@ -22,7 +22,7 @@ extension RoleSingleton{
     func getName(from id: Int) -> String?{
         return roleList[id]
     }
-    
+
     func getID(from name: String) -> Int?{
         if(roleList.isEmpty){
             return nil

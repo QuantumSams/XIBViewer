@@ -13,6 +13,10 @@ struct SignupErrorResponse: Decodable{
     let email: [String: String]?
 }
 
+struct EditUserErrorResponse: Decodable{
+    let email: [String]
+}
+
 struct RefreshTokenResponse: Decodable{
     let access: String
 }

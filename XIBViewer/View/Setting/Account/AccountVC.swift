@@ -33,7 +33,10 @@ final class AccountVC: UIViewController {
     
     //Action - event processing
     @IBAction func editButtonTapped(_ sender: UIButton) {
-        navigateToCustomController(to: EditVC(existingData: adminUser))
+        let vc = EditVC(existingData: adminUser)
+        vc.delegate = self
+        
+        navigateToCustomController(to: vc)
         
     }
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
@@ -112,7 +115,6 @@ extension AccountVC{
 
 extension AccountVC{
     private func navigateToCustomController(to vc: UIViewController){
-        vc.modalPresentationStyle = .popover
         self.present(UINavigationController(rootViewController: vc), animated: true)
             
     }
@@ -133,5 +135,11 @@ extension AccountVC{
                 self?.logoutAccount()
             }
         }
+    }
+}
+
+extension AccountVC: EditRefreshDataDelegate{
+    func doneEditing(send newUserData: UserModel) {
+        parseDataToFields(with: newUserData)
     }
 }

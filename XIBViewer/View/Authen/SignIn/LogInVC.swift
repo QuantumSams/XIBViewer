@@ -1,6 +1,6 @@
 import UIKit
 
-final class LogInVC: UIViewController{
+final class LogInVC: UIViewController, UITextFieldDelegate{
     //property
     private let tableForm = TableForm.login.getForm
     private let tableOrder = TableForm.login.order
@@ -20,7 +20,7 @@ final class LogInVC: UIViewController{
     }
     //Action - event processing
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        yieldAllField()
+        TableFormCellModel.forceTableFormFieldToResign(count: tableForm.count, table: loginTableForm)
         callLogInAPI()
     }
 }
@@ -64,19 +64,6 @@ extension LogInVC{
         loginTableForm.delegate = self
         loginTableForm.dataSource = self
         loginTableForm.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
-    }
-}
-
-//TableForm - Cell communication
-extension LogInVC: UITextFieldDelegate{
-    func yieldAllField(){
-        for row in 0..<tableForm.count{
-            let indexPath = IndexPath(row: row, section: 0)
-            guard let cell = loginTableForm.cellForRow(at: indexPath) as? TextFormCell else{
-                return
-            }
-            cell.textField.resignFirstResponder()
-        }
     }
 }
 

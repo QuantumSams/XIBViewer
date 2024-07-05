@@ -22,7 +22,7 @@ final class SignUpVC: UIViewController, TableFormPasswordDelegate, TableFromPopU
     }
     
     @IBAction func registerTapped(_ sender: UIButton) {
-        yieldAllField()
+        TableFormCellModel.forceTableFormFieldToResign(count: tableFormOrder.count, table: tableForm)
         callSignUpAPI()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
@@ -93,23 +93,23 @@ extension SignUpVC{
             return
         }
         
-        AuthService.signUp(request: request) { result in
+        AuthService.signUp(request: request) {[weak self] result in
             switch result {
             case .success(_):
-                self.loginAftersignUp(email: signUpData.email, password: signUpData.password)
+                self?.loginAftersignUp(email: signUpData.email, password: signUpData.password)
             case .failure(let errorData):
                 DispatchQueue.main.async {
-                    self.isLoading = false
+                    self?.isLoading = false
                 guard let errorData = errorData as? APIErrorTypes else {return}
                 switch errorData{
                 case .serverError(let string):
-                    AlertManager.showServerErrorResponse(on: self, message: string)
+                    AlertManager.showServerErrorResponse(on: self!, message: string)
                 case .decodingError(let string):
-                    AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
+                    AlertManager.showDevelopmentError(on: self!, message: string, errorType: .decodingError())
                 case  .unknownError(let string):
-                    AlertManager.showDevelopmentError(on: self, message: string, errorType: .unknownError())
+                    AlertManager.showDevelopmentError(on: self!, message: string, errorType: .unknownError())
                 case .deviceError(let string):
-                    AlertManager.showDeviceError(on: self, message: string)
+                    AlertManager.showDeviceError(on: self!, message: string)
                 }
             }
         }
@@ -189,15 +189,7 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
 
 //Manage communication with table form cell
 extension SignUpVC{
-    func yieldAllField(){
-        for row in 0..<tableFormFieldList.count{
-            let indexPath = IndexPath(row: row, section: 0)
-            guard let cell = tableForm.cellForRow(at: indexPath) as? TextFormCell else{
-                return
-            }
-            cell.textField.resignFirstResponder()
-        }
-    }
+   
     
     
     func TableFormPasswordCollector(from passwordField: TextFormCellModel? = nil) -> String?{

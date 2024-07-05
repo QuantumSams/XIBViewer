@@ -8,6 +8,7 @@ enum Endpoints{
     case getAccountData (path: String = "/api/users/me/")
     case getRole        (path: String = "/api/roles/")
     case refreshToken   (path: String = "/api/auth/refresh-token/", model: RefreshTokenModel)
+    case editUser       (path: String = "/api/users/", model: PUTMethodUserModel, id: Int)
     
     var request:URLRequest? {
         
@@ -39,6 +40,7 @@ enum Endpoints{
         case .getAccountData(path: let path):   return path
         case .getRole(path: let path):          return path
         case .refreshToken(path: let path, _):  return path
+        case .editUser(path: let path, model: _, id: let id): return path + String(id) + "/"
         }
     }
     
@@ -60,6 +62,9 @@ enum Endpoints{
             let json = try? JSONEncoder().encode(model)
             return json
             
+        case .editUser(path: _, model: let model, id: _):
+            let json = try? JSONEncoder().encode(model)
+            return json
         }
     }
     var httpMethod: String{
@@ -68,10 +73,12 @@ enum Endpoints{
         case .signup: return HTTP.Methods.post.rawValue
         case .getAccountData: return HTTP.Methods.get.rawValue
             
-        case .getRole(_):
+        case .getRole:
             return HTTP.Methods.get.rawValue
         case .refreshToken:
             return HTTP.Methods.post.rawValue
+        case .editUser:
+            return HTTP.Methods.put.rawValue
         }
     }
 }

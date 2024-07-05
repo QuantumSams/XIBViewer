@@ -8,10 +8,10 @@
 import UIKit
 
 class EditVC: UIViewController {
-    
     private var existingData: UserModel?
     private let editForm = TableForm.edit.getForm
     private let editOrder = TableForm.edit.order
+    var delegate: EditRefreshDataDelegate?
     
     init(existingData: UserModel?) {
         self.existingData = existingData
@@ -31,15 +31,18 @@ class EditVC: UIViewController {
     }
     @objc private func cancelButtonSelected(){
         self.dismiss(animated: true, completion: nil)
+        
     }
     
     @objc private func saveButtonPressed(){
-        self.dismiss(animated: true, completion: nil)
+        TableFormCellModel.forceTableFormFieldToResign(count: editOrder.count, table: editTableForm)
+        editUserRequest()
     }
 }
 
 extension EditVC{
     private func setup(){
+        
         setupTable(for: editTableForm)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonSelected))
         
@@ -101,7 +104,6 @@ extension EditVC: UITableViewDelegate, UITableViewDataSource{
         
         default:
             return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
         }
     }
 }
@@ -114,5 +116,79 @@ extension EditVC: TableFromPopUpMenuDelegate{
             actions.append(UIAction(title: choice, handler: actionWhenChoiceChanged))
         }
         return UIMenu(children: actions)
+    }
+}
+
+extension EditVC{
+    
+    private func getFieldData() -> PUTMethodUserModel?{
+        let id: Int = editForm["Role"]?.value as! Int
+        
+        
+        guard let roleName: String = RoleSingleton.accessSingleton.getName(from:id) else {
+            return nil
+        }
+        
+        let convertRoleModel: PUTMethodRoleModel? = PUTMethodRoleModel(name: roleName)
+        
+        
+        guard let email = editForm["Email"]?.value,
+              let name =  editForm["Name"]?.value,
+              let role = convertRoleModel else{
+           return nil
+        }
+        
+        print()
+        
+        return PUTMethodUserModel(name: name as! String,
+                                  email: email as! String,
+                                  role: role)
+    }
+    
+    private func editUserRequest(){
+        guard delegate != nil else{
+            fatalError("EditRefreshDataDelegate haven't been assigned")
+        }
+        
+        guard let editData = getFieldData() else{
+            AlertManager.FormNotCompleted(on: self)
+            return
+        }
+        
+        guard let userID = existingData?.id else{
+            fatalError("user id is nil")
+        }
+        
+        guard let request = Endpoints.editUser(model: editData, id: userID).request else{
+            return
+        }
+        self.startIndicatingActivity()
+        AccountService.editAccount(request: request) {[weak self] result in
+            switch result{
+            case .success(let newUserData):
+                self!.delegate!.doneEditing(send: newUserData)
+                DispatchQueue.main.async {
+                    self?.dismiss(animated: true, completion: nil)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.indicator.stopAnimating()
+                    guard let error = error as? APIErrorTypes else {return}
+                    switch error{
+                    case .deviceError(let string):
+                        AlertManager.showDeviceError(on: self!, message: string)
+                    case .serverError(let string):
+                        AlertManager.showServerErrorResponse(on: self!, message: string)
+                    case .decodingError(let string):
+                        AlertManager.showDevelopmentError(on: self!, message: string, errorType: .decodingError())
+                    case .unknownError(let string):
+                        AlertManager.showDevelopmentError(on: self!, message: string, errorType: .unknownError())
+                    }
+                }
+                
+                
+            }
+        }
+
     }
 }
