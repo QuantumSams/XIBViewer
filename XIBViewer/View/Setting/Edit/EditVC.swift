@@ -9,25 +9,24 @@ import UIKit
 
 class EditVC: UIViewController {
     
-//    var existingData: UserModel
+    var existingData: UserModel?
     let editForm = TableForm.edit.getForm
     
-//    init(existingData: UserModel) {
-//        self.existingData = existingData
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    init(existingData: UserModel?) {
+        self.existingData = existingData
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     @IBOutlet private weak var editTableForm: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
-        
+        setInitalValueForEditField(from: existingData)
     }
     @objc private func cancelButtonSelected(){
         self.dismiss(animated: true, completion: nil)
@@ -35,10 +34,7 @@ class EditVC: UIViewController {
     
     @objc private func saveButtonPressed(){
         self.dismiss(animated: true, completion: nil)
-        
     }
-    
-   
 }
 
 extension EditVC{
@@ -61,6 +57,16 @@ extension EditVC{
 
 
 extension EditVC: UITableViewDelegate, UITableViewDataSource{
+    func setInitalValueForEditField(from data: UserModel?){
+        guard let data = data else{
+            return
+        }
+        
+        editForm[0].value = data.email
+        editForm[1].value = data.name
+        editForm[2].value = data.role.id
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return editForm.count
     }
@@ -73,7 +79,6 @@ extension EditVC: UITableViewDelegate, UITableViewDataSource{
             else {
                 fatalError("Cannot create TextFormCell in EditVC")
             }
-            
             cell.setupCell(form: editForm[indexPath.row] as! TextFormCellModel)
             return cell
             

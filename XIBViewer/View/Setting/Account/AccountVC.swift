@@ -33,9 +33,7 @@ final class AccountVC: UIViewController {
     
     //Action - event processing
     @IBAction func editButtonTapped(_ sender: UIButton) {
-        navigateToCustomController(
-            to:  EditVC()
-        )
+        navigateToCustomController(to: EditVC(existingData: adminUser))
         
     }
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
@@ -93,7 +91,7 @@ extension AccountVC{
     }
    
    
-    private func loadData(with adminUser: UserModel){
+    private func parseDataToFields(with adminUser: UserModel){
         
         DispatchQueue.main.async {
             self.emailField.text = adminUser.email
@@ -128,7 +126,7 @@ extension AccountVC{
             switch result{
             case .success(let adminUser):
                 self?.adminUser = adminUser
-                self?.loadData(with: adminUser)
+                self?.parseDataToFields(with: adminUser)
                 self?.stopIndicatingActivity()
             case .failure(_):
                 AlertManager.showDeviceError(on: self!, message: "Something went wrong, please login again")

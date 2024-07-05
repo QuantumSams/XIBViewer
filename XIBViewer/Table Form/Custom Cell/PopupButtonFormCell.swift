@@ -75,6 +75,21 @@ extension PopupButtonFormCell{
     }
     
     private func saveInitialValue(){
+        if let initialValue = formType?.value {
+            
+            guard let roleName = RoleSingleton.accessSingleton.getName(from: initialValue as! Int) else{
+                return
+            }
+
+            
+            let action: UIAction? = popUpButton.menu?.children.first(where: { element in
+                element.title == roleName
+            }) as? UIAction
+            
+            action?.state = .on
+            return
+        }
+        
         guard let title = popUpButton.menu?.selectedElements.first?.title else{
             return
         }

@@ -49,6 +49,10 @@ extension TextFormCell: UITextFieldDelegate{
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.size.height))
         NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
         self.textField.placeholder = formType?.fieldPlaceholder
+        
+        if let initialValue = formType?.value{
+            textField.text = initialValue as? String
+        }
     }
     
     private func setupKeyboardType(_ textField: UITextField){

@@ -15,10 +15,13 @@ extension RoleSingleton{
         }
     }
     
-    func getRole() -> [Int:String]{
+    func getAllRole() -> [Int:String]{
         self.roleList
     }
     
+    func getName(from id: Int) -> String?{
+        return roleList[id]
+    }
     
     func getID(from name: String) -> Int?{
         if(roleList.isEmpty){
@@ -41,7 +44,7 @@ extension RoleSingleton{
         return out
     }
     
-    func getAllValue() ->[String]{
+    func getAllRoleName() ->[String]{
         let array = Array(roleList.values.sorted())
         return array
     }

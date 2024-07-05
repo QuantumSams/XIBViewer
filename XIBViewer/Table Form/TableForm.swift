@@ -14,6 +14,8 @@ enum TableForm{
     case login
     case signup
     case edit
+    
+    
     var getForm: [TableFormCellModel] {
         switch self{
         case .signup:
@@ -37,7 +39,7 @@ enum TableForm{
                 
                 PopupButtonFormCellModel(fieldType: .roleSelection,
                                         label: "Role",
-                                        selection: RoleSingleton.accessSingleton.getAllValue())]
+                                        selection: RoleSingleton.accessSingleton.getAllRoleName())]
         case .login:
             return [
                 TextFormCellModel(fieldType: .email, 
@@ -60,7 +62,7 @@ enum TableForm{
                 
                 PopupButtonFormCellModel(fieldType: .roleSelection,
                                         label: "Role",
-                                        selection: RoleSingleton.accessSingleton.getAllValue())
+                                        selection: RoleSingleton.accessSingleton.getAllRoleName())
             ]
         }
     }
