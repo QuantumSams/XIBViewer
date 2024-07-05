@@ -19,31 +19,15 @@ final class AccountVC: UIViewController {
     @IBOutlet private weak var logoutButton: UIButton!
     //Lifecycle
     
-    init(){
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        AccountService.getAccount { [weak self] result in
-            switch result{
-            case .success(let adminUser):
-                self?.adminUser = adminUser
-                self?.loadData(with: adminUser)
-            case .failure(_):
-                AlertManager.showDeviceError(on: self!, message: "Something went wrong, please login again")
-                self?.logoutAccount()
-            }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if(adminUser == nil){
+            adminUserAPIRequest()
         }
     }
     
@@ -133,5 +117,23 @@ extension AccountVC{
         vc.modalPresentationStyle = .popover
         self.present(UINavigationController(rootViewController: vc), animated: true)
             
+    }
+}
+
+
+extension AccountVC{
+    private func adminUserAPIRequest(){
+        self.startIndicatingActivity()
+        AccountService.getAccount { [weak self] result in
+            switch result{
+            case .success(let adminUser):
+                self?.adminUser = adminUser
+                self?.loadData(with: adminUser)
+                self?.stopIndicatingActivity()
+            case .failure(_):
+                AlertManager.showDeviceError(on: self!, message: "Something went wrong, please login again")
+                self?.logoutAccount()
+            }
+        }
     }
 }
