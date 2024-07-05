@@ -15,54 +15,64 @@ enum TableForm{
     case signup
     case edit
     
+    var order: [String]  {
+        switch self {
+        case .login:
+            return ["Email", "Password"]
+        case .signup:
+            return ["Name", "Email", "Password", "Confirm Password", "Role"]
+        case .edit:
+            return ["Name", "Email", "Role"]
+        }
+    }
     
-    var getForm: [TableFormCellModel] {
+    var getForm: [String:TableFormCellModel] {
         switch self{
         case .signup:
             return [
-                TextFormCellModel(fieldType: .name, 
-                                  fieldPlaceholder: "Name",
-                                  validationMethod: Validator.validateName),
+                "Name" :            TextFormCellModel(fieldType: .name,
+                                                      fieldPlaceholder: "Name",
+                                                      validationMethod: Validator.validateName),
                 
-                TextFormCellModel(fieldType: .email,
-                                  fieldPlaceholder: "Email",
-                                  validationMethod:
-                                    Validator.validateEmail),
+                "Emai":             TextFormCellModel(fieldType: .email,
+                                                      fieldPlaceholder: "Email",
+                                                      validationMethod: Validator.validateEmail),
                 
-                TextFormCellModel(fieldType: .password, 
-                                  fieldPlaceholder: "Password",
-                                  validationMethod: Validator.validatePassword),
+                "Password":         TextFormCellModel(fieldType: .password,
+                                                      fieldPlaceholder: "Password",
+                                                      validationMethod: Validator.validatePassword),
                 
-                TextFormCellModel(fieldType: .confirmPassword, 
-                                  fieldPlaceholder: "Confirm password",
-                                  validationMethod: nil),
+                "Confirm Password": TextFormCellModel(fieldType: .confirmPassword,
+                                                      fieldPlaceholder: "Confirm password",
+                                                      validationMethod: nil),
                 
-                PopupButtonFormCellModel(fieldType: .roleSelection,
-                                        label: "Role",
-                                        selection: RoleSingleton.accessSingleton.getAllRoleName())]
+                "Role":             PopupButtonFormCellModel(fieldType: .roleSelection,
+                                                             label: "Role",
+                                                             selection: RoleSingleton.accessSingleton.getAllRoleName())
+            ]
         case .login:
             return [
-                TextFormCellModel(fieldType: .email, 
-                                  fieldPlaceholder: "Email",
-                                  validationMethod: Validator.isDataEmpty),
+                "Email":            TextFormCellModel(fieldType: .email,
+                                                      fieldPlaceholder: "Email",
+                                                      validationMethod: Validator.isDataEmpty),
                 
-                TextFormCellModel(fieldType: .password,
-                                  fieldPlaceholder: "Password",
-                                  validationMethod: Validator.isDataEmpty)
+                "Password":         TextFormCellModel(fieldType: .password,
+                                                      fieldPlaceholder: "Password",
+                                                      validationMethod: Validator.isDataEmpty)
             ]
         case .edit:
             return [
-                TextFormCellModel(fieldType: .email,
-                                  fieldPlaceholder: "Email",
-                                  validationMethod: Validator.validateEmail),
+                "Email":            TextFormCellModel(fieldType: .email,
+                                                      fieldPlaceholder: "Email",
+                                                      validationMethod: Validator.validateEmail),
                 
-                TextFormCellModel(fieldType: .name,
-                                  fieldPlaceholder: "Name",
-                                  validationMethod: Validator.validateName),
+                "Name":             TextFormCellModel(fieldType: .name,
+                                                      fieldPlaceholder: "Name",
+                                                      validationMethod: Validator.validateName),
                 
-                PopupButtonFormCellModel(fieldType: .roleSelection,
-                                        label: "Role",
-                                        selection: RoleSingleton.accessSingleton.getAllRoleName())
+                "Role":             PopupButtonFormCellModel(fieldType: .roleSelection,
+                                                             label: "Role",
+                                                             selection: RoleSingleton.accessSingleton.getAllRoleName())
             ]
         }
     }

@@ -1,11 +1,10 @@
 import UIKit
 
-
-
 final class SignUpVC: UIViewController, TableFormPasswordDelegate, TableFromPopUpMenuDelegate{
     
-    var tableFormFieldList: [TableFormCellModel] = TableForm.signup.getForm
-    var isLoading: Bool = false {
+    private let tableFormFieldList: [String:TableFormCellModel] = TableForm.signup.getForm
+    private let tableFormOrder: [String] = TableForm.signup.order
+    private var isLoading: Bool = false {
         didSet{
             signUpButton.setNeedsUpdateConfiguration()
             changeToLoginButton.setNeedsUpdateConfiguration()
@@ -67,10 +66,10 @@ extension SignUpVC{
     }
     
     private func getDataFromTableFields() -> SignupModel?{
-        guard let name = tableFormFieldList[0].value,
-              let email = tableFormFieldList[1].value,
-              let password = tableFormFieldList[2].value,
-              let roleID = tableFormFieldList[4].value
+        guard let name = tableFormFieldList["Name"]?.value,
+              let email = tableFormFieldList["Email"]?.value,
+              let password = tableFormFieldList["Password"]?.value,
+              let roleID = tableFormFieldList["Role"]?.value
         else {
             return nil
         }
@@ -159,8 +158,11 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let field = tableFormFieldList[tableFormOrder[indexPath.row]] else{
+            fatalError("tableFormFieldList field of key tableFormOrder is nil")
+        }
         
-        switch tableFormFieldList[indexPath.row].fieldType{
+        switch field.fieldType{
             
         case .name, .email, .password, .confirmPassword, .custom:
             guard let cell = tableView.dequeueReusableCell(
@@ -171,7 +173,7 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
             }
             
             cell.passwordDelegate = self
-            cell.setupCell(form: tableFormFieldList[indexPath.row] as! TextFormCellModel)
+            cell.setupCell(form: field as! TextFormCellModel)
             return cell
         
         case .roleSelection:
@@ -179,7 +181,7 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
                 fatalError("Cannot dequeue cell in SignUpVC")
             }
             cell.delegate = self
-            cell.setupCell(formType: tableFormFieldList[indexPath.row] as! PopupButtonFormCellModel)
+            cell.setupCell(formType: field as! PopupButtonFormCellModel)
             return cell
         }
     }
@@ -199,7 +201,9 @@ extension SignUpVC{
     
     
     func TableFormPasswordCollector(from passwordField: TextFormCellModel? = nil) -> String?{
-        let passwordField = passwordField ?? tableFormFieldList[2]
+        guard let passwordField = passwordField ?? tableFormFieldList["Password"] else{
+            fatalError("passwordField not valid")
+        }
         return passwordField.value as? String
     }
     

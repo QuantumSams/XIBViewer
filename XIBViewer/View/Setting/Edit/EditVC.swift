@@ -9,8 +9,9 @@ import UIKit
 
 class EditVC: UIViewController {
     
-    var existingData: UserModel?
-    let editForm = TableForm.edit.getForm
+    private var existingData: UserModel?
+    private let editForm = TableForm.edit.getForm
+    private let editOrder = TableForm.edit.order
     
     init(existingData: UserModel?) {
         self.existingData = existingData
@@ -62,9 +63,9 @@ extension EditVC: UITableViewDelegate, UITableViewDataSource{
             return
         }
         
-        editForm[0].value = data.email
-        editForm[1].value = data.name
-        editForm[2].value = data.role.id
+        editForm["Email"]?.value = data.email
+        editForm["Name"]?.value = data.name
+        editForm["Role"]?.value = data.role.id
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -72,14 +73,19 @@ extension EditVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch editForm[indexPath.row].fieldType{
+        guard let field = editForm[editOrder[indexPath.row]]  else{
+            fatalError("Cannot get field from editForm with key in editOrder")
+        }
+        
+        
+        switch field.fieldType{
             
         case .name, .email:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFormCell.id, for: indexPath) as? TextFormCell
             else {
                 fatalError("Cannot create TextFormCell in EditVC")
             }
-            cell.setupCell(form: editForm[indexPath.row] as! TextFormCellModel)
+            cell.setupCell(form: field as! TextFormCellModel)
             return cell
             
         
@@ -89,7 +95,7 @@ extension EditVC: UITableViewDelegate, UITableViewDataSource{
                 fatalError("Cannot create PopupButtonFormCell in EditVC")
             }
             cell.delegate = self
-            cell.setupCell(formType: editForm[indexPath.row] as! PopupButtonFormCellModel)
+            cell.setupCell(formType: field as! PopupButtonFormCellModel)
             
             return cell
         

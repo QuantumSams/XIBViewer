@@ -3,7 +3,8 @@ import UIKit
 final class LogInVC: UIViewController{
     //property
     private let tableForm = TableForm.login.getForm
-    var isLoading: Bool = false {
+    private let tableOrder = TableForm.login.order
+    private var isLoading: Bool = false {
         didSet{
             loginButton.setNeedsUpdateConfiguration()
         }
@@ -82,8 +83,8 @@ extension LogInVC: UITextFieldDelegate{
 // Managing Table form
 extension LogInVC: UITableViewDelegate, UITableViewDataSource{
     func getDataFromTableFields() -> LoginModel?{
-        guard let email = tableForm[0].value,
-              let password = tableForm[1].value
+        guard let email = tableForm["Email"]?.value,
+              let password = tableForm["Password"]?.value
         else{
             return nil
         }
@@ -97,13 +98,18 @@ extension LogInVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        guard let field =  tableForm[tableOrder[indexPath.row]]  else{
+            fatalError("cannot get field in tableForm for key tableOrder")
+        }
+        
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: TextFormCell.id,
             for: indexPath) as? TextFormCell
         else{
             fatalError("Cannot dequeue cell in SignUpVC")
         }
-        cell.setupCell(form: tableForm[indexPath.row] as! TextFormCellModel)
+        
+        cell.setupCell(form: field as! TextFormCellModel)
         return cell
     }
 }
