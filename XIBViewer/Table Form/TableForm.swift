@@ -47,8 +47,7 @@ enum TableForm{
                                                       validationMethod: nil),
                 
                 "Role":             PopupButtonFormCellModel(fieldType: .roleSelection,
-                                                             label: "Role",
-                                                             selection: RoleSingleton.accessSingleton.getAllRoleName())
+                                                             label: "Role")
             ]
         case .login:
             return [
@@ -71,8 +70,7 @@ enum TableForm{
                                                       validationMethod: Validator.validateName),
                 
                 "Role":             PopupButtonFormCellModel(fieldType: .roleSelection,
-                                                             label: "Role",
-                                                             selection: RoleSingleton.accessSingleton.getAllRoleName())
+                                                             label: "Role")
             ]
         }
     }

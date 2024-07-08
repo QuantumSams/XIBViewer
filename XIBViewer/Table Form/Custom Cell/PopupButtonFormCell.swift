@@ -18,7 +18,6 @@ class PopupButtonFormCell: UITableViewCell {
     }
     
     private var formType: PopupButtonFormCellModel?
-    var delegate: TableFromPopUpMenuDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,9 +34,7 @@ class PopupButtonFormCell: UITableViewCell {
 extension PopupButtonFormCell{
     
     func setupCell(formType: PopupButtonFormCellModel){
-        guard delegate != nil else {
-            fatalError("Delegate is nil")
-        }
+       
         self.formType = formType
         label.text = formType.label
         setupPopUpButton(for: popUpButton)
@@ -51,9 +48,18 @@ extension PopupButtonFormCell{
 //                           borderWidth: Constant.PopUpButtonConstant.borderWidth,
 //                           maskToBound: false)
         
-        popUpButton.menu = delegate?.TableFormPopUpMenuConstructor(
-            from: formType!.choices,
-            actionWhenChoiceChanged: PopUpButtonSelected())
+        
+        
+        
+        var child: [UIAction] = []
+        for choice in RoleSingleton.accessSingleton.getRole(){
+            child.append(UIAction(title: choice.name, identifier: .init(rawValue: String(choice.id)), handler: PopUpButtonSelected()))
+        }
+        
+//        popUpButton.menu = RoleSingleton.accessSingleton.TableFormPopUpMenuConstructor(actionWhenChoiceChanged: PopUpButtonSelected())
+        popUpButton.menu = UIMenu(children: child)
+        
+        
         
         popUpButton.showsMenuAsPrimaryAction = true
         popUpButton.changesSelectionAsPrimaryAction = true
@@ -64,35 +70,32 @@ extension PopupButtonFormCell{
 
 extension PopupButtonFormCell{
     private func PopUpButtonSelected() -> (UIAction) -> Void{
+        print("HERE")
+        
         return{ (chosen: UIAction) in
-            
-            guard let roleID = RoleSingleton.accessSingleton.getID(from: chosen.title) else{
-                fatalError("Cannot convert from value to key using RoleSingleton")
+            guard let selectedRoleID = Int(chosen.identifier.rawValue) else{
+                fatalError("ID of selected role cannot be resolved")
             }
-            self.formType?.value = roleID
+            self.formType?.value = RoleModel(id: selectedRoleID, name: chosen.title)
         }
         
     }
     
     private func saveInitialValue(){
-        if let initialValue = formType?.value {
-            
-            guard let roleName = RoleSingleton.accessSingleton.getName(from: initialValue as! Int) else{
-                return
-            }
+        if let initialRoleID = formType?.value as? Int {
 
+            let actionIdentifier: UIAction.Identifier = .init(String(initialRoleID))
             
-            let action: UIAction? = popUpButton.menu?.children.first(where: { element in
-                element.title == roleName
-            }) as? UIAction
+            let actionList: [UIAction] = (popUpButton.menu?.children as! [UIAction])
             
+            let action = actionList.first { action in
+                action.identifier == actionIdentifier
+            }
             action?.state = .on
             return
         }
         
-        guard let title = popUpButton.menu?.selectedElements.first?.title else{
-            return
-        }
-        self.formType?.value = RoleSingleton.accessSingleton.getID(from: title)
+        let action: UIAction = popUpButton.menu?.selectedElements.first as! UIAction as UIAction
+        self.formType?.value = Int(action.identifier.rawValue)
     }
 }

@@ -3,5 +3,5 @@ import UIKit
 
 protocol TableFromPopUpMenuDelegate{
     
-    func TableFormPopUpMenuConstructor(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu
+    func TableFormPopUpMenuConstructor(from literalStringChoices: [RoleModel], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu
 }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "c6857639761edd77b7c02b639f3d94cff24efac4450ba8cf0c667fb6a899e8c7",
+  "originHash" : "b718d63c7017c0ee676c79a888874c81ee52758e579cb4f3c2abb4dd3cebf89e",
   "pins" : [
     {
       "identity" : "netfox",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage",
       "state" : {
-        "revision" : "b8523c1642f3c142b06dd98443ea7c48343a4dfd",
-        "version" : "5.19.3"
+        "revision" : "be0bcd7823ce56629948491f2eaeaa19979514f7",
+        "version" : "5.19.4"
       }
     }
   ],

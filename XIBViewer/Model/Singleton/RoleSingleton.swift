@@ -4,48 +4,24 @@ import UIKit
 class RoleSingleton{
     private init() {}
     static let accessSingleton = RoleSingleton()
-    private var roleList: [Int:String] = [:]
+    private var roleList: [RoleModel] = []
 }
 
 
 extension RoleSingleton{
     func setRole(newRole: [RoleModel]){
-        newRole.forEach { role in
-            roleList[role.id] = role.name
-        }
+        roleList = newRole
     }
     
-    func getAllRole() -> [Int:String]{
-        self.roleList
+    func getRole() -> [RoleModel]{
+        return roleList
     }
     
-    func getName(from id: Int) -> String?{
-        return roleList[id]
-    }
-
-    func getID(from name: String) -> Int?{
-        if(roleList.isEmpty){
-            return nil
+    func TableFormPopUpMenuConstructor(actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu{
+        var actions: [UIAction] = []
+        for choice in self.roleList {
+            actions.append(UIAction(title: choice.name, identifier: .init(String(choice.id)), handler: actionWhenChoiceChanged))
         }
-        if let key = roleList.first(where: { $0.value == name })?.key{
-            return key
-        }
-        return nil
-    }
-    
-    func convertToUIAction(handler: @escaping (UIAction) -> Void) -> [UIAction]{
-       
-        var out: [UIAction] = []
-        
-        for(_, value) in roleList{
-            out.append(UIAction(title: value ,handler: handler))
-            
-        }
-        return out
-    }
-    
-    func getAllRoleName() ->[String]{
-        let array = Array(roleList.values.sorted())
-        return array
+        return UIMenu(children: actions)
     }
 }

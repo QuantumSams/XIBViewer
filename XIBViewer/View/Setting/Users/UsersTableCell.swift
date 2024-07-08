@@ -71,24 +71,11 @@ extension UsersTableCell{
         setupVisualPopupButton(popUpButton: roleSelectButton)
         setupMoreInfoButton(moreInfoButton: moreInfoButton)
     }
-    
-//    private func convertRoleModel(from: [RoleModel]) -> [UIAction]{
-//        let changeNameClosure = {(incomingAction: UIAction) in
-//            //TODO: update to DB about role changes
-//        }
-//        var out: [UIAction] = []
-//        
-//        from.forEach { role in
-//            out.append(UIAction(title: role.name, handler: changeNameClosure))
-//        }
-//        return out
-//    }
-    
     private func setupLogicPopupButton(popUpButton: UIButton){
     
-        popUpButton.menu = UIMenu(
-            children: RoleSingleton.accessSingleton.convertToUIAction(handler: popUpButtonTappedClosure)
-        )
+        popUpButton.menu = RoleSingleton.accessSingleton.TableFormPopUpMenuConstructor(actionWhenChoiceChanged: { action in
+            print(action.title)
+        })
         popUpButton.showsMenuAsPrimaryAction = true
         popUpButton.changesSelectionAsPrimaryAction = true
     }

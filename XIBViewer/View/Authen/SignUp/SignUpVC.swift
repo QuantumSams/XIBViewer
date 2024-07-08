@@ -1,6 +1,6 @@
 import UIKit
 
-final class SignUpVC: UIViewController, TableFormPasswordDelegate, TableFromPopUpMenuDelegate{
+final class SignUpVC: UIViewController, TableFormPasswordDelegate{
     
     private let tableFormFieldList: [String:TableFormCellModel] = TableForm.signup.getForm
     private let tableFormOrder: [String] = TableForm.signup.order
@@ -11,6 +11,23 @@ final class SignUpVC: UIViewController, TableFormPasswordDelegate, TableFromPopU
         }
     }
  
+    //Fields - role selection
+    
+    @IBOutlet private weak var nameField: UITextField!
+    @IBOutlet private weak var emailField: UITextField!
+    @IBOutlet private weak var passwordField: UITextField!
+    @IBOutlet private weak var confirmPasswordField: UITextField!
+    @IBOutlet private weak var roleSelectionButton: UIButton!
+    
+    //Validation labels
+    
+    @IBOutlet private weak var nameValidationLabel: UILabel!
+    @IBOutlet private weak var emailValidationLabel: UILabel!
+    @IBOutlet private weak var passwordValidationLabel: UILabel!
+    @IBOutlet private weak var confirmPasswordValidationLabel: UILabel!
+    
+    
+    // Register/Login button
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var changeToLoginButton: UIButton!
     
@@ -31,8 +48,13 @@ final class SignUpVC: UIViewController, TableFormPasswordDelegate, TableFromPopU
 }
 
 // Setup view
-extension SignUpVC {
+extension SignUpVC: UITextFieldDelegate {
     private func setupViews() {
+        setupTextField(nameField)
+        setupTextField(emailField)
+        setupTextField(passwordField)
+        setupTextField(confirmPasswordField)
+        
         setupButton(signUpButton)
         setupButton(changeToLoginButton)
         setupTableView(for: tableForm)
@@ -57,6 +79,18 @@ extension SignUpVC {
         table.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
         table.register(PopupButtonFormCell.nib, forCellReuseIdentifier: PopupButtonFormCell.id)
     }
+    
+    
+    private func setupTextField(_ textField: UITextField) {
+        textField.delegate = self
+        textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
+        textField.layer.borderColor = Constant.TextBoxConstant.borderColor.cgColor
+        textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
+        textField.backgroundColor = Constant.TextBoxConstant.backgroundColor
+        textField.leftViewMode = .always
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.size.height))
+        NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
+    }
 }
 
 // Get data from all field + Create API calls
@@ -65,19 +99,22 @@ extension SignUpVC{
         navigationController?.pushViewController(toViewController, animated: true)
     }
     
+    
+    
     private func getDataFromTableFields() -> SignupModel?{
-        guard let name = tableFormFieldList["Name"]?.value,
-              let email = tableFormFieldList["Email"]?.value,
-              let password = tableFormFieldList["Password"]?.value,
-              let roleID = tableFormFieldList["Role"]?.value
+        guard let name: String = tableFormFieldList["Name"]?.value as? String,
+              let email: String = tableFormFieldList["Email"]?.value as? String,
+              let password: String = tableFormFieldList["Password"]?.value as? String,
+              let selectedRole: RoleModel = tableFormFieldList["Role"]?.value as? RoleModel
         else {
             return nil
         }
         return SignupModel(
-            name: name as! String,
-            email: email as! String ,
-            role: roleID as! Int,
-            password: password as! String)
+            name: name,
+            email: email,
+            role: selectedRole.id,
+            password: password
+        )
     }
     
     private func callSignUpAPI(){
@@ -128,7 +165,10 @@ extension SignUpVC{
             switch result{
             case .success(let tokenData):
                 
+                DispatchQueue.main.async {
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData) //explaination needed
+                }
+                
                 
                 
             case .failure(let error):
@@ -180,7 +220,6 @@ extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PopupButtonFormCell.id, for: indexPath) as? PopupButtonFormCell else{
                 fatalError("Cannot dequeue cell in SignUpVC")
             }
-            cell.delegate = self
             cell.setupCell(formType: field as! PopupButtonFormCellModel)
             return cell
         }
@@ -199,14 +238,4 @@ extension SignUpVC{
         return passwordField.value as? String
     }
     
-    func TableFormPopUpMenuConstructor(from literalStringChoices: [String], actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu{
-        
-        var toReturn: [UIAction] = []
-        
-        literalStringChoices.forEach({ choice in
-            toReturn.append(UIAction(title: choice, handler: actionWhenChoiceChanged))
-        })
-        
-        return UIMenu(children: toReturn)
-    }
 }

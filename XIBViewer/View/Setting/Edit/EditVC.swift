@@ -97,7 +97,6 @@ extension EditVC: UITableViewDelegate, UITableViewDataSource{
             else {
                 fatalError("Cannot create PopupButtonFormCell in EditVC")
             }
-            cell.delegate = self
             cell.setupCell(formType: field as! PopupButtonFormCellModel)
             
             return cell
@@ -107,34 +106,14 @@ extension EditVC: UITableViewDelegate, UITableViewDataSource{
         }
     }
 }
-
-extension EditVC: TableFromPopUpMenuDelegate{
-    func TableFormPopUpMenuConstructor(from literalStringChoices: [String],
-                                       actionWhenChoiceChanged: @escaping UIActionHandler) -> UIMenu{
-        var actions: [UIAction] = []
-        for choice in literalStringChoices{
-            actions.append(UIAction(title: choice, handler: actionWhenChoiceChanged))
-        }
-        return UIMenu(children: actions)
-    }
-}
-
 extension EditVC{
     
     private func getFieldData() -> PUTMethodUserModel?{
-        let id: Int = editForm["Role"]?.value as! Int
-        
-        
-        guard let roleName: String = RoleSingleton.accessSingleton.getName(from:id) else {
-            return nil
-        }
-        
-        let convertRoleModel: PUTMethodRoleModel? = PUTMethodRoleModel(name: roleName)
-        
         
         guard let email = editForm["Email"]?.value,
               let name =  editForm["Name"]?.value,
-              let role = convertRoleModel else{
+              let selectedRole: RoleModel = editForm["Role"]?.value as? RoleModel
+        else{
            return nil
         }
         
@@ -142,7 +121,7 @@ extension EditVC{
         
         return PUTMethodUserModel(name: name as! String,
                                   email: email as! String,
-                                  role: role)
+                                  role: PUTMethodRoleModel(name: selectedRole.name))
     }
     
     private func editUserRequest(){

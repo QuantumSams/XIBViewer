@@ -7,5 +7,4 @@ struct RoleModel: Codable{
 
 struct PUTMethodRoleModel:Codable{
     let name: String
-
 }

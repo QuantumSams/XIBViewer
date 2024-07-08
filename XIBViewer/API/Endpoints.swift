@@ -32,7 +32,6 @@ enum Endpoints{
         return component.url
     }
     
-    
     var path: String {
         switch self{
         case .login(path: let path, _):         return path
