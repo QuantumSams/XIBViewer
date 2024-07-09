@@ -1,7 +1,8 @@
 import UIKit
 
-final class SignUpVC: UIViewController, TableFormPasswordDelegate{
+final class SignUpVC: UIViewController{
     
+    // MARK: Variables
     private let tableFormFieldList: [String:TableFormCellModel] = TableForm.signup.getForm
     private let tableFormOrder: [String] = TableForm.signup.order
     private var isLoading: Bool = false {
@@ -10,54 +11,107 @@ final class SignUpVC: UIViewController, TableFormPasswordDelegate{
             changeToLoginButton.setNeedsUpdateConfiguration()
         }
     }
+    var email: String?
+    var name: String?
+    var password: String?
+    var role: RoleModel?
  
-    //Fields - role selection
+    //MARK: IB Components
     
+    //Fields
     @IBOutlet private weak var nameField: UITextField!
     @IBOutlet private weak var emailField: UITextField!
     @IBOutlet private weak var passwordField: UITextField!
     @IBOutlet private weak var confirmPasswordField: UITextField!
-    @IBOutlet private weak var roleSelectionButton: UIButton!
     
     //Validation labels
-    
     @IBOutlet private weak var nameValidationLabel: UILabel!
     @IBOutlet private weak var emailValidationLabel: UILabel!
     @IBOutlet private weak var passwordValidationLabel: UILabel!
     @IBOutlet private weak var confirmPasswordValidationLabel: UILabel!
     
-    
-    // Register/Login button
+    // Buttons
+    @IBOutlet private weak var roleSelectionButton: UIButton!
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var changeToLoginButton: UIButton!
     
-    @IBOutlet weak var tableForm: UITableView!
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        DispatchQueue.main.async{
+            self.startIndicatingActivity()
+        }
+        requestRoleAPI()
         setupViews()
     }
     
+    // MARK: Event catching
     @IBAction func registerTapped(_ sender: UIButton) {
-        TableFormCellModel.forceTableFormFieldToResign(count: tableFormOrder.count, table: tableForm)
+        self.view.endEditing(true)
         callSignUpAPI()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
         navigateToCustomViewController(toViewController: LogInVC())
     }
+    
+    private func popUpButtonSeletedChoice() -> (UIAction) -> Void{
+       return { selected in
+            self.role = RoleModel(id: Int(selected.identifier.rawValue) ?? -1,
+                                             name: selected.title)
+        }
+    }
 }
 
 // Setup view
-extension SignUpVC: UITextFieldDelegate {
+extension SignUpVC{
     private func setupViews() {
         setupTextField(nameField)
         setupTextField(emailField)
         setupTextField(passwordField)
         setupTextField(confirmPasswordField)
-        
+        setupFieldIdentifier()
+                
+        setupLabel(for: nameValidationLabel)
+        setupLabel(for: emailValidationLabel)
+        setupLabel(for: passwordValidationLabel)
+        setupLabel(for: confirmPasswordValidationLabel)
+
         setupButton(signUpButton)
         setupButton(changeToLoginButton)
-        setupTableView(for: tableForm)
+    }
+    
+    private func setupFieldIdentifier(){
+        nameField.tag               = FieldIdentifier.name.rawValue
+        emailField.tag              = FieldIdentifier.email.rawValue
+        passwordField.tag           = FieldIdentifier.password.rawValue
+        confirmPasswordField.tag    = FieldIdentifier.confirmPassword.rawValue
+    }
+    
+    private func setupLabel(for label:UILabel){
+        label.text = ""
+    }
+    
+    func setPopUpButtonData(for button: UIButton, with roles: [RoleModel], and handler: @escaping UIActionHandler){
+        var actions: [UIAction] = []
+        for role in roles{
+            actions.append(UIAction(title: role.name,
+                                    identifier: .init(String(role.id)),
+                                    handler: handler)
+            )
+        }
+
+        button.menu = UIMenu(children: actions)
+        button.showsMenuAsPrimaryAction = true
+        button.changesSelectionAsPrimaryAction = true
+        
+        
+        if let currentSelected = button.menu?.selectedElements.first as? UIAction{
+            
+            self.role = RoleModel(id: Int(currentSelected.identifier.rawValue) ?? -1,
+                                  name: currentSelected.title)
+        }
+        
     }
     
     private func setupButton(_ button: UIButton) {
@@ -73,14 +127,6 @@ extension SignUpVC: UITextFieldDelegate {
         }
     }
     
-    private func setupTableView(for table:UITableView){
-        table.dataSource = self
-        table.delegate = self
-        table.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
-        table.register(PopupButtonFormCell.nib, forCellReuseIdentifier: PopupButtonFormCell.id)
-    }
-    
-    
     private func setupTextField(_ textField: UITextField) {
         textField.delegate = self
         textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
@@ -90,7 +136,80 @@ extension SignUpVC: UITextFieldDelegate {
         textField.leftViewMode = .always
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.size.height))
         NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
+        
+        textField.delegate = self
     }
+}
+
+extension SignUpVC: UITextFieldDelegate{
+    
+   
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        textField.text = textField.text ?? ""
+        switch textField.tag{
+            
+        case FieldIdentifier.name.rawValue:
+            if let validateResponse = Validator.validateName(for: textField.text) {
+                nameValidationLabel.text = validateResponse
+                name = nil
+            }
+            else{
+                name = textField.text
+            }
+    
+        case FieldIdentifier.email.rawValue:
+            if let validateResponse = Validator.validateEmail(for: textField.text){
+                emailValidationLabel.text = validateResponse
+                email = nil
+            }
+            else{
+                email = textField.text
+            }
+            
+            
+        case FieldIdentifier.password.rawValue:
+            if let validateResponse = Validator.validatePassword(for: textField.text){
+                passwordValidationLabel.text = validateResponse
+                password = nil
+            }
+            
+        case FieldIdentifier.confirmPassword.rawValue:
+            if let validateResponse = Validator.comparePassword(password: passwordField.text,
+                                                                confirmPassword: confirmPasswordField.text){
+                confirmPasswordValidationLabel.text = validateResponse
+                confirmPasswordValidationLabel.isHidden = false
+                password = nil
+            }
+            else{
+                password = textField.text
+            }
+            
+        default:
+            break
+        }
+    return true
+        
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        switch textField.tag{
+        case FieldIdentifier.name.rawValue:
+            nameValidationLabel.text = ""
+            
+        case FieldIdentifier.email.rawValue:
+            emailValidationLabel.text = ""
+
+        case FieldIdentifier.password.rawValue:
+            passwordValidationLabel.text = ""
+            
+        case FieldIdentifier.confirmPassword.rawValue:
+            confirmPasswordValidationLabel.text = ""
+            
+        default:
+            break
+        }
+        return true
+    }
+    
 }
 
 // Get data from all field + Create API calls
@@ -99,20 +218,19 @@ extension SignUpVC{
         navigationController?.pushViewController(toViewController, animated: true)
     }
     
-    
-    
     private func getDataFromTableFields() -> SignupModel?{
-        guard let name: String = tableFormFieldList["Name"]?.value as? String,
-              let email: String = tableFormFieldList["Email"]?.value as? String,
-              let password: String = tableFormFieldList["Password"]?.value as? String,
-              let selectedRole: RoleModel = tableFormFieldList["Role"]?.value as? RoleModel
+        guard let name: String = name,
+              let email: String = email,
+              let password: String = password,
+              let role: RoleModel = role,
+              role.id != -1
         else {
             return nil
         }
         return SignupModel(
             name: name,
             email: email,
-            role: selectedRole.id,
+            role: role.id,
             password: password
         )
     }
@@ -168,9 +286,7 @@ extension SignUpVC{
                 DispatchQueue.main.async {
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData) //explaination needed
                 }
-                
-                
-                
+
             case .failure(let error):
                 guard let error = error as? APIErrorTypes else {return}
                 DispatchQueue.main.async {
@@ -188,54 +304,40 @@ extension SignUpVC{
             }
         }
     }
-}
-
-
-//Manage Table form
-extension SignUpVC:  UITableViewDelegate, UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableFormFieldList.count
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let field = tableFormFieldList[tableFormOrder[indexPath.row]] else{
-            fatalError("tableFormFieldList field of key tableFormOrder is nil")
-        }
+    private func requestRoleAPI(){
+       
         
-        switch field.fieldType{
-            
-        case .name, .email, .password, .confirmPassword, .custom:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: TextFormCell.id,
-                for: indexPath) as? TextFormCell
-            else{
-                fatalError("Cannot dequeue cell in SignUpVC")
+        RoleService.getRole { result in
+            switch result{
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.setPopUpButtonData(for: self.roleSelectionButton,
+                                             with: data.results,
+                                             and: self.popUpButtonSeletedChoice())
+                    self.stopIndicatingActivity()
+                }
+            case .failure(let error):
+                guard let error = error as? APIErrorTypes else {return}
+                DispatchQueue.main.async { [weak self] in
+                    self?.stopIndicatingActivity()
+                }
+                
+                switch error{
+                case .serverError(let string):
+                    AlertManager.showServerErrorResponse(on: self, message: string)
+                case .decodingError(let string),
+                        .unknownError(let string):
+                    AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
+                case .deviceError(let string):
+                    AlertManager.showDeviceError(on: self, message: string)
+                }
             }
-            
-            cell.passwordDelegate = self
-            cell.setupCell(form: field as! TextFormCellModel)
-            return cell
-        
-        case .roleSelection:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopupButtonFormCell.id, for: indexPath) as? PopupButtonFormCell else{
-                fatalError("Cannot dequeue cell in SignUpVC")
-            }
-            cell.setupCell(formType: field as! PopupButtonFormCellModel)
-            return cell
         }
     }
 }
 
-//Manage communication with table form cell
-extension SignUpVC{
-   
-    
-    
-    func TableFormPasswordCollector(from passwordField: TextFormCellModel? = nil) -> String?{
-        guard let passwordField = passwordField ?? tableFormFieldList["Password"] else{
-            fatalError("passwordField not valid")
-        }
-        return passwordField.value as? String
-    }
-    
-}
+
+
+
+

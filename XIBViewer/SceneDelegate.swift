@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
-        getRoles()
+        checkAuthen(transition: false)
     }
 }
 
