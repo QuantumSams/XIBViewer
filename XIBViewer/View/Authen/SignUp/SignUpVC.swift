@@ -49,7 +49,7 @@ final class SignUpVC: UIViewController{
     // MARK: Event catching
     @IBAction func registerTapped(_ sender: UIButton) {
         self.view.endEditing(true)
-        callSignUpAPI()
+        requestSignUpAPI()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
         navigateToCustomViewController(toViewController: LogInVC())
@@ -63,7 +63,9 @@ final class SignUpVC: UIViewController{
     }
 }
 
-// Setup view
+//MARK: Additional methods
+
+//Setup UI
 extension SignUpVC{
     private func setupViews() {
         setupTextField(nameField)
@@ -141,9 +143,8 @@ extension SignUpVC{
     }
 }
 
+// Text validation
 extension SignUpVC: UITextFieldDelegate{
-    
-   
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         textField.text = textField.text ?? ""
         switch textField.tag{
@@ -212,7 +213,7 @@ extension SignUpVC: UITextFieldDelegate{
     
 }
 
-// Get data from all field + Create API calls
+//API requests
 extension SignUpVC{
     private func navigateToCustomViewController(toViewController: UIViewController) {
         navigationController?.pushViewController(toViewController, animated: true)
@@ -235,16 +236,17 @@ extension SignUpVC{
         )
     }
     
-    private func callSignUpAPI(){
+    private func requestSignUpAPI(){
         guard let signUpData = getDataFromTableFields() else{
-            AlertManager.showAlert(on: self, title: "Form not completed",
+            AlertManager.showAlert(on: self, 
+                                   title: "Form not completed",
                                    message: "Please check the sign up form again.")
             return
         }
         isLoading = true
 
         guard let request = Endpoints.signup(model: signUpData).request else{
-            //TODO: HANDLE
+            AlertManager.showAlert(on: self, title: "Something went wrong", message: "Please try again (Cannot create request from data - SignUpVC - requestSignUpAPI())")
             return
         }
         
@@ -284,7 +286,7 @@ extension SignUpVC{
             case .success(let tokenData):
                 
                 DispatchQueue.main.async {
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData) //explaination needed
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
                 }
 
             case .failure(let error):
@@ -306,8 +308,6 @@ extension SignUpVC{
     }
     
     private func requestRoleAPI(){
-       
-        
         RoleService.getRole { result in
             switch result{
             case .success(let data):
@@ -322,7 +322,6 @@ extension SignUpVC{
                 DispatchQueue.main.async { [weak self] in
                     self?.stopIndicatingActivity()
                 }
-                
                 switch error{
                 case .serverError(let string):
                     AlertManager.showServerErrorResponse(on: self, message: string)
