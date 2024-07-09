@@ -2,7 +2,7 @@ import UIKit
 
 final class SignUpVC: UIViewController{
     
-    // MARK: Variables
+    // MARK: - Variables
     private let tableFormFieldList: [String:TableFormCellModel] = TableForm.signup.getForm
     private let tableFormOrder: [String] = TableForm.signup.order
     private var isLoading: Bool = false {
@@ -11,12 +11,12 @@ final class SignUpVC: UIViewController{
             changeToLoginButton.setNeedsUpdateConfiguration()
         }
     }
-    var email: String?
-    var name: String?
-    var password: String?
-    var role: RoleModel?
+    var email:      String?
+    var name:       String?
+    var password:   String?
+    var role:       RoleModel?
  
-    //MARK: IB Components
+    //MARK: - IB Components
     
     //Fields
     @IBOutlet private weak var nameField: UITextField!
@@ -35,7 +35,7 @@ final class SignUpVC: UIViewController{
     @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var changeToLoginButton: UIButton!
     
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ final class SignUpVC: UIViewController{
         setupViews()
     }
     
-    // MARK: Event catching
+    // MARK: - Event catching
     @IBAction func registerTapped(_ sender: UIButton) {
         self.view.endEditing(true)
         requestSignUpAPI()
@@ -63,7 +63,7 @@ final class SignUpVC: UIViewController{
     }
 }
 
-//MARK: Additional methods
+//MARK: - Additional methods
 
 //Setup UI
 extension SignUpVC{

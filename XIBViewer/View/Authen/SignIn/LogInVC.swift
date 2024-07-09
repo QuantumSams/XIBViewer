@@ -1,57 +1,81 @@
 import UIKit
 
-final class LogInVC: UIViewController, UITextFieldDelegate{
-    //property
-    private let tableForm = TableForm.login.getForm
-    private let tableOrder = TableForm.login.order
+final class LogInVC: UIViewController{
+    // MARK: - PROPERTY
     private var isLoading: Bool = false {
         didSet{
             loginButton.setNeedsUpdateConfiguration()
         }
     }
+    private var password:   String?
+    private var email:      String?
     
-    //Outlet
-    @IBOutlet weak var loginButton:    UIButton!
-    @IBOutlet weak var loginTableForm: UITableView!
-    //Life cycle
+    //MARK: - IBOUTLETS
+    @IBOutlet weak var loginButton: UIButton!
+    
+    //Fields
+    @IBOutlet private weak var emailField: UITextField!
+    @IBOutlet private weak var passwordField: UITextField!
+    
+    //Label
+    @IBOutlet private weak var emailValidationLabel: UILabel!
+    @IBOutlet private weak var passwordValidationLabel: UILabel!
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
-    //Action - event processing
+    //MARK: - event catching
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        TableFormCellModel.forceTableFormFieldToResign(count: tableForm.count, table: loginTableForm)
+        self.view.endEditing(true)
         callLogInAPI()
     }
 }
+//MARK: - ADDITIONAL METHODS
 
-//Setup view
+//setup view
 extension LogInVC{
     private func setupViews(){
         setupButton(loginButton)
-        setupTableForm(for: loginTableForm)
+        
+        setupTextField(emailField)
+        setupTextField(passwordField)
+        setupFieldIdentifier()
+        
+        setupValidationLabel(emailValidationLabel)
+        setupValidationLabel(passwordValidationLabel)
+        
     }
     
-    private func setupTextField(_ customTextField:UITextField){
-        customTextField.delegate = self
-        customTextField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
-        customTextField.layer.borderColor = UIColor.systemBlue.cgColor
-        customTextField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
-        customTextField.layer.masksToBounds = true
-        customTextField.borderStyle = .roundedRect
+    private func setupTextField(_ textField:UITextField){
+        textField.delegate = self
+        textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
+        textField.layer.borderColor = Constant.TextBoxConstant.borderColor.cgColor
+        textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
+        textField.backgroundColor = Constant.TextBoxConstant.backgroundColor
+        textField.leftViewMode = .always
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.size.height))
+        NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
         
-        NSLayoutConstraint.activate([customTextField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
+        textField.delegate = self
+    }
+    
+    private func setupFieldIdentifier(){
+        emailField.tag = FieldIdentifier.email.rawValue
+        passwordField.tag = FieldIdentifier.password.rawValue
+    }
+    
+    private func setupValidationLabel(_ label: UILabel){
+        label.text = ""
     }
     
     private func setupButton(_ customButton: UIButton){
         customButton.layer.cornerRadius = Constant.ButtonConstant.cornerRadius
         customButton.layer.masksToBounds = true
-        
-        
-        
+
         NSLayoutConstraint.activate([customButton.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
-        
-        
+                
         customButton.configurationUpdateHandler = { [unowned self] button in
             var config = button.configuration
             config?.showsActivityIndicator = self.isLoading
@@ -59,53 +83,63 @@ extension LogInVC{
             button.isEnabled = !self.isLoading
         }
     }
-    
-    private func setupTableForm(for tableForm:UITableView){
-        loginTableForm.delegate = self
-        loginTableForm.dataSource = self
-        loginTableForm.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
-    }
 }
+// Text field validation
+extension LogInVC: UITextFieldDelegate{
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.text = textField.text ?? ""
+        switch textField.tag{
+        case FieldIdentifier.email.rawValue:
+            
+            if let validationResponse = Validator.isDataEmpty(for: textField.text){
 
-// Managing Table form
-extension LogInVC: UITableViewDelegate, UITableViewDataSource{
-    func getDataFromTableFields() -> LoginModel?{
-        guard let email = tableForm["Email"]?.value,
-              let password = tableForm["Password"]?.value
-        else{
-            return nil
+                emailValidationLabel.text = validationResponse
+                email = nil
+                
+            }
+            else {
+                email = textField.text
+            }
+            
+        case FieldIdentifier.password.rawValue:
+            if let validationResponse = Validator.isDataEmpty(for: textField.text){
+                passwordValidationLabel.text = validationResponse
+                password = nil
+            }
+            else{
+                password = textField.text
+            }
+        default: break
         }
-        
-        return LoginModel(email: email as! String, password: password as! String)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableForm.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let field =  tableForm[tableOrder[indexPath.row]]  else{
-            fatalError("cannot get field in tableForm for key tableOrder")
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        switch textField.tag{
+        case FieldIdentifier.email.rawValue:
+            emailValidationLabel.text = ""
+            
+        case FieldIdentifier.password.rawValue:
+            passwordValidationLabel.text = ""
+        default: break
         }
-        
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: TextFormCell.id,
-            for: indexPath) as? TextFormCell
-        else{
-            fatalError("Cannot dequeue cell in SignUpVC")
-        }
-        
-        cell.setupCell(form: field as! TextFormCellModel)
-        return cell
+        return true
     }
 }
 
 //API Calls
 extension LogInVC{
+    func getDataFromTableFields() -> LoginModel?{
+        guard let email = email,
+              let password = password
+        else{
+            return nil
+        }
+        return LoginModel(email: email, password: password)
+    }
+    
     private func checkAuthenToNavigate(token tokenData: SuccessLoginResponse){
         DispatchQueue.main.async {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData) //explaination needed
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
         }
        }
     
