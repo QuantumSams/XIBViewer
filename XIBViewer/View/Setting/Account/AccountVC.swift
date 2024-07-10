@@ -1,4 +1,11 @@
+import UIKit
 
+
+class AccountVC: UIViewController{
+    
+    private var adminUser: UserModel?
+    private var isLoading: Bool = false
+    
     //MARK: - OUTLET
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var emailField: UITextField!
