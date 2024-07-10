@@ -86,3 +86,35 @@ extension AccountService{
 }
 
 
+extension AccountService{
+    static func getUsersList(request: URLRequest, completion: @escaping (Result<UsersListResponseModel, Error>) -> Void){
+        URLSession.shared.dataTask(with: request){data, responseCode, error in
+            
+            guard let data = data else{
+                if let error = error {
+                    completion(.failure(APIErrorTypes.serverError(error.localizedDescription)))
+                }
+                else{
+                    completion(.failure(APIErrorTypes.unknownError()))
+                }
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            let responseCode = responseCode as! HTTPURLResponse
+            
+            if let successData = try? decoder.decode(UsersListResponseModel.self, from: data){
+                completion(.success(successData))
+            }
+            
+            else if let errorData = try? decoder.decode(ErrorResponse.self, from: data){
+                completion(.failure(APIErrorTypes.serverError(errorData.detail)))
+            }
+            
+            else {
+                completion(.failure(APIErrorTypes.decodingError("Parsing error \n \(responseCode.statusCode)")))
+            }
+            return
+        }.resume()
+    }
+}
