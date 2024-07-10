@@ -6,7 +6,6 @@ struct UserModel: Codable{
     let name: String
     let email: String
     let role: RoleModel
-    var imageURL: URL? = nil
 }
 
 struct PUTMethodUserModel: Codable{

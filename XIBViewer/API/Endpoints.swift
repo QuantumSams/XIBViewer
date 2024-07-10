@@ -10,6 +10,7 @@ enum Endpoints{
     case getRole        (path: String = "/api/roles/")
     case refreshToken   (path: String = "/api/auth/refresh-token/", model: RefreshTokenModel)
     case editUser       (path: String = "/api/users/", model: PUTMethodUserModel, id: Int)
+    case getUserList    (path: String = "/api/users/", limit: Int = 10, offset: Int = 10)
     
     var request:URLRequest? {
         
@@ -29,6 +30,7 @@ enum Endpoints{
         component.host   = API_Constant.baseURL
         component.port   = API_Constant.port
         component.path = self.path
+        component.queryItems = []
         print(component.url!)
         return component.url
     }
@@ -41,6 +43,7 @@ enum Endpoints{
         case .getRole(path: let path):          return path
         case .refreshToken(path: let path, _):  return path
         case .editUser(path: let path, model: _, id: let id): return path + String(id) + "/"
+        case .getUserList(path: let path, _, _): return path
         }
     }
     
@@ -66,8 +69,25 @@ enum Endpoints{
         case .editUser(path: _, model: let model, id: _):
             let json = try? JSONEncoder().encode(model)
             return json
+        case .getUserList(_, _, _):
+            return nil
         }
     }
+    
+    var queryItem: [URLQueryItem]{
+        switch self{
+        case .getUserList(_, let limit, let offset):
+            return [
+                URLQueryItem(name: "limit", value: String(limit)),
+                URLQueryItem(name: "offset", value: String(offset))
+            
+            ]
+
+        
+        default: return []
+        }
+    }
+    
     var httpMethod: String{
         switch self{
         case .login: return HTTP.Methods.post.rawValue
@@ -80,6 +100,8 @@ enum Endpoints{
             return HTTP.Methods.post.rawValue
         case .editUser:
             return HTTP.Methods.put.rawValue
+        case .getUserList:
+            return HTTP.Methods.get.rawValue
         }
     }
 }
