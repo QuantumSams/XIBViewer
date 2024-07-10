@@ -50,6 +50,7 @@ enum Endpoints{
             let json = try? JSONEncoder().encode(model)
             return json
             
+            
         case .signup(path: _, model: let model):
             let json = try? JSONEncoder().encode(model)
             return json

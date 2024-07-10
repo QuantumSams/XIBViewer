@@ -40,15 +40,19 @@ extension SceneDelegate{
         }
     }
 
+
     public func checkAuthen(transition: Bool = true){
         AuthService.refreshToken { [weak self] result in
-            DispatchQueue.main.async{
-                switch result{
-                case .success(let accessToken):
-                    TokenSingleton.getToken.setInitialToken(access: accessToken)
-                    self?.swapRootVC(SettingTabBarController(), transition: transition)
-                case .failure(_):
-                    self?.swapRootVC(SignUpVC(), transition: transition)
+            AuthService.refreshToken { [weak self] result in
+                DispatchQueue.main.async{
+                    switch result{
+                    case .success(let accessToken):
+                        TokenSingleton.getToken.setInitialToken(access: accessToken)
+                        self?.swapRootVC(SettingTabBarController(), transition: transition)
+                    
+                    case .failure(_):
+                        self?.swapRootVC(SignUpVC(), transition: transition)
+                    }
                 }
             }
         }
@@ -61,6 +65,7 @@ extension SceneDelegate{
             self.swapRootVC(SettingTabBarController(), transition: transition)
         }
     }
+   
     
     func swapRootVC(_ swapToVC: UIViewController, transition: Bool){
         
@@ -79,3 +84,4 @@ extension SceneDelegate{
         }
     }
 }
+
