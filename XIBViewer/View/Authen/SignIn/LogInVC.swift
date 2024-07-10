@@ -127,7 +127,6 @@ extension LogInVC: UITextFieldDelegate{
 
 //API Calls
 extension LogInVC{
-<<<<<<< HEAD
     func getDataFromTableFields() -> LoginModel?{
         guard let email = email,
               let password = password
@@ -141,18 +140,6 @@ extension LogInVC{
         DispatchQueue.main.async {
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
         }
-||||||| 803fb5e
-    private func checkAuthenToNavigate(){
-           
-           DispatchQueue.main.async {
-               (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen() //explaination needed
-           }
-=======
-    private func checkAuthenToNavigate(token tokenData: SuccessLoginResponse){
-        DispatchQueue.main.async {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData) //explaination needed
-        }
->>>>>>> feat_Auth_API
        }
     
     private func callLogInAPI(){
