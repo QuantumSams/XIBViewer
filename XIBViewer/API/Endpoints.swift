@@ -6,10 +6,19 @@ enum Endpoints{
     case login          (path: String = "/api/auth/login/", model: LoginModel)
     case signup         (path: String = "/api/auth/register/", model: SignupModel)
     case getAccountData (path: String = "/api/users/me/")
+<<<<<<< HEAD
     case getRole        (path: String = "/api/roles/")
     case refreshToken   (path: String = "/api/auth/refresh-token/", model: RefreshTokenModel)
     case editUser       (path: String = "/api/users/", model: PUTMethodUserModel, id: Int)
     
+||||||| 803fb5e
+    case getRole(path: String = "/api/roles/")
+
+=======
+    case getRole        (path: String = "/api/roles/")
+    case refreshToken   (path: String = "/api/auth/refresh-token/", model: RefreshTokenModel)
+    
+>>>>>>> feat_Auth_API
     var request:URLRequest? {
         
         guard let url = self.url else{
@@ -34,12 +43,26 @@ enum Endpoints{
     
     var path: String {
         switch self{
+<<<<<<< HEAD
         case .login(path: let path, _):         return path
         case .signup(path: let path, _):        return path
         case .getAccountData(path: let path):   return path
         case .getRole(path: let path):          return path
         case .refreshToken(path: let path, _):  return path
         case .editUser(path: let path, model: _, id: let id): return path + String(id) + "/"
+||||||| 803fb5e
+        case .login(path: let path, _): return path
+        case .signup(path: let path, _): return path
+        case .getAccountData(path: let path): return path
+        case .getRole(path: let path): return path
+            
+=======
+        case .login(path: let path, _):         return path
+        case .signup(path: let path, _):        return path
+        case .getAccountData(path: let path):   return path
+        case .getRole(path: let path):          return path
+        case .refreshToken(path: let path, _):  return path
+>>>>>>> feat_Auth_API
         }
     }
     
@@ -57,6 +80,7 @@ enum Endpoints{
             return nil
         case .getRole(_):
             return nil
+<<<<<<< HEAD
         case .refreshToken(path: _, model: let model):
             let json = try? JSONEncoder().encode(model)
             return json
@@ -64,6 +88,13 @@ enum Endpoints{
         case .editUser(path: _, model: let model, id: _):
             let json = try? JSONEncoder().encode(model)
             return json
+||||||| 803fb5e
+=======
+        case .refreshToken(path: _, model: let model):
+            let json = try? JSONEncoder().encode(model)
+            return json
+            
+>>>>>>> feat_Auth_API
         }
     }
     var httpMethod: String{
@@ -74,10 +105,16 @@ enum Endpoints{
             
         case .getRole:
             return HTTP.Methods.get.rawValue
+<<<<<<< HEAD
         case .refreshToken:
             return HTTP.Methods.post.rawValue
         case .editUser:
             return HTTP.Methods.put.rawValue
+||||||| 803fb5e
+=======
+        case .refreshToken:
+            return HTTP.Methods.post.rawValue
+>>>>>>> feat_Auth_API
         }
     }
 }

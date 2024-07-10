@@ -18,7 +18,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
+<<<<<<< HEAD
         checkAuthen(transition: false)
+||||||| 803fb5e
+        getRoles()
+//        checkAuthen(transition: false)
+=======
+        getRoles()
+>>>>>>> feat_Auth_API
     }
 }
 

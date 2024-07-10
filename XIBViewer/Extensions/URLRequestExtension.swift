@@ -3,7 +3,15 @@ import Foundation
 extension URLRequest{
     mutating func addValues(_ endpoints: Endpoints){
         switch endpoints{
+<<<<<<< HEAD
         case .login, .signup, .refreshToken, .editUser:
+||||||| 803fb5e
+        case .login, 
+                .signup:
+                
+=======
+        case .login, .signup, .refreshToken:
+>>>>>>> feat_Auth_API
             self.setValue(HTTP.Headers.Value.applicationJson.HeaderValues,
                           forHTTPHeaderField: HTTP.Headers.Key.contentType.HeadersKey)
             

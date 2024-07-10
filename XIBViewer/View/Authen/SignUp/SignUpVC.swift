@@ -282,7 +282,19 @@ extension SignUpVC{
         
         AuthService.login(request: request) { result in
             switch result{
+<<<<<<< HEAD
             case .success(let tokenData):
+||||||| 803fb5e
+            case .success(_):
+                DispatchQueue.main.async {
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen() //explaination needed
+                }
+=======
+            case .success(let tokenData):
+                
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData) //explaination needed
+                
+>>>>>>> feat_Auth_API
                 
                 DispatchQueue.main.async {
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
