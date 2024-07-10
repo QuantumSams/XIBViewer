@@ -49,7 +49,6 @@ extension LogInVC{
     }
     
     private func setupTextField(_ textField:UITextField){
-        textField.delegate = self
         textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
         textField.layer.borderColor = Constant.TextBoxConstant.borderColor.cgColor
         textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius

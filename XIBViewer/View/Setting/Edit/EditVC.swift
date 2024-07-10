@@ -8,11 +8,22 @@
 import UIKit
 
 class EditVC: UIViewController {
-    private var existingData: UserModel?
-    private let editForm = TableForm.edit.getForm
-    private let editOrder = TableForm.edit.order
+    
+    // MARK: - VARIABLES
+    private let existingData: UserModel?
+    private var name: String?
+    private var email: String?
+    
     var delegate: EditRefreshDataDelegate?
     
+    // MARK: - OUTLETS
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
+    
+    @IBOutlet weak var nameValidationLabel: UILabel!
+    @IBOutlet weak var emailValidationLabel: UILabel!
+
+    // MARK: - LIFECYCLE
     init(existingData: UserModel?) {
         self.existingData = existingData
         super.init(nibName: nil, bundle: nil)
@@ -22,111 +33,136 @@ class EditVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @IBOutlet private weak var editTableForm: UITableView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         setInitalValueForEditField(from: existingData)
     }
+    
+    //MARK: - EVENT CATCHING
     @objc private func cancelButtonSelected(){
         self.dismiss(animated: true, completion: nil)
-        
     }
     
     @objc private func saveButtonPressed(){
-        TableFormCellModel.forceTableFormFieldToResign(count: editOrder.count, table: editTableForm)
+        self.view.endEditing(true)
         editUserRequest()
     }
 }
 
+//MARK: - ADDITIONAL METHODS
+// Setup view
 extension EditVC{
     private func setup(){
+        self.title = "Update information"
         
-        setupTable(for: editTableForm)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonSelected))
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed))
+        
+        setupTextField(emailField)
+        setupTextField(nameField)
+        setupFieldIdentifier()
+        
+        setupValidationLabel(for: emailValidationLabel)
+        setupValidationLabel(for: nameValidationLabel)
     }
     
-    private func setupTable(for table:UITableView){
-        table.delegate = self
-        table.dataSource = self
-        navigationItem.title = "Edit information"
-        self.isModalInPresentation = true
-        table.register(TextFormCell.nib, forCellReuseIdentifier: TextFormCell.id)
-        table.register(PopupButtonFormCell.nib, forCellReuseIdentifier: PopupButtonFormCell.id)
+    private func setupTextField(_ textField:UITextField){
+        textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
+        textField.layer.borderColor = Constant.TextBoxConstant.borderColor.cgColor
+        textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
+        textField.backgroundColor = Constant.TextBoxConstant.backgroundColor
+        textField.leftViewMode = .always
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.size.height))
+        NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
+        
+        textField.delegate = self
+    }
+    
+    private func setupFieldIdentifier(){
+        nameField.tag = FieldIdentifier.name.rawValue
+        emailField.tag = FieldIdentifier.email.rawValue
+    }
+    
+    private func setupValidationLabel(for label: UILabel){
+        label.text = ""
     }
 }
 
-
-extension EditVC: UITableViewDelegate, UITableViewDataSource{
+// Validation handling
+extension EditVC: UITextFieldDelegate{
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let value = textField.text ?? ""
+        
+        switch textField.tag{
+        case FieldIdentifier.name.rawValue:
+            if let validationResult = Validator.validateName(for: value){
+                nameValidationLabel.text = validationResult
+                name = nil
+            }
+            else{
+                name = value
+            }
+            
+        case FieldIdentifier.email.rawValue:
+            if let validationResult = Validator.validateEmail(for: value){
+                emailValidationLabel.text = validationResult
+                email = nil
+            }
+            else{
+                email = value
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    func textField(_ textField: UITextField, _: NSRange, _: String) -> Bool {
+        switch textField.tag{
+        case FieldIdentifier.name.rawValue:
+            nameValidationLabel.text = ""
+            
+        case FieldIdentifier.email.rawValue:
+            nameValidationLabel.text = ""
+            
+        default: break
+        }
+        
+        return true
+    }
+}
+//API calling
+extension EditVC{
     func setInitalValueForEditField(from data: UserModel?){
         guard let data = data else{
             return
         }
-        
-        editForm["Email"]?.value = data.email
-        editForm["Name"]?.value = data.name
-        editForm["Role"]?.value = data.role.id
+        emailField.placeholder = data.email
+        nameField.placeholder = data.name
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return editForm.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let field = editForm[editOrder[indexPath.row]]  else{
-            fatalError("Cannot get field from editForm with key in editOrder")
-        }
-        
-        
-        switch field.fieldType{
-            
-        case .name, .email:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFormCell.id, for: indexPath) as? TextFormCell
-            else {
-                fatalError("Cannot create TextFormCell in EditVC")
-            }
-            cell.setupCell(form: field as! TextFormCellModel)
-            return cell
-            
-        
-        case .roleSelection:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopupButtonFormCell.id, for: indexPath) as? PopupButtonFormCell
-            else {
-                fatalError("Cannot create PopupButtonFormCell in EditVC")
-            }
-            cell.setupCell(formType: field as! PopupButtonFormCellModel)
-            
-            return cell
-        
-        default:
-            return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        }
-    }
-}
-extension EditVC{
     
     private func getFieldData() -> PUTMethodUserModel?{
         
-        guard let email = editForm["Email"]?.value,
-              let name =  editForm["Name"]?.value,
-              let selectedRole: RoleModel = editForm["Role"]?.value as? RoleModel
+        guard let email = email,
+              let name =  name,
+              let selectedRole = existingData?.role.name
         else{
            return nil
         }
         
         print()
         
-        return PUTMethodUserModel(name: name as! String,
-                                  email: email as! String,
-                                  role: PUTMethodRoleModel(name: selectedRole.name))
+        return PUTMethodUserModel(name: name,
+                                  email: email,
+                                  role: PUTMethodRoleModel(name: selectedRole))
     }
     
     private func editUserRequest(){
         guard delegate != nil else{
-            fatalError("EditRefreshDataDelegate haven't been assigned")
+            fatalError("EditRefreshDataDelegate hasn't been assigned")
         }
         
         guard let editData = getFieldData() else{
@@ -164,10 +200,7 @@ extension EditVC{
                         AlertManager.showDevelopmentError(on: self!, message: string, errorType: .unknownError())
                     }
                 }
-                
-                
             }
         }
-
     }
 }

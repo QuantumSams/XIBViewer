@@ -39,11 +39,12 @@ final class SignUpVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.main.async{
-            self.startIndicatingActivity()
-        }
         requestRoleAPI()
         setupViews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     // MARK: - Event catching
@@ -308,6 +309,7 @@ extension SignUpVC{
     }
     
     private func requestRoleAPI(){
+        self.startIndicatingActivity()
         RoleService.getRole { result in
             switch result{
             case .success(let data):

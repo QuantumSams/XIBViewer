@@ -2,7 +2,7 @@ import UIKit
 
 final class AccountVC: UIViewController {
 
-    //Property
+    //MARK: - Property
     private var adminUser: UserModel? = nil
     private var isLoading: Bool = false {
         didSet{
@@ -10,14 +10,14 @@ final class AccountVC: UIViewController {
         }
     }
     
-    //Outlet
+    //MARK: - OUTLET
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var emailField: UITextField!
     @IBOutlet private weak var editButton: UIButton!
     @IBOutlet private weak var nameField: UITextField!
     @IBOutlet private weak var roleField: UITextField!
     @IBOutlet private weak var logoutButton: UIButton!
-    //Lifecycle
+    //MARK: - LIFECYCLE
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ final class AccountVC: UIViewController {
         }
     }
     
-    //Action - event processing
+    //MARK: - EVENT CATCHING
     @IBAction func editButtonTapped(_ sender: UIButton) {
         let vc = EditVC(existingData: adminUser)
         vc.delegate = self
@@ -50,22 +50,16 @@ final class AccountVC: UIViewController {
         }
     }
 }
+//MARK: - ADDITIONAL METHODS
 
-//Extenions - private methods
-extension AccountVC: UITextViewDelegate{
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
-}
 
+// SetupView
 extension AccountVC{
     
     private func setupViews(){
         setupTextField(emailField)
         setupTextField(nameField)
         setupTextField(roleField)
-        
         
         logoutButton.setupButton(
             cornerRadius: Constant.ButtonConstant.cornerRadius,
@@ -92,10 +86,27 @@ extension AccountVC{
         NSLayoutConstraint.activate([textField.heightAnchor.constraint(equalToConstant: Constant.TextBoxConstant.heightAnchor)])
         textField.isEnabled = false
     }
-   
-   
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}
+
+//Navigating routes
+extension AccountVC{
+    private func logoutAccount(){
+        TokenSingleton.getToken.removeToken()
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
+    }
+    
+    private func navigateToCustomController(to vc: UIViewController){
+        self.present(UINavigationController(rootViewController: vc), animated: true)
+            
+    }
+}
+
+// API Calling
+extension AccountVC{
     private func parseDataToFields(with adminUser: UserModel){
-        
         DispatchQueue.main.async {
             self.emailField.text = adminUser.email
             self.nameField.text = adminUser.name
@@ -103,25 +114,6 @@ extension AccountVC{
         }
     }
     
-    private func logoutAccount(){
-        TokenSingleton.getToken.removeToken()
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-}
-
-extension AccountVC{
-    private func navigateToCustomController(to vc: UIViewController){
-        self.present(UINavigationController(rootViewController: vc), animated: true)
-            
-    }
-}
-
-
-extension AccountVC{
     private func adminUserAPIRequest(){
         self.startIndicatingActivity()
         AccountService.getAccount { [weak self] result in
@@ -138,6 +130,8 @@ extension AccountVC{
     }
 }
 
+
+//MARK: - DELEGATE
 extension AccountVC: EditRefreshDataDelegate{
     func doneEditing(send newUserData: UserModel) {
         parseDataToFields(with: newUserData)

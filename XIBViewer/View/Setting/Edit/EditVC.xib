@@ -10,7 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditVC" customModule="XIBViewer" customModuleProvider="target">
             <connections>
-                <outlet property="editTableForm" destination="5Ez-iw-ffd" id="MBu-eb-ud4"/>
+                <outlet property="emailField" destination="AUJ-tw-evx" id="uZf-pI-PCH"/>
+                <outlet property="emailValidationLabel" destination="XAm-pL-Yd7" id="p2o-lM-xZs"/>
+                <outlet property="nameField" destination="M4W-5D-m92" id="YyS-9Q-iBI"/>
+                <outlet property="nameValidationLabel" destination="oPi-N3-F9h" id="2Gz-Mn-sYS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,23 +22,82 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-iw-ffd">
-                    <rect key="frame" x="20" y="95" width="353" height="723"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="hhk-q7-XnH" userLabel="Field Stack">
+                    <rect key="frame" x="20" y="78.999999999999986" width="353" height="150.66666666666663"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ZIW-mC-gQl" userLabel="Name Field">
+                            <rect key="frame" x="0.0" y="0.0" width="353" height="63.333333333333336"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHO-sp-gWc" userLabel="Hint label">
+                                    <rect key="frame" x="4" y="0.0" width="345" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="M4W-5D-m92" userLabel="Field">
+                                    <rect key="frame" x="0.0" y="23" width="353" height="18.666666666666671"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" textContentType="name"/>
+                                </textField>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPi-N3-F9h">
+                                    <rect key="frame" x="4" y="47.666666666666671" width="345" height="15.666666666666664"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="KHO-sp-gWc" firstAttribute="leading" secondItem="ZIW-mC-gQl" secondAttribute="leading" constant="4" id="F0l-2f-s5F"/>
+                                <constraint firstItem="M4W-5D-m92" firstAttribute="leading" secondItem="ZIW-mC-gQl" secondAttribute="leading" id="Q7Z-zX-oOX"/>
+                                <constraint firstAttribute="trailing" secondItem="M4W-5D-m92" secondAttribute="trailing" id="ZwJ-b0-yWy"/>
+                                <constraint firstItem="oPi-N3-F9h" firstAttribute="leading" secondItem="ZIW-mC-gQl" secondAttribute="leading" constant="4" id="x8X-Lk-RH4"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ZVB-DP-bmp" userLabel="Email Field">
+                            <rect key="frame" x="0.0" y="87.333333333333343" width="353" height="63.333333333333343"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbQ-Lo-N0O" userLabel="Hint label">
+                                    <rect key="frame" x="4" y="0.0" width="345" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AUJ-tw-evx" userLabel="Field">
+                                    <rect key="frame" x="0.0" y="23" width="353" height="18.666666666666671"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
+                                </textField>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAm-pL-Yd7">
+                                    <rect key="frame" x="4" y="47.666666666666657" width="345" height="15.666666666666664"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="AUJ-tw-evx" secondAttribute="trailing" id="7g7-gw-I3F"/>
+                                <constraint firstItem="DbQ-Lo-N0O" firstAttribute="leading" secondItem="ZVB-DP-bmp" secondAttribute="leading" constant="4" id="ICG-c9-0dJ"/>
+                                <constraint firstItem="AUJ-tw-evx" firstAttribute="leading" secondItem="ZVB-DP-bmp" secondAttribute="leading" id="TWD-yw-8VV"/>
+                                <constraint firstItem="XAm-pL-Yd7" firstAttribute="leading" secondItem="ZVB-DP-bmp" secondAttribute="leading" constant="4" id="iq9-FA-3Ab"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5Ez-iw-ffd" secondAttribute="trailing" constant="20" id="LwA-RH-pGn"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="5Ez-iw-ffd" secondAttribute="bottom" id="Qtb-Es-osd"/>
-                <constraint firstItem="5Ez-iw-ffd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="36" id="dez-Ml-ZZP"/>
-                <constraint firstItem="5Ez-iw-ffd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="eml-c6-7Tf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hhk-q7-XnH" secondAttribute="trailing" constant="20" id="Id2-ha-7JG"/>
+                <constraint firstItem="hhk-q7-XnH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="P4Z-N3-ajd"/>
+                <constraint firstItem="hhk-q7-XnH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="Q0T-DB-rF0"/>
             </constraints>
             <point key="canvasLocation" x="65" y="20"/>
         </view>
     </objects>
     <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
