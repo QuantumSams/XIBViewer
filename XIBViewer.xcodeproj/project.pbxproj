@@ -13,19 +13,11 @@
 		7C4013B92C206BEA0019074D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4013B82C206BEA0019074D /* Constant.swift */; };
 		7C4013C82C208C180019074D /* UsersVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C4013C72C208C180019074D /* UsersVC.xib */; };
 		7C4013C92C208C180019074D /* UsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4013C62C208C180019074D /* UsersVC.swift */; };
-		7C4327462C33E1270027C0FB /* PopupButtonFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4327442C33E1270027C0FB /* PopupButtonFormCell.swift */; };
-		7C4327472C33E1270027C0FB /* PopupButtonFormCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C4327452C33E1270027C0FB /* PopupButtonFormCell.xib */; };
-		7C43274B2C3425210027C0FB /* TableForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43274A2C3425210027C0FB /* TableForm.swift */; };
-		7C43274D2C3426B00027C0FB /* TextFormCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43274C2C3426B00027C0FB /* TextFormCellModel.swift */; };
-		7C43274F2C3426E70027C0FB /* PopupButtonFormCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43274E2C3426E70027C0FB /* PopupButtonFormCellModel.swift */; };
 		7C43D71A2C1D909D00B3E914 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43D7182C1D909D00B3E914 /* AccountVC.swift */; };
 		7C43D71B2C1D909D00B3E914 /* AccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C43D7192C1D909D00B3E914 /* AccountVC.xib */; };
 		7C455DED2C2EF2AF00F4CECB /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C455DEC2C2EF2AF00F4CECB /* Validator.swift */; };
 		7C455DEF2C2EF80700F4CECB /* RegexConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C455DEE2C2EF80700F4CECB /* RegexConstant.swift */; };
 		7C455DF12C2EF81400F4CECB /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C455DF02C2EF81400F4CECB /* APIConstant.swift */; };
-		7C455DF82C315B5B00F4CECB /* TextFormCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C455DF72C315B5B00F4CECB /* TextFormCell.xib */; };
-		7C455DF92C315B5B00F4CECB /* TextFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C455DF62C315B5B00F4CECB /* TextFormCell.swift */; };
-		7C455DFB2C31AA6200F4CECB /* TableFormCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C455DFA2C31AA6200F4CECB /* TableFormCellModel.swift */; };
 		7C6BFE372C3C33B600D1C3FC /* FieldIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6BFE362C3C33B600D1C3FC /* FieldIdentifier.swift */; };
 		7C7C7B702C37F5F1003FEF92 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = 7C7C7B6F2C37F5F1003FEF92 /* netfox */; };
 		7C7C7B722C380C9A003FEF92 /* EditRefreshDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7C7B712C380C9A003FEF92 /* EditRefreshDataDelegate.swift */; };
@@ -49,9 +41,6 @@
 		7CC832102C2B119300A97350 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC8320F2C2B119300A97350 /* LoginModel.swift */; };
 		7CCC75F22C36AA5300DDBC87 /* EditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC75F02C36AA5300DDBC87 /* EditVC.swift */; };
 		7CCC75F32C36AA5300DDBC87 /* EditVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CCC75F12C36AA5300DDBC87 /* EditVC.xib */; };
-		7CD877362C344B9F006713CF /* TableFromPopUpMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD877352C344B9F006713CF /* TableFromPopUpMenuDelegate.swift */; };
-		7CD877382C350387006713CF /* TableFormPasswordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD877372C350387006713CF /* TableFormPasswordDelegate.swift */; };
-		7CD8773A2C3547E3006713CF /* TableFormManipulateTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD877392C3547E3006713CF /* TableFormManipulateTextFieldDelegate.swift */; };
 		7CDF31F22C060A2100C01B06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF31F12C060A2100C01B06 /* AppDelegate.swift */; };
 		7CDF31F42C060A2100C01B06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF31F32C060A2100C01B06 /* SceneDelegate.swift */; };
 		7CDF31FB2C060A2100C01B06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF31FA2C060A2100C01B06 /* Assets.xcassets */; };
@@ -75,19 +64,11 @@
 		7C4013B82C206BEA0019074D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		7C4013C62C208C180019074D /* UsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersVC.swift; sourceTree = "<group>"; };
 		7C4013C72C208C180019074D /* UsersVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UsersVC.xib; sourceTree = "<group>"; };
-		7C4327442C33E1270027C0FB /* PopupButtonFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupButtonFormCell.swift; sourceTree = "<group>"; };
-		7C4327452C33E1270027C0FB /* PopupButtonFormCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupButtonFormCell.xib; sourceTree = "<group>"; };
-		7C43274A2C3425210027C0FB /* TableForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableForm.swift; sourceTree = "<group>"; };
-		7C43274C2C3426B00027C0FB /* TextFormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormCellModel.swift; sourceTree = "<group>"; };
-		7C43274E2C3426E70027C0FB /* PopupButtonFormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupButtonFormCellModel.swift; sourceTree = "<group>"; };
 		7C43D7182C1D909D00B3E914 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		7C43D7192C1D909D00B3E914 /* AccountVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountVC.xib; sourceTree = "<group>"; };
 		7C455DEC2C2EF2AF00F4CECB /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		7C455DEE2C2EF80700F4CECB /* RegexConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexConstant.swift; sourceTree = "<group>"; };
 		7C455DF02C2EF81400F4CECB /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
-		7C455DF62C315B5B00F4CECB /* TextFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormCell.swift; sourceTree = "<group>"; };
-		7C455DF72C315B5B00F4CECB /* TextFormCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFormCell.xib; sourceTree = "<group>"; };
-		7C455DFA2C31AA6200F4CECB /* TableFormCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableFormCellModel.swift; sourceTree = "<group>"; };
 		7C6BFE362C3C33B600D1C3FC /* FieldIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldIdentifier.swift; sourceTree = "<group>"; };
 		7C7C7B712C380C9A003FEF92 /* EditRefreshDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRefreshDataDelegate.swift; sourceTree = "<group>"; };
 		7C911F332C06272B00D28629 /* LogInVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogInVC.xib; sourceTree = "<group>"; };
@@ -108,9 +89,6 @@
 		7CC8320F2C2B119300A97350 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		7CCC75F02C36AA5300DDBC87 /* EditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVC.swift; sourceTree = "<group>"; };
 		7CCC75F12C36AA5300DDBC87 /* EditVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditVC.xib; sourceTree = "<group>"; };
-		7CD877352C344B9F006713CF /* TableFromPopUpMenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableFromPopUpMenuDelegate.swift; sourceTree = "<group>"; };
-		7CD877372C350387006713CF /* TableFormPasswordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableFormPasswordDelegate.swift; sourceTree = "<group>"; };
-		7CD877392C3547E3006713CF /* TableFormManipulateTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableFormManipulateTextFieldDelegate.swift; sourceTree = "<group>"; };
 		7CDF31EE2C060A2100C01B06 /* XIBViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XIBViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CDF31F12C060A2100C01B06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CDF31F32C060A2100C01B06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +121,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C1EE2542C3E4C2300C72CED /* Authen */ = {
+			isa = PBXGroup;
+			children = (
+				7CC8320F2C2B119300A97350 /* LoginModel.swift */,
+				7CE52AEB2C2E7909005D8A6B /* SignupModel.swift */,
+				7C0CC30C2C3657A400B79459 /* RefreshTokenModel.swift */,
+			);
+			path = Authen;
+			sourceTree = "<group>";
+		};
+		7C1EE2552C3E4C6200C72CED /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7CC832042C2B05C600A97350 /* AuthService.swift */,
+				7CE613142C2BFB32001A3B96 /* AccountService.swift */,
+				7CE52AE72C2D6B39005D8A6B /* RoleService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		7C4013BA2C206C010019074D /* Constant */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,37 +185,6 @@
 			path = Authen;
 			sourceTree = "<group>";
 		};
-		7C4327432C33E0FA0027C0FB /* Custom Cell */ = {
-			isa = PBXGroup;
-			children = (
-				7C455DF62C315B5B00F4CECB /* TextFormCell.swift */,
-				7C455DF72C315B5B00F4CECB /* TextFormCell.xib */,
-				7C4327442C33E1270027C0FB /* PopupButtonFormCell.swift */,
-				7C4327452C33E1270027C0FB /* PopupButtonFormCell.xib */,
-			);
-			path = "Custom Cell";
-			sourceTree = "<group>";
-		};
-		7C4327482C3420B80027C0FB /* Table Form */ = {
-			isa = PBXGroup;
-			children = (
-				7C43274A2C3425210027C0FB /* TableForm.swift */,
-				7C4327492C3421380027C0FB /* Cell Model */,
-				7C455DFA2C31AA6200F4CECB /* TableFormCellModel.swift */,
-				7C43274C2C3426B00027C0FB /* TextFormCellModel.swift */,
-				7C43274E2C3426E70027C0FB /* PopupButtonFormCellModel.swift */,
-				7C4327432C33E0FA0027C0FB /* Custom Cell */,
-			);
-			path = "Table Form";
-			sourceTree = "<group>";
-		};
-		7C4327492C3421380027C0FB /* Cell Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Cell Model";
-			sourceTree = "<group>";
-		};
 		7C43D7172C1D907F00B3E914 /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,12 +206,10 @@
 		7CA5ACCF2C227C62001F8648 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7C1EE2542C3E4C2300C72CED /* Authen */,
 				7CA5ACD02C227C75001F8648 /* UserModel.swift */,
 				7CF6797D2C22D83B00C0389C /* RoleModel.swift */,
-				7CC8320F2C2B119300A97350 /* LoginModel.swift */,
 				7CE613102C2BC2AA001A3B96 /* ServerResponse.swift */,
-				7CE52AEB2C2E7909005D8A6B /* SignupModel.swift */,
-				7C0CC30C2C3657A400B79459 /* RefreshTokenModel.swift */,
 			);
 			name = Model;
 			path = XIBViewer/Model;
@@ -288,12 +253,10 @@
 		7CC832032C2B05B700A97350 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				7CC832042C2B05C600A97350 /* AuthService.swift */,
+				7C1EE2552C3E4C6200C72CED /* Services */,
 				7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */,
 				7CC832062C2B096E00A97350 /* Endpoints.swift */,
 				7CC832082C2B0CC800A97350 /* HTTP.swift */,
-				7CE613142C2BFB32001A3B96 /* AccountService.swift */,
-				7CE52AE72C2D6B39005D8A6B /* RoleService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -310,9 +273,6 @@
 		7CD877342C344B78006713CF /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				7CD877352C344B9F006713CF /* TableFromPopUpMenuDelegate.swift */,
-				7CD877372C350387006713CF /* TableFormPasswordDelegate.swift */,
-				7CD877392C3547E3006713CF /* TableFormManipulateTextFieldDelegate.swift */,
 				7C7C7B712C380C9A003FEF92 /* EditRefreshDataDelegate.swift */,
 			);
 			path = Delegates;
@@ -348,7 +308,6 @@
 			children = (
 				7CD877342C344B78006713CF /* Delegates */,
 				7CC831F92C2AD98400A97350 /* Extensions */,
-				7C4327482C3420B80027C0FB /* Table Form */,
 				7CC832032C2B05B700A97350 /* API */,
 				7CC831FC2C2ADB5E00A97350 /* Resources */,
 				7CDF31F12C060A2100C01B06 /* AppDelegate.swift */,
@@ -451,8 +410,6 @@
 				7CCC75F32C36AA5300DDBC87 /* EditVC.xib in Resources */,
 				7C911F352C06272B00D28629 /* LogInVC.xib in Resources */,
 				7CDF31FB2C060A2100C01B06 /* Assets.xcassets in Resources */,
-				7C455DF82C315B5B00F4CECB /* TextFormCell.xib in Resources */,
-				7C4327472C33E1270027C0FB /* PopupButtonFormCell.xib in Resources */,
 				7C43D71B2C1D909D00B3E914 /* AccountVC.xib in Resources */,
 				7CDF31FE2C060A2100C01B06 /* Base in Resources */,
 				7C4013C82C208C180019074D /* UsersVC.xib in Resources */,
@@ -468,28 +425,20 @@
 			files = (
 				7CA5ACCC2C218C43001F8648 /* UsersTableCell.swift in Sources */,
 				7C911F362C06272B00D28629 /* LogInVC.swift in Sources */,
-				7CD877362C344B9F006713CF /* TableFromPopUpMenuDelegate.swift in Sources */,
-				7C455DFB2C31AA6200F4CECB /* TableFormCellModel.swift in Sources */,
 				7C43D71A2C1D909D00B3E914 /* AccountVC.swift in Sources */,
 				7C455DEF2C2EF80700F4CECB /* RegexConstant.swift in Sources */,
 				7C7C7B722C380C9A003FEF92 /* EditRefreshDataDelegate.swift in Sources */,
 				7C3F271D2C37A4F40013780B /* UIActivityIndicatorViewExtendsions.swift in Sources */,
 				7CE613182C2C0CDF001A3B96 /* TokenSingleton.swift in Sources */,
 				7C455DED2C2EF2AF00F4CECB /* Validator.swift in Sources */,
-				7C43274D2C3426B00027C0FB /* TextFormCellModel.swift in Sources */,
 				7CDF31F22C060A2100C01B06 /* AppDelegate.swift in Sources */,
-				7CD8773A2C3547E3006713CF /* TableFormManipulateTextFieldDelegate.swift in Sources */,
 				7CE613152C2BFB32001A3B96 /* AccountService.swift in Sources */,
 				7C455DF12C2EF81400F4CECB /* APIConstant.swift in Sources */,
 				7CC832072C2B096E00A97350 /* Endpoints.swift in Sources */,
 				7C6BFE372C3C33B600D1C3FC /* FieldIdentifier.swift in Sources */,
 				7CC8320C2C2B0F2500A97350 /* URLRequestExtension.swift in Sources */,
-				7C43274B2C3425210027C0FB /* TableForm.swift in Sources */,
-				7C43274F2C3426E70027C0FB /* PopupButtonFormCellModel.swift in Sources */,
-				7CD877382C350387006713CF /* TableFormPasswordDelegate.swift in Sources */,
 				7CE613132C2BC5B9001A3B96 /* APIErrorTypes.swift in Sources */,
 				7CC832092C2B0CC800A97350 /* HTTP.swift in Sources */,
-				7C4327462C33E1270027C0FB /* PopupButtonFormCell.swift in Sources */,
 				7C4013C92C208C180019074D /* UsersVC.swift in Sources */,
 				7CE52AE82C2D6B39005D8A6B /* RoleService.swift in Sources */,
 				7CE613112C2BC2AA001A3B96 /* ServerResponse.swift in Sources */,
@@ -505,7 +454,6 @@
 				7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */,
 				7C3F271B2C379FB80013780B /* UIViewControllerExtensions.swift in Sources */,
 				7CC832022C2AEB2B00A97350 /* StringExtension.swift in Sources */,
-				7C455DF92C315B5B00F4CECB /* TextFormCell.swift in Sources */,
 				7C0CC30D2C3657A400B79459 /* RefreshTokenModel.swift in Sources */,
 				7CE52AEC2C2E7909005D8A6B /* SignupModel.swift in Sources */,
 				7CE52AE52C2D63EC005D8A6B /* RoleSingleton.swift in Sources */,

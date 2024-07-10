@@ -1,10 +1,3 @@
-//
-//  UsersVC.swift
-//  XIBViewer
-//
-//  Created by Huy on 17/6/24.
-//
-
 import UIKit
 
 class UsersVC: UIViewController {

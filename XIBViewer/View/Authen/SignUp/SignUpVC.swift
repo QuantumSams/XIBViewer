@@ -3,8 +3,6 @@ import UIKit
 final class SignUpVC: UIViewController{
     
     // MARK: - Variables
-    private let tableFormFieldList: [String:TableFormCellModel] = TableForm.signup.getForm
-    private let tableFormOrder: [String] = TableForm.signup.order
     private var isLoading: Bool = false {
         didSet{
             signUpButton.setNeedsUpdateConfiguration()
