@@ -1,14 +1,3 @@
-import UIKit
-
-final class AccountVC: UIViewController {
-
-    //MARK: - Property
-    private var adminUser: UserModel? = nil
-    private var isLoading: Bool = false {
-        didSet{
-            editButton.setNeedsUpdateConfiguration()
-        }
-    }
 
     //MARK: - OUTLET
     @IBOutlet private weak var scrollView: UIScrollView!
