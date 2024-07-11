@@ -10,7 +10,7 @@ enum Endpoints{
     case getRole        (path: String = "/api/roles/")
     case refreshToken   (path: String = "/api/auth/refresh-token/", model: RefreshTokenModel)
     case editUser       (path: String = "/api/users/", model: PUTMethodUserModel, id: Int)
-    case getUserList    (path: String = "/api/users/", limit: Int = 10, offset: Int = 10)
+    case getUserList    (path: String = "/api/users/", limit: Int = 10, offset: Int = 0)
     
     var request:URLRequest? {
         
@@ -30,7 +30,7 @@ enum Endpoints{
         component.host   = API_Constant.baseURL
         component.port   = API_Constant.port
         component.path = self.path
-        component.queryItems = []
+        component.queryItems = self.queryItem
         print(component.url!)
         return component.url
     }
@@ -74,7 +74,7 @@ enum Endpoints{
         }
     }
     
-    var queryItem: [URLQueryItem]{
+    var queryItem: [URLQueryItem]?{
         switch self{
         case .getUserList(_, let limit, let offset):
             return [
@@ -84,7 +84,7 @@ enum Endpoints{
             ]
 
         
-        default: return []
+        default: return nil
         }
     }
     

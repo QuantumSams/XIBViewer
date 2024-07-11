@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,27 +41,14 @@
                         <rect key="frame" x="280" y="35.666666666666664" width="24" height="14"/>
                         <buttonConfiguration key="configuration" style="plain"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-pu-Z7b">
-                        <rect key="frame" x="190.33333333333334" y="25.333333333333332" width="85.666666666666657" height="34.333333333333343"/>
-                        <menu key="menu" id="7jY-dD-qtr">
-                            <children>
-                                <command title="Item 1" id="BcL-je-NsE"/>
-                                <command title="Item 2" id="NZc-fw-YbS"/>
-                            </children>
-                        </menu>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Y6Q-zl-TA7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1q4-q2-iG3"/>
                     <constraint firstAttribute="trailing" secondItem="vSS-M6-KZq" secondAttribute="trailing" constant="16" id="7hb-lz-gVw"/>
-                    <constraint firstItem="wxl-pu-Z7b" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9sA-Nx-jVv"/>
                     <constraint firstAttribute="bottom" secondItem="Y6Q-zl-TA7" secondAttribute="bottom" constant="16" id="E1O-yc-Ow1"/>
                     <constraint firstItem="HC0-HB-VzE" firstAttribute="top" secondItem="jHf-kf-c17" secondAttribute="bottom" constant="8" id="MPa-HM-Ixe"/>
                     <constraint firstItem="jHf-kf-c17" firstAttribute="leading" secondItem="Y6Q-zl-TA7" secondAttribute="trailing" constant="12" id="Mok-Qb-afr"/>
                     <constraint firstItem="jHf-kf-c17" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="PAm-Pt-YTV"/>
-                    <constraint firstItem="vSS-M6-KZq" firstAttribute="leading" secondItem="wxl-pu-Z7b" secondAttribute="trailing" constant="4" id="TnZ-A0-hXl"/>
                     <constraint firstItem="vSS-M6-KZq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cO6-qo-aDu"/>
                     <constraint firstItem="HC0-HB-VzE" firstAttribute="leading" secondItem="Y6Q-zl-TA7" secondAttribute="trailing" constant="12" id="e45-eI-h42"/>
                     <constraint firstAttribute="bottom" secondItem="HC0-HB-VzE" secondAttribute="bottom" constant="16" id="wTq-1N-Ane"/>
@@ -74,7 +60,6 @@
                 <outlet property="cellName" destination="jHf-kf-c17" id="7Cv-jw-fti"/>
                 <outlet property="imageCell" destination="Y6Q-zl-TA7" id="3Kp-va-PM8"/>
                 <outlet property="moreInfoButton" destination="vSS-M6-KZq" id="hIH-D0-8Mr"/>
-                <outlet property="roleSelectButton" destination="wxl-pu-Z7b" id="J7X-dn-yI1"/>
             </connections>
             <point key="canvasLocation" x="120.61068702290076" y="-1.0563380281690142"/>
         </tableViewCell>
