@@ -34,7 +34,7 @@ class AccountVC: UIViewController{
         let vc = EditVC(existingData: adminUser)
         vc.delegate = self
         
-        navigateToCustomController(to: vc)
+        self.presentCustomVCWithNavigationController(toVC: vc)
         
     }
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
@@ -97,10 +97,10 @@ extension AccountVC{
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
     }
     
-    private func navigateToCustomController(to vc: UIViewController){
-        self.present(UINavigationController(rootViewController: vc), animated: true)
-            
-    }
+//    private func presentCustomVCWithNavigationController(toVC vc: UIViewController){
+//        self.present(UINavigationController(rootViewController: vc), animated: true)
+//            
+//    }
 }
 
 // API Calling

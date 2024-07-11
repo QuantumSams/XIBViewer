@@ -52,3 +52,13 @@ extension UIViewController {
         }
     }
 }
+
+extension UIViewController{
+    func pushToCustomVC(toVC: UIViewController) {
+        navigationController?.pushViewController(toVC, animated: true)
+    }
+    
+    func presentCustomVCWithNavigationController(toVC vc: UIViewController){
+        self.present(UINavigationController(rootViewController: vc), animated: true)
+    }
+}

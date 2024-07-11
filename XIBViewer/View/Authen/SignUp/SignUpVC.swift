@@ -51,7 +51,7 @@ final class SignUpVC: UIViewController{
         requestSignUpAPI()
     }
     @IBAction func loginOptionTapped(_ sender: UIButton) {
-        navigateToCustomViewController(toViewController: LogInVC())
+        pushToCustomVC(toVC: LogInVC())
     }
     
     private func popUpButtonSeletedChoice() -> (UIAction) -> Void{
@@ -214,9 +214,9 @@ extension SignUpVC: UITextFieldDelegate{
 
 //API requests
 extension SignUpVC{
-    private func navigateToCustomViewController(toViewController: UIViewController) {
-        navigationController?.pushViewController(toViewController, animated: true)
-    }
+//    private func pushToCustomVC(toVC: UIViewController) {
+//        navigationController?.pushViewController(toVC, animated: true)
+//    }
     
     private func getDataFromTableFields() -> SignupModel?{
         guard let name: String = name,
