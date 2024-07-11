@@ -118,3 +118,35 @@ extension AccountService{
         }.resume()
     }
 }
+
+extension AccountService{
+    static func deleteUser(request: URLRequest, completion: @escaping (Result<Void, Error>) -> Void){
+        
+        URLSession.shared.dataTask(with: request){data, responseCode, error in
+            
+            guard let data = data else{
+                if let error = error {
+                    completion(.failure(APIErrorTypes.serverError(error.localizedDescription)))
+                }
+                else{
+                    completion(.failure(APIErrorTypes.unknownError()))
+                }
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let responseCode = responseCode as? HTTPURLResponse else{
+                completion(.failure(APIErrorTypes.decodingError("No HTTP response code was given")))
+                return
+            }
+            if 200...299 ~= responseCode.statusCode{
+                completion(.success(()))
+                return
+            }
+            else if let errorData = try? decoder.decode(ErrorResponse.self, from: data){
+                completion(.failure(APIErrorTypes.serverError(errorData.detail)))
+                return
+            }
+        }.resume()
+    }
+}

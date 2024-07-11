@@ -2,9 +2,11 @@ import Foundation
 
 enum HTTP{
     enum Methods: String{
-        case get = "GET"
-        case post = "POST"
-        case put = "PUT"
+        case get    = "GET"
+        case post   = "POST"
+        case put    = "PUT"
+        case patch  = "PATCH"
+        case delete = "DELETE"
     }
     
     enum Headers{

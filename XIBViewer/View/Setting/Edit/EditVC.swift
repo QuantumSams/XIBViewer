@@ -1,9 +1,6 @@
-//
-//  EditVC.swift
-//  XIBViewer
-//
-//  Created by Huy on 4/7/24.
-//
+protocol EditVCDelegate{
+    func doneEditing(send newUserData: UserModel)
+}
 
 import UIKit
 
@@ -14,7 +11,7 @@ class EditVC: UIViewController {
     private var name: String?
     private var email: String?
     
-    var delegate: EditRefreshDataDelegate?
+    var delegate: EditVCDelegate?
     
     // MARK: - OUTLETS
     @IBOutlet weak var nameField: UITextField!
@@ -120,7 +117,7 @@ extension EditVC: UITextFieldDelegate{
         }
     }
     
-    func textField(_ textField: UITextField, _: NSRange, _: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         switch textField.tag{
         case FieldIdentifier.name.rawValue:
             nameValidationLabel.text = ""

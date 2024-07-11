@@ -83,7 +83,21 @@ extension AlertManager{
                             buttonList: [cancelButton, logoutButton]
         )
     }
-    
+    public static func deleteUserConfirm(on onVC: UIViewController, completion: @escaping (Bool) -> Void){
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            completion(false)
+        }
+        
+        let logoutButton = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            completion(true)
+        }
+        
+        self.showButtonAlert(on:        onVC,
+                            title:      "Confirm deletion",
+                            message:    "Do you actually want to delete this person?",
+                            buttonList: [cancelButton, logoutButton]
+        )
+    }
 }
 
 

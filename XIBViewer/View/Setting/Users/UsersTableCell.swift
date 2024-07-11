@@ -1,6 +1,10 @@
 import UIKit
 import SDWebImage
 
+protocol UserTableCellDelegate{
+    func moreInfoButtonPressed(index: Int)
+}
+
 class UsersTableCell: UITableViewCell {
     //MARK: - PROPERTIES
     static private let id = "UsersTableCell"
@@ -61,6 +65,3 @@ extension UsersTableCell{
         moreInfoButton.tintColor = UIColor.tintColor
     }
 }
-
-
-

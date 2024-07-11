@@ -9,10 +9,10 @@ final class SignUpVC: UIViewController{
             changeToLoginButton.setNeedsUpdateConfiguration()
         }
     }
-    var email:      String?
-    var name:       String?
-    var password:   String?
-    var role:       RoleModel?
+    private var email:      String?
+    private var name:       String?
+    private var password:   String?
+    private var role:       RoleModel?
  
     //MARK: - IB Components
     
@@ -214,9 +214,6 @@ extension SignUpVC: UITextFieldDelegate{
 
 //API requests
 extension SignUpVC{
-//    private func pushToCustomVC(toVC: UIViewController) {
-//        navigationController?.pushViewController(toVC, animated: true)
-//    }
     
     private func getDataFromTableFields() -> SignupModel?{
         guard let name: String = name,

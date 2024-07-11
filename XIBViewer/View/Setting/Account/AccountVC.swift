@@ -1,7 +1,4 @@
 import UIKit
-protocol EditRefreshDataDelegate{
-    func doneEditing(send newUserData: UserModel)
-}
 
 class AccountVC: UIViewController{
     
@@ -131,7 +128,7 @@ extension AccountVC{
 
 
 //MARK: - DELEGATE
-extension AccountVC: EditRefreshDataDelegate{
+extension AccountVC: EditVCDelegate{
     func doneEditing(send newUserData: UserModel) {
         parseDataToFields(with: newUserData)
     }
