@@ -1,11 +1,19 @@
 import UIKit
 
+enum actionSheetEnum{
+    case edit
+    case delete
+    case cancel
+}
+
 class AlertManager{
-    static func showAlert(on onVC:UIViewController,
-                                title: String,
-                                message: String)
+    static func showAlert(on onVC:  UIViewController,
+                          title:    String,
+                          message:  String,
+                          style:    UIAlertController.Style = .alert
+    )
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
         
         
@@ -15,12 +23,14 @@ class AlertManager{
     }
     
     
-    private static func showButtonAlert(on onVC:UIViewController,
-                                        title: String,
-                                        message: String,
-                                        buttonList: [UIAlertAction])
+    private static func showButtonAlert(on onVC:    UIViewController,
+                                        title:      String,
+                                        message:    String,
+                                        buttonList: [UIAlertAction],
+                                        style:      UIAlertController.Style = .alert
+    )
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         buttonList.forEach{button in
             alert.addAction(button)
         }
@@ -67,10 +77,10 @@ extension AlertManager{
             completion(true)
         }
         
-        self.showButtonAlert(on: onVC,
-                        title: "Log out",
-                        message: "Do you actually want to log out?",
-                        buttonList: [cancelButton, logoutButton]
+        self.showButtonAlert(on:        onVC,
+                            title:      "Log out",
+                            message:    "Do you actually want to log out?",
+                            buttonList: [cancelButton, logoutButton]
         )
     }
     
@@ -85,5 +95,26 @@ extension AlertManager{
     
 }
 
+// Action sheet for selection
 
+extension AlertManager{
+    public static func userMenu(on vc: UIViewController, completion: @escaping (actionSheetEnum) -> Void){
+        let editActionButton = UIAlertAction(title: "Edit", style: .default) { _ in
+            completion(.edit)
+        }
+        
+        let deleteActionButton = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            completion(.delete)
+        }
+        
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel)
+                
+        self.showButtonAlert(on:            vc,
+                             title:         "Account action",
+                             message:       "Select an action for this user.",
+                             buttonList:    [editActionButton, deleteActionButton, cancelActionButton],
+                             style:         .actionSheet
+        )
+    }
+}
 

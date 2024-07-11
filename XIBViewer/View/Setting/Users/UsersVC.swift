@@ -1,5 +1,10 @@
 import UIKit
 
+protocol UserTableCellDelegate{
+    func moreInfoButtonPressed(index: Int)
+}
+
+
 class UsersVC: UIViewController {
     
     private var userList: [UserModel] = []{
@@ -28,7 +33,8 @@ extension UsersVC: UITableViewDataSource, UITableViewDelegate{
         
         let returnCell = userTableView.dequeueReusableCell(withIdentifier: UsersTableCell.getID(), for: indexPath) as! UsersTableCell
         
-        returnCell.setData(user: userList[indexPath.row])
+        returnCell.setData(user: userList[indexPath.row], indexPath: indexPath.row)
+        returnCell.delegate = self
         return returnCell
     }
     
@@ -47,7 +53,7 @@ extension UsersVC: UITableViewDataSource, UITableViewDelegate{
 
 
 extension UsersVC{
-    private func requestGetListAPI(limit: Int = 100, offset: Int = 0){
+    private func requestGetListAPI(limit: Int = 10, offset: Int = 0){
         guard let request = Endpoints.getUserList(limit: limit, offset: offset).request else{
             return
         }
@@ -77,6 +83,22 @@ extension UsersVC{
                 case .deviceError(let string):
                     AlertManager.showDeviceError(on: self, message: string)
                 }
+            }
+        }
+    }
+}
+
+
+extension UsersVC: UserTableCellDelegate{
+    func moreInfoButtonPressed(index: Int) {
+        AlertManager.userMenu(on: self) { actionType in
+            switch actionType{
+            case .edit:
+                print("edit")
+            case .delete:
+                print("delete")
+            case .cancel:
+                break
             }
         }
     }
