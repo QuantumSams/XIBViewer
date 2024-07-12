@@ -32,8 +32,8 @@ extension UIViewController {
             if let indicator = UIViewController.association[self] {
                 return indicator
             } else {
-                UIViewController.association[self] = UIActivityIndicatorView.customIndicator(height: self.view.bounds.height,
-                                                                                             width: self.view.bounds.width)
+                UIViewController.association[self] = UIActivityIndicatorView.customIndicator(height: 100,
+                                                                                             width: 100, center: self.view.center)
                 return UIViewController.association[self]!
             }
         }
@@ -43,12 +43,15 @@ extension UIViewController {
         DispatchQueue.main.async {
             self.view.addSubview(self.indicator)
             self.indicator.startAnimating()
+            self.view.isUserInteractionEnabled = false
+            
         }
     }
 
     public func stopIndicatingActivity() {
         DispatchQueue.main.async {
             self.indicator.stopAnimating()
+            self.view.isUserInteractionEnabled = true
         }
     }
 }

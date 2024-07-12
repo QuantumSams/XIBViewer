@@ -1,6 +1,8 @@
 import Foundation
 
 class AccountService{
+
+    
     static func getAccount(completion: @escaping (Result<UserModel, Error>) -> Void){
         
         
@@ -120,12 +122,12 @@ extension AccountService{
 }
 
 extension AccountService{
-    static func deleteUser(request: URLRequest, completion: @escaping (Result<Void, Error>) -> Void){
+    static func deleteUser(request: URLRequest, completion: @escaping (Result<String, Error>) -> Void){
         
         URLSession.shared.dataTask(with: request){data, responseCode, error in
             
             guard let data = data else{
-                if let error = error {
+                if let error = error as? URLError{
                     completion(.failure(APIErrorTypes.serverError(error.localizedDescription)))
                 }
                 else{
@@ -140,7 +142,7 @@ extension AccountService{
                 return
             }
             if 200...299 ~= responseCode.statusCode{
-                completion(.success(()))
+                completion(.success(" "))
                 return
             }
             else if let errorData = try? decoder.decode(ErrorResponse.self, from: data){

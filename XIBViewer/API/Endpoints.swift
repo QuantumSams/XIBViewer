@@ -9,8 +9,12 @@ enum Endpoints{
     case getRole        (path: String = "/api/roles/")
     case refreshToken   (path: String = "/api/auth/refresh-token/", model: RefreshTokenModel)
     case editUser       (path: String = "/api/users/", model: PUTMethodUserModel, id: Int)
-    case getUserList    (path: String = "/api/users/", limit: Int = 10, offset: Int = 0)
     case deleteUser     (path: String = "/api/users/", id: Int)
+    case getUserList    (path: String = "/api/users/", limit: Int = 10, offset: Int = 0)
+    
+    case loadMoreUserList(fullPath: URL)
+    
+    
 }
 
 extension Endpoints{
@@ -23,18 +27,26 @@ extension Endpoints{
         request.httpMethod      = self.httpMethod
         request.httpBody        = self.httpBody
         request.addValues(self)
+        print(request)
         return request
     }
     
     private var url:URL? {
-        var component = URLComponents()
-        component.scheme        = API_Constant.scheme
-        component.host          = API_Constant.baseURL
-        component.port          = API_Constant.port
-        component.path          = self.path
-        component.queryItems    = self.queryItem
-        print(component.url!)
-        return component.url
+        switch self{
+        case .loadMoreUserList(fullPath: let fullPath): return fullPath
+            
+        default:
+            var component = URLComponents()
+            component.scheme        = API_Constant.scheme
+            component.host          = API_Constant.baseURL
+            component.port          = API_Constant.port
+            component.path          = self.path
+            component.queryItems    = self.queryItem
+            return component.url
+        }
+        
+        
+        
     }
     
     var path: String {
@@ -45,8 +57,9 @@ extension Endpoints{
         case .getRole(path: let path):                          return path
         case .refreshToken(path: let path, _):                  return path
         case .editUser(path: let path, model: _, id: let id):   return path + String(id) + "/"
-        case .getUserList(path: let path, _, _):                return path
         case .deleteUser(path: let path, id: let id):           return path + String(id) + "/"
+        case .getUserList(path: let path, _, _):                return path
+        case .loadMoreUserList:                                 return ""
         }
     }
     
@@ -75,6 +88,8 @@ extension Endpoints{
             
         case .deleteUser:
             return nil
+        case .loadMoreUserList:
+            return nil
         }
     }
     
@@ -97,9 +112,9 @@ extension Endpoints{
         case .getRole:          return HTTP.Methods.get.rawValue
         case .refreshToken:     return HTTP.Methods.post.rawValue
         case .editUser:         return HTTP.Methods.put.rawValue
-        case .getUserList:      return HTTP.Methods.get.rawValue
         case .deleteUser:       return HTTP.Methods.delete.rawValue
-            
+        case .getUserList:      return HTTP.Methods.get.rawValue
+        case .loadMoreUserList: return HTTP.Methods.get.rawValue
         }
     }
 }

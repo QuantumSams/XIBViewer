@@ -3,7 +3,7 @@ import Foundation
 extension URLRequest{
     mutating func addValues(_ endpoints: Endpoints){
         switch endpoints{
-        case .login, .signup, .refreshToken, .editUser, .getUserList, .deleteUser, .getRole:
+        case .login, .signup, .refreshToken, .editUser, .getUserList, .deleteUser, .getRole, .loadMoreUserList:
 
             self.setValue(HTTP.Headers.Value.applicationJson.HeaderValues,
                           forHTTPHeaderField: HTTP.Headers.Key.contentType.HeadersKey)

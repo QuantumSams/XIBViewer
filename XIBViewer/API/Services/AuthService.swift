@@ -46,7 +46,7 @@ class AuthService{
 
 //Sign up request
 extension AuthService{
-    static func signUp(request: URLRequest, completion: @escaping (Result<String, Error>) -> Void){
+    static func signUp(request: URLRequest, completion: @escaping (Result<String, Error>) -> Void) {
         
         URLSession.shared.dataTask(with: request) { data, responseCode, error in
             
@@ -96,7 +96,7 @@ extension AuthService{
 //Refresh token request
 
 extension AuthService{
-    static func refreshToken(completion: @escaping (Result<String, Error>) -> Void){
+    static func refreshToken(completion: @escaping (Result<String, Error>) -> Void) {
         
         let model = RefreshTokenModel(refresh: TokenSingleton.getToken.getRequestToken())
         guard let request = Endpoints.refreshToken(model: model).request else {return}

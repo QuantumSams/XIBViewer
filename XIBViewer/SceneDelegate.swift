@@ -50,7 +50,8 @@ extension SceneDelegate{
                         TokenSingleton.getToken.setInitialToken(access: accessToken)
                         self?.swapRootVC(SettingTabBarController(), transition: transition)
                     
-                    case .failure(_):
+                    case .failure(let error):
+                        print(error)
                         self?.swapRootVC(SignUpVC(), transition: transition)
                     }
                 }
