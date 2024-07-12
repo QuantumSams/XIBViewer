@@ -1,28 +1,22 @@
 protocol EditVCDelegate{
     func doneEditing(send newUserData: UserModel)
 }
-
 import UIKit
 
 class EditVC: UIViewController {
     
     // MARK: - VARIABLES
-    private let existingData: UserModel?
-    private var name: String?
-    private var email: String?
-    
-    var delegate: EditVCDelegate?
+    private let viewModel: EditVM
     
     // MARK: - OUTLETS
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
-    
     @IBOutlet weak var nameValidationLabel: UILabel!
     @IBOutlet weak var emailValidationLabel: UILabel!
 
     // MARK: - LIFECYCLE
-    init(existingData: UserModel?) {
-        self.existingData = existingData
+    init(existingData: UserModel, delegate: EditVCDelegate) {
+        self.viewModel = EditVM(data: existingData, delegate: delegate)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,7 +27,7 @@ class EditVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        setInitalValueForEditField(from: existingData)
+        setInitalValueForEditField(from: viewModel.existingData)
     }
     
     //MARK: - EVENT CATCHING
@@ -85,6 +79,14 @@ extension EditVC{
     private func setupValidationLabel(for label: UILabel){
         label.text = ""
     }
+    
+    func setInitalValueForEditField(from data: UserModel?){
+        guard let data = data else{
+            return
+        }
+        emailField.placeholder = data.email
+        nameField.placeholder = data.name
+    }
 }
 
 // Validation handling
@@ -97,21 +99,20 @@ extension EditVC: UITextFieldDelegate{
         case FieldIdentifier.name.rawValue:
             if let validationResult = Validator.validateName(for: value){
                 nameValidationLabel.text = validationResult
-                name = nil
+                viewModel.name = nil
             }
             else{
-                name = value
+                viewModel.name = value
             }
             
         case FieldIdentifier.email.rawValue:
             if let validationResult = Validator.validateEmail(for: value){
                 emailValidationLabel.text = validationResult
-                email = nil
+                viewModel.email = nil
             }
             else{
-                email = value
+                viewModel.email = value
             }
-            
         default:
             break
         }
@@ -133,71 +134,21 @@ extension EditVC: UITextFieldDelegate{
 }
 //API calling
 extension EditVC{
-    func setInitalValueForEditField(from data: UserModel?){
-        guard let data = data else{
-            return
-        }
-        emailField.placeholder = data.email
-        nameField.placeholder = data.name
-    }
-    
-    private func getFieldData() -> PUTMethodUserModel?{
-        
-        guard let email = email,
-              let name =  name,
-              let selectedRole = existingData?.role.name
-        else{
-           return nil
-        }
-        
-        print()
-        
-        return PUTMethodUserModel(name: name,
-                                  email: email,
-                                  role: PUTMethodRoleModel(name: selectedRole))
-    }
     
     private func editUserRequest(){
-        guard delegate != nil else{
-            fatalError("EditRefreshDataDelegate hasn't been assigned")
-        }
         
-        guard let editData = getFieldData() else{
-            AlertManager.FormNotCompleted(on: self)
-            return
-        }
         
-        guard let userID = existingData?.id else{
-            fatalError("user id is nil")
-        }
-        
-        guard let request = Endpoints.editUser(model: editData, id: userID).request else{
-            return
-        }
-        self.startIndicatingActivity()
-        AccountService.editAccount(request: request) {[weak self] result in
+        viewModel.sendData {[weak self] result in
+            guard let self = self else {return}
+            self.startIndicatingActivity()
             switch result{
-            case .success(let newUserData):
-                self!.delegate!.doneEditing(send: newUserData)
-                DispatchQueue.main.async {
-                    self?.dismiss(animated: true, completion: nil)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.indicator.stopAnimating()
-                    guard let error = error as? APIErrorTypes else {return}
-                    switch error{
-                    case .deviceError(let string):
-                        AlertManager.showDeviceError(on: self!, message: string)
-                    case .serverError(let string):
-                        AlertManager.showServerErrorResponse(on: self!, message: string)
-                    case .decodingError(let string):
-                        AlertManager.showDevelopmentError(on: self!, message: string, errorType: .decodingError())
-                    case .unknownError(let string):
-                        AlertManager.showDevelopmentError(on: self!, message: string, errorType: .unknownError())
-                    }
-                }
+        case .success():
+            self.dismiss(animated: true, completion: nil)
+        case .failure(let error):
+                guard let error = error as? APIErrorTypes else {return}
+                AlertManager.alertOnAPIError(with: error, on: self)
             }
+            self.stopIndicatingActivity()
         }
     }
 }

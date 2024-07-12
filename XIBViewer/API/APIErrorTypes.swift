@@ -6,4 +6,5 @@ enum APIErrorTypes: Error{
     case serverError(String)
     case decodingError(String = "PARSING ERROR")
     case unknownError(String = "UNKNOWN ERROR")
+    case dataIsMissing(String = "Not all data has been filled, please try again")
 }

@@ -121,16 +121,8 @@ extension UsersVC{
                     
                 case .failure(let error):
                     guard let error = error as? APIErrorTypes else {return}
-                    
-                    switch error{
-                    case .serverError(let string):
-                        AlertManager.showServerErrorResponse(on: self, message: string)
-                    case .decodingError(let string),
-                            .unknownError(let string):
-                        AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
-                    case .deviceError(let string):
-                        AlertManager.showDeviceError(on: self, message: string)
-                    }
+                    AlertManager.alertOnAPIError(with: error, on: self)
+
                 }
                 if loadingAnimation {self.stopIndicatingActivity()}
             }
@@ -160,15 +152,8 @@ extension UsersVC{
                     
                 case .failure(let error):
                     guard let error = error as? APIErrorTypes else {return}
-                    switch error{
-                    case .serverError(let string):
-                        AlertManager.showServerErrorResponse(on: self, message: string)
-                    case .decodingError(let string),
-                            .unknownError(let string):
-                        AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
-                    case .deviceError(let string):
-                        AlertManager.showDeviceError(on: self, message: string)
-                    }
+                    AlertManager.alertOnAPIError(with: error, on: self)
+
                 }
                 self.stopIndicatingActivity()
             }
@@ -204,15 +189,8 @@ extension UsersVC{
                     
                 case .failure(let error):
                     guard let error = error as? APIErrorTypes else {return}
-                    switch error{
-                    case .serverError(let string):
-                        AlertManager.showServerErrorResponse(on: self, message: string)
-                    case .decodingError(let string),
-                            .unknownError(let string):
-                        AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
-                    case .deviceError(let string):
-                        AlertManager.showDeviceError(on: self, message: string)
-                    }
+                    AlertManager.alertOnAPIError(with: error, on: self)
+
                 }
                 self.stopIndicatingActivity()
             }
@@ -238,8 +216,7 @@ extension UsersVC: UserTableCellDelegate{
 
 extension UsersVC: EditVCDelegate{
     private func presentEditVC(with data: UserModel){
-        let vc = EditVC(existingData: data)
-        vc.delegate = self
+        let vc = EditVC(existingData: data, delegate: self)
         self.presentCustomVCWithNavigationController(toVC: vc)
     }
     func doneEditing(send newUserData: UserModel) {

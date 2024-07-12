@@ -164,15 +164,7 @@ extension LogInVC{
                 
             case .failure(let error):
                 guard let error = error as? APIErrorTypes else {return}
-                switch error{
-                case .serverError(let string):
-                    AlertManager.showServerErrorResponse(on: self, message: string)
-                case .decodingError(let string),
-                        .unknownError(let string):
-                    AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
-                case .deviceError(let string):
-                    AlertManager.showDeviceError(on: self, message: string)
-                }
+                AlertManager.alertOnAPIError(with: error, on: self)
                 DispatchQueue.main.sync {
                     self.isLoading = false
                 }

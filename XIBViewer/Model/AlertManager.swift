@@ -132,3 +132,21 @@ extension AlertManager{
     }
 }
 
+
+extension AlertManager{
+    public static func alertOnAPIError(with error: APIErrorTypes, on vc: UIViewController){
+    
+        switch error{
+        case .deviceError(let string):
+            showDeviceError(on: vc, message: string)
+        case .serverError(let string):
+            showServerErrorResponse(on: vc, message: string)
+        case .decodingError(let string):
+            showDevelopmentError(on: vc, message: string, errorType: .decodingError())
+        case .unknownError(let string):
+            showDevelopmentError(on: vc, message: string, errorType: .unknownError())
+        case .dataIsMissing(let string):
+            FormNotCompleted(on: vc)
+        }
+    }
+}

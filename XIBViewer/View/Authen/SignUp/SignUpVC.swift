@@ -250,20 +250,11 @@ extension SignUpVC{
             switch result {
             case .success(_):
                 self?.loginAftersignUp(email: signUpData.email, password: signUpData.password)
-            case .failure(let errorData):
+            case .failure(let error):
                 DispatchQueue.main.async {
                     self?.isLoading = false
-                guard let errorData = errorData as? APIErrorTypes else {return}
-                switch errorData{
-                case .serverError(let string):
-                    AlertManager.showServerErrorResponse(on: self!, message: string)
-                case .decodingError(let string):
-                    AlertManager.showDevelopmentError(on: self!, message: string, errorType: .decodingError())
-                case  .unknownError(let string):
-                    AlertManager.showDevelopmentError(on: self!, message: string, errorType: .unknownError())
-                case .deviceError(let string):
-                    AlertManager.showDeviceError(on: self!, message: string)
-                }
+                    guard let error = error as? APIErrorTypes else {return}
+                    AlertManager.alertOnAPIError(with: error, on: self!)
             }
         }
     }
@@ -291,15 +282,8 @@ extension SignUpVC{
                 DispatchQueue.main.async {
                     self.isLoading = false
                 }
-                switch error{
-                case .serverError(let string):
-                    AlertManager.showServerErrorResponse(on: self, message: string)
-                case .decodingError(let string),
-                        .unknownError(let string):
-                    AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
-                case .deviceError(let string):
-                    AlertManager.showDeviceError(on: self, message: string)
-                }
+                AlertManager.alertOnAPIError(with: error, on: self)
+
             }
         }
     }
@@ -320,15 +304,8 @@ extension SignUpVC{
                 DispatchQueue.main.async { [weak self] in
                     self?.stopIndicatingActivity()
                 }
-                switch error{
-                case .serverError(let string):
-                    AlertManager.showServerErrorResponse(on: self, message: string)
-                case .decodingError(let string),
-                        .unknownError(let string):
-                    AlertManager.showDevelopmentError(on: self, message: string, errorType: .decodingError())
-                case .deviceError(let string):
-                    AlertManager.showDeviceError(on: self, message: string)
-                }
+                AlertManager.alertOnAPIError(with: error, on: self)
+
             }
         }
     }

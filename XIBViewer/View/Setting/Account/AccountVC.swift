@@ -32,8 +32,11 @@ class AccountVC: UIViewController{
     
     //MARK: - EVENT CATCHING
     @IBAction func editButtonTapped(_ sender: UIButton) {
-        let vc = EditVC(existingData: viewModel.adminUser)
-        vc.delegate = self
+        guard let user = viewModel.adminUser else {
+            return
+        }
+        
+        let vc = EditVC(existingData: user, delegate: self)
         self.presentCustomVCWithNavigationController(toVC: vc)
         
     }
@@ -99,7 +102,6 @@ extension AccountVC{
             self.roleField.text = adminUser.role.name.capitalized
         }
     }
-    
     private func bindingVM(){
         self.startIndicatingActivity()
         viewModel.fetchAdminData() { [weak self] result in
