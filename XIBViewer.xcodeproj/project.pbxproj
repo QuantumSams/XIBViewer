@@ -19,6 +19,7 @@
 		7C455DEF2C2EF80700F4CECB /* RegexConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C455DEE2C2EF80700F4CECB /* RegexConstant.swift */; };
 		7C455DF12C2EF81400F4CECB /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C455DF02C2EF81400F4CECB /* APIConstant.swift */; };
 		7C4FEB3C2C40E7F000D3783F /* TableLoadMoreIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4FEB3B2C40E7EF00D3783F /* TableLoadMoreIndicator.swift */; };
+		7C4FEB3E2C4106FA00D3783F /* AccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4FEB3D2C4106FA00D3783F /* AccountVM.swift */; };
 		7C6BFE372C3C33B600D1C3FC /* FieldIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6BFE362C3C33B600D1C3FC /* FieldIdentifier.swift */; };
 		7C7C7B702C37F5F1003FEF92 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = 7C7C7B6F2C37F5F1003FEF92 /* netfox */; };
 		7C911F352C06272B00D28629 /* LogInVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C911F332C06272B00D28629 /* LogInVC.xib */; };
@@ -70,6 +71,7 @@
 		7C455DEE2C2EF80700F4CECB /* RegexConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexConstant.swift; sourceTree = "<group>"; };
 		7C455DF02C2EF81400F4CECB /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
 		7C4FEB3B2C40E7EF00D3783F /* TableLoadMoreIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableLoadMoreIndicator.swift; sourceTree = "<group>"; };
+		7C4FEB3D2C4106FA00D3783F /* AccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVM.swift; sourceTree = "<group>"; };
 		7C6BFE362C3C33B600D1C3FC /* FieldIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldIdentifier.swift; sourceTree = "<group>"; };
 		7C911F332C06272B00D28629 /* LogInVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogInVC.xib; sourceTree = "<group>"; };
 		7C911F342C06272B00D28629 /* LogInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 		7CDF31E52C060A2000C01B06 = {
 			isa = PBXGroup;
 			children = (
+				7C4FEB3D2C4106FA00D3783F /* AccountVM.swift */,
 				7CDF31F02C060A2100C01B06 /* XIBViewer */,
 				7CDF31EF2C060A2100C01B06 /* Products */,
 			);
@@ -420,6 +423,7 @@
 				7C43D71A2C1D909D00B3E914 /* AccountVC.swift in Sources */,
 				7C455DEF2C2EF80700F4CECB /* RegexConstant.swift in Sources */,
 				7C3F271D2C37A4F40013780B /* UIActivityIndicatorViewExtendsions.swift in Sources */,
+				7C4FEB3E2C4106FA00D3783F /* AccountVM.swift in Sources */,
 				7CE613182C2C0CDF001A3B96 /* TokenSingleton.swift in Sources */,
 				7C455DED2C2EF2AF00F4CECB /* Validator.swift in Sources */,
 				7CDF31F22C060A2100C01B06 /* AppDelegate.swift in Sources */,

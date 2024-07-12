@@ -2,8 +2,9 @@ import UIKit
 
 class AccountVC: UIViewController{
     
-    private var adminUser: UserModel?
+//    private var adminUser: UserModel?
     private var isLoading: Bool = false
+    private let viewModel: AccountVM
     
     //MARK: - OUTLET
     @IBOutlet private weak var scrollView: UIScrollView!
@@ -14,23 +15,25 @@ class AccountVC: UIViewController{
     @IBOutlet private weak var logoutButton: UIButton!
     //MARK: - LIFECYCLE
 
+    init() {
+        self.viewModel = AccountVM()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if(adminUser == nil){
-            adminUserAPIRequest()
-        }
+        bindingVM()
     }
     
     //MARK: - EVENT CATCHING
     @IBAction func editButtonTapped(_ sender: UIButton) {
-        let vc = EditVC(existingData: adminUser)
+        let vc = EditVC(existingData: viewModel.adminUser)
         vc.delegate = self
-        
         self.presentCustomVCWithNavigationController(toVC: vc)
         
     }
@@ -40,13 +43,13 @@ class AccountVC: UIViewController{
                 self.logoutButton.configuration?.showsActivityIndicator = true
                 self.logoutButton.isEnabled = false
                 self.editButton.isEnabled = false
-                self.logoutAccount()
+                self.viewModel.revokeAuthen()
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
             }
         }
     }
 }
 //MARK: - ADDITIONAL METHODS
-
 
 // SetupView
 extension AccountVC{
@@ -86,23 +89,10 @@ extension AccountVC{
     }
 }
 
-//Navigating routes
-extension AccountVC{
-
-    private func logoutAccount(){
-        TokenSingleton.getToken.removeToken()
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
-    }
-    
-//    private func presentCustomVCWithNavigationController(toVC vc: UIViewController){
-//        self.present(UINavigationController(rootViewController: vc), animated: true)
-//            
-//    }
-}
-
 // API Calling
 extension AccountVC{
-    private func parseDataToFields(with adminUser: UserModel){
+    private func parseDataToFields(with adminUser: UserModel?){
+        guard let adminUser = adminUser else{return}
         DispatchQueue.main.async {
             self.emailField.text = adminUser.email
             self.nameField.text = adminUser.name
@@ -110,22 +100,20 @@ extension AccountVC{
         }
     }
     
-    private func adminUserAPIRequest(){
+    private func bindingVM(){
         self.startIndicatingActivity()
-        AccountService.getAccount { [weak self] result in
+        viewModel.fetchAdminData() { [weak self] result in
+            guard let self = self else {return}
             switch result{
-            case .success(let adminUser):
-                self?.adminUser = adminUser
-                self?.parseDataToFields(with: adminUser)
-                self?.stopIndicatingActivity()
+            case .success():
+                self.parseDataToFields(with: self.viewModel.adminUser)
+                self.stopIndicatingActivity()
             case .failure(_):
-                AlertManager.showDeviceError(on: self!, message: "Something went wrong, please login again")
-                self?.logoutAccount()
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
             }
         }
     }
 }
-
 
 //MARK: - DELEGATE
 extension AccountVC: EditVCDelegate{
