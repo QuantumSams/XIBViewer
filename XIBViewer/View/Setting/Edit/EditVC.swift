@@ -136,19 +136,20 @@ extension EditVC: UITextFieldDelegate{
 extension EditVC{
     
     private func editUserRequest(){
-        
-        
         viewModel.sendData {[weak self] result in
-            guard let self = self else {return}
-            self.startIndicatingActivity()
-            switch result{
-        case .success():
-            self.dismiss(animated: true, completion: nil)
-        case .failure(let error):
-                guard let error = error as? APIErrorTypes else {return}
-                AlertManager.alertOnAPIError(with: error, on: self)
+            DispatchQueue.main.async{ [weak self] in
+                guard let self = self else {return}
+                self.startIndicatingActivity()
+                switch result{
+                case .success():
+                self.dismiss(animated: true, completion: nil)
+                case .failure(let error):
+                    guard let error = error as? APIErrorTypes else {return}
+                    AlertManager.alertOnAPIError(with: error, on: self)
+                }
+                self.stopIndicatingActivity()
             }
-            self.stopIndicatingActivity()
         }
     }
 }
+ 

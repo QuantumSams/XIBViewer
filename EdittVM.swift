@@ -11,7 +11,7 @@ class EditVM{
     let existingData: UserModel?
     var name: String?
     var email: String?
-    var delegate: EditVCDelegate?
+    var delegate: EditVCDelegate
 }
 
 extension EditVM{
@@ -50,7 +50,7 @@ extension EditVM{
             guard let self = self else {return}
             switch result{
             case .success(let newUserData):
-                self.delegate!.doneEditing(send: newUserData)
+                self.delegate.doneEditing(send: newUserData)
                 completion(.success(()))
             case .failure(let error):
                 completion(.failure(error))
