@@ -1,43 +1,50 @@
 import UIKit
 
-final class SignUpVC: UIViewController{
-    
+final class SignUpVC: UIViewController {
     // MARK: - Variables
+
     private var isLoading: Bool = false {
-        didSet{
+        didSet {
             signUpButton.setNeedsUpdateConfiguration()
             changeToLoginButton.setNeedsUpdateConfiguration()
         }
     }
-    private var email:      String?
-    private var name:       String?
-    private var password:   String?
-    private var role:       RoleModel?
+
+    private let viewModel: SignUpVM
  
-    //MARK: - IB Components
+    // MARK: - IB Components
     
-    //Fields
-    @IBOutlet private weak var nameField: UITextField!
-    @IBOutlet private weak var emailField: UITextField!
-    @IBOutlet private weak var passwordField: UITextField!
-    @IBOutlet private weak var confirmPasswordField: UITextField!
+    // Fields
+    @IBOutlet private var nameField: UITextField!
+    @IBOutlet private var emailField: UITextField!
+    @IBOutlet private var passwordField: UITextField!
+    @IBOutlet private var confirmPasswordField: UITextField!
     
-    //Validation labels
-    @IBOutlet private weak var nameValidationLabel: UILabel!
-    @IBOutlet private weak var emailValidationLabel: UILabel!
-    @IBOutlet private weak var passwordValidationLabel: UILabel!
-    @IBOutlet private weak var confirmPasswordValidationLabel: UILabel!
+    // Validation labels
+    @IBOutlet private var nameValidationLabel: UILabel!
+    @IBOutlet private var emailValidationLabel: UILabel!
+    @IBOutlet private var passwordValidationLabel: UILabel!
+    @IBOutlet private var confirmPasswordValidationLabel: UILabel!
     
     // Buttons
-    @IBOutlet private weak var roleSelectionButton: UIButton!
-    @IBOutlet private weak var signUpButton: UIButton!
-    @IBOutlet private weak var changeToLoginButton: UIButton!
+    @IBOutlet private var roleSelectionButton: UIButton!
+    @IBOutlet var signUpButton: UIButton!
+    @IBOutlet var changeToLoginButton: UIButton!
     
     // MARK: - Lifecycle
     
+    init() {
+        self.viewModel = SignUpVM()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestRoleAPI()
+        getRoleAction()
         setupViews()
     }
     
@@ -46,26 +53,98 @@ final class SignUpVC: UIViewController{
     }
     
     // MARK: - Event catching
+
     @IBAction func registerTapped(_ sender: UIButton) {
-        self.view.endEditing(true)
-        requestSignUpAPI()
+        view.endEditing(true)
+        signUpAction()
     }
+
     @IBAction func loginOptionTapped(_ sender: UIButton) {
         pushToCustomVC(toVC: LogInVC())
     }
     
-    private func popUpButtonSeletedChoice() -> (UIAction) -> Void{
-       return { selected in
-            self.role = RoleModel(id: Int(selected.identifier.rawValue) ?? -1,
-                                             name: selected.title)
+    private func popUpButtonSeletedChoice() -> (UIAction) -> Void {
+        return { selected in
+            self.viewModel.role = RoleModel(id: Int(selected.identifier.rawValue) ?? -1,
+                                            name: selected.title)
         }
     }
 }
 
-//MARK: - Additional methods
+// MARK: - Delegate/Datasource conform
 
-//Setup UI
-extension SignUpVC{
+// UITextFieldDelegate
+extension SignUpVC: UITextFieldDelegate {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        textField.text = textField.text ?? ""
+        switch textField.tag {
+        case FieldIdentifier.name.rawValue:
+            if let validateResponse = Validator.validateName(for: textField.text) {
+                nameValidationLabel.text = validateResponse
+                viewModel.name = nil
+            }
+            else {
+                viewModel.name = textField.text
+            }
+            
+        case FieldIdentifier.email.rawValue:
+            if let validateResponse = Validator.validateEmail(for: textField.text) {
+                emailValidationLabel.text = validateResponse
+                viewModel.email = nil
+            }
+            else {
+                viewModel.email = textField.text
+            }
+            
+        case FieldIdentifier.password.rawValue:
+            if let validateResponse = Validator.validatePassword(for: textField.text) {
+                passwordValidationLabel.text = validateResponse
+                viewModel.password = nil
+            }
+            
+        case FieldIdentifier.confirmPassword.rawValue:
+            if let validateResponse = Validator.comparePassword(password: passwordField.text,
+                                                                confirmPassword: confirmPasswordField.text)
+            {
+                confirmPasswordValidationLabel.text = validateResponse
+                confirmPasswordValidationLabel.isHidden = false
+                viewModel.password = nil
+            }
+            else {
+                viewModel.password = textField.text
+            }
+            
+        default:
+            break
+        }
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        switch textField.tag {
+        case FieldIdentifier.name.rawValue:
+            nameValidationLabel.text = ""
+            
+        case FieldIdentifier.email.rawValue:
+            emailValidationLabel.text = ""
+            
+        case FieldIdentifier.password.rawValue:
+            passwordValidationLabel.text = ""
+            
+        case FieldIdentifier.confirmPassword.rawValue:
+            confirmPasswordValidationLabel.text = ""
+            
+        default:
+            break
+        }
+        return true
+    }
+}
+
+// MARK: - Additional methods
+
+// Setup UI
+extension SignUpVC {
     private func setupViews() {
         setupTextField(nameField)
         setupTextField(emailField)
@@ -82,22 +161,22 @@ extension SignUpVC{
         setupButton(changeToLoginButton)
     }
     
-    private func setupFieldIdentifier(){
-        nameField.tag               = FieldIdentifier.name.rawValue
-        emailField.tag              = FieldIdentifier.email.rawValue
-        passwordField.tag           = FieldIdentifier.password.rawValue
-        confirmPasswordField.tag    = FieldIdentifier.confirmPassword.rawValue
+    private func setupFieldIdentifier() {
+        nameField.tag = FieldIdentifier.name.rawValue
+        emailField.tag = FieldIdentifier.email.rawValue
+        passwordField.tag = FieldIdentifier.password.rawValue
+        confirmPasswordField.tag = FieldIdentifier.confirmPassword.rawValue
     }
     
-    private func setupLabel(for label:UILabel){
+    private func setupLabel(for label: UILabel) {
         label.text = ""
     }
     
-    func setPopUpButtonData(for button: UIButton, with roles: [RoleModel], and handler: @escaping UIActionHandler){
+    private func setPopUpButtonData(for button: UIButton, with roles: [RoleModel], and handler: @escaping UIActionHandler) {
         var actions: [UIAction] = []
-        for role in roles{
+        for role in roles {
             actions.append(UIAction(title: role.name,
-                                    identifier: .init(String(role.id)),
+                                    identifier: UIAction.Identifier(rawValue: String(role.id)),
                                     handler: handler)
             )
         }
@@ -106,13 +185,10 @@ extension SignUpVC{
         button.showsMenuAsPrimaryAction = true
         button.changesSelectionAsPrimaryAction = true
         
-        
-        if let currentSelected = button.menu?.selectedElements.first as? UIAction{
-            
-            self.role = RoleModel(id: Int(currentSelected.identifier.rawValue) ?? -1,
-                                  name: currentSelected.title)
+        if let currentSelected = button.menu?.selectedElements.first as? UIAction {
+            viewModel.role = RoleModel(id: Int(currentSelected.identifier.rawValue) ?? -1,
+                                       name: currentSelected.title)
         }
-        
     }
     
     private func setupButton(_ button: UIButton) {
@@ -142,84 +218,13 @@ extension SignUpVC{
     }
 }
 
-// Text validation
-extension SignUpVC: UITextFieldDelegate{
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        textField.text = textField.text ?? ""
-        switch textField.tag{
-            
-        case FieldIdentifier.name.rawValue:
-            if let validateResponse = Validator.validateName(for: textField.text) {
-                nameValidationLabel.text = validateResponse
-                name = nil
-            }
-            else{
-                name = textField.text
-            }
-    
-        case FieldIdentifier.email.rawValue:
-            if let validateResponse = Validator.validateEmail(for: textField.text){
-                emailValidationLabel.text = validateResponse
-                email = nil
-            }
-            else{
-                email = textField.text
-            }
-            
-            
-        case FieldIdentifier.password.rawValue:
-            if let validateResponse = Validator.validatePassword(for: textField.text){
-                passwordValidationLabel.text = validateResponse
-                password = nil
-            }
-            
-        case FieldIdentifier.confirmPassword.rawValue:
-            if let validateResponse = Validator.comparePassword(password: passwordField.text,
-                                                                confirmPassword: confirmPasswordField.text){
-                confirmPasswordValidationLabel.text = validateResponse
-                confirmPasswordValidationLabel.isHidden = false
-                password = nil
-            }
-            else{
-                password = textField.text
-            }
-            
-        default:
-            break
-        }
-    return true
-        
-    }
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        switch textField.tag{
-        case FieldIdentifier.name.rawValue:
-            nameValidationLabel.text = ""
-            
-        case FieldIdentifier.email.rawValue:
-            emailValidationLabel.text = ""
-
-        case FieldIdentifier.password.rawValue:
-            passwordValidationLabel.text = ""
-            
-        case FieldIdentifier.confirmPassword.rawValue:
-            confirmPasswordValidationLabel.text = ""
-            
-        default:
-            break
-        }
-        return true
-    }
-    
-}
-
-//API requests
-extension SignUpVC{
-    
-    private func getDataFromTableFields() -> SignupModel?{
-        guard let name: String = name,
-              let email: String = email,
-              let password: String = password,
-              let role: RoleModel = role,
+// API requests
+extension SignUpVC {
+    private func getDataFromTableFields() -> SignupModel? {
+        guard let name: String = viewModel.name,
+              let email: String = viewModel.email,
+              let password: String = viewModel.password,
+              let role: RoleModel = viewModel.role,
               role.id != -1
         else {
             return nil
@@ -232,86 +237,60 @@ extension SignUpVC{
         )
     }
     
-    private func requestSignUpAPI(){
-        guard let signUpData = getDataFromTableFields() else{
-            AlertManager.showAlert(on: self, 
-                                   title: "Form not completed",
-                                   message: "Please check the sign up form again.")
-            return
-        }
+    private func signUpAction() {
         isLoading = true
-
-        guard let request = Endpoints.signup(model: signUpData).request else{
-            AlertManager.showAlert(on: self, title: "Something went wrong", message: "Please try again (Cannot create request from data - SignUpVC - requestSignUpAPI())")
-            return
-        }
-        
-        AuthService.signUp(request: request) {[weak self] result in
-            switch result {
-            case .success(_):
-                self?.loginAftersignUp(email: signUpData.email, password: signUpData.password)
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.isLoading = false
-                    guard let error = error as? APIErrorTypes else {return}
-                    AlertManager.alertOnAPIError(with: error, on: self!)
-            }
-        }
-    }
-}
-    
-    private func loginAftersignUp(email: String, password: String){
-        let loginData = LoginModel(email: email, password: password)
-        
-        guard let request = Endpoints.login(model: loginData).request else{
-            return
-            //TODO: Handle
-        }
-        
-        AuthService.login(request: request) { result in
-            switch result{
-            case .success(let tokenData):
-
-                
-                DispatchQueue.main.async {
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
-                }
-
-            case .failure(let error):
-                guard let error = error as? APIErrorTypes else {return}
-                DispatchQueue.main.async {
+        viewModel.requestSignUpAPI { [weak self] result in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    self.loginAction()
+                case .failure(let error):
                     self.isLoading = false
+                    guard let error = error as? APIErrorTypes else { return }
+                    AlertManager.alertOnAPIError(with: error, on: self)
                 }
-                AlertManager.alertOnAPIError(with: error, on: self)
-
             }
         }
     }
     
-    private func requestRoleAPI(){
-        self.startIndicatingActivity()
-        RoleService.getRole { result in
-            switch result{
-            case .success(let data):
-                DispatchQueue.main.async {
-                    self.setPopUpButtonData(for: self.roleSelectionButton,
-                                             with: data.results,
-                                             and: self.popUpButtonSeletedChoice())
-                    self.stopIndicatingActivity()
+    private func loginAction() {
+        viewModel.loginAftersignUp { [weak self] result in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                switch result {
+                case .success(let tokenData):
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
+                case .failure(let error):
+                    guard let error = error as? APIErrorTypes else { return }
+                    AlertManager.alertOnAPIError(with: error, on: self)
                 }
-            case .failure(let error):
-                guard let error = error as? APIErrorTypes else {return}
-                DispatchQueue.main.async { [weak self] in
-                    self?.stopIndicatingActivity()
+                self.isLoading = false
+            }
+        }
+    }
+    
+    private func getRoleAction() {
+        startIndicatingActivity()
+        viewModel.requestRoleAPI { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    DispatchQueue.main.async {
+                        self.setPopUpButtonData(for: self.roleSelectionButton,
+                                                with: self.viewModel.roleSelectionMenu ?? [],
+                                                and: self.popUpButtonSeletedChoice())
+                        self.stopIndicatingActivity()
+                    }
+                case .failure(let error):
+                    guard let error = error as? APIErrorTypes else { return }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.stopIndicatingActivity()
+                    }
+                    AlertManager.alertOnAPIError(with: error, on: self)
                 }
-                AlertManager.alertOnAPIError(with: error, on: self)
-
             }
         }
     }
 }
-
-
-
-
-
