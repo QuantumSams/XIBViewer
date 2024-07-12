@@ -1,42 +1,100 @@
 import UIKit
 
-final class LogInVC: UIViewController{
+final class LogInVC: UIViewController {
     // MARK: - PROPERTY
+
     private var isLoading: Bool = false {
-        didSet{
+        didSet {
             loginButton.setNeedsUpdateConfiguration()
         }
     }
-    private var password:   String?
-    private var email:      String?
+    private let viewModel: LogInVM
     
-    //MARK: - IBOUTLETS
-    @IBOutlet weak var loginButton: UIButton!
+    // MARK: - IBOUTLETS
+
+    @IBOutlet var loginButton: UIButton!
     
-    //Fields
-    @IBOutlet private weak var emailField: UITextField!
-    @IBOutlet private weak var passwordField: UITextField!
+    // Fields
+    @IBOutlet private var emailField: UITextField!
+    @IBOutlet private var passwordField: UITextField!
     
-    //Label
-    @IBOutlet private weak var emailValidationLabel: UILabel!
-    @IBOutlet private weak var passwordValidationLabel: UILabel!
+    // Label
+    @IBOutlet private var emailValidationLabel: UILabel!
+    @IBOutlet private var passwordValidationLabel: UILabel!
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
+    
+    init() {
+        self.viewModel = LogInVM()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
-    //MARK: - event catching
+
+    // MARK: - event catching
+
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        self.view.endEditing(true)
-        callLogInAPI()
+        view.endEditing(true)
+        logInRequest()
     }
 }
-//MARK: - ADDITIONAL METHODS
 
-//setup view
-extension LogInVC{
-    private func setupViews(){
+// MARK: - DELEGATE/DATASOURCE CONFORM
+
+extension LogInVC: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.text = textField.text ?? ""
+        switch textField.tag {
+        case FieldIdentifier.email.rawValue:
+            
+            if let validationResponse = Validator.isDataEmpty(for: textField.text) {
+                emailValidationLabel.text = validationResponse
+                viewModel.email = nil
+            }
+            else {
+                viewModel.email = textField.text
+            }
+            
+        case FieldIdentifier.password.rawValue:
+            if let validationResponse = Validator.isDataEmpty(for: textField.text) {
+                passwordValidationLabel.text = validationResponse
+                viewModel.password = nil
+            }
+            else {
+                viewModel.password = textField.text
+            }
+
+        default: break
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        switch textField.tag {
+        case FieldIdentifier.email.rawValue:
+            emailValidationLabel.text = ""
+            
+        case FieldIdentifier.password.rawValue:
+            passwordValidationLabel.text = ""
+
+        default: break
+        }
+        return true
+    }
+}
+
+// MARK: - ADDITIONAL METHODS
+
+// setup view
+extension LogInVC {
+    private func setupViews() {
         setupButton(loginButton)
         
         setupTextField(emailField)
@@ -45,10 +103,9 @@ extension LogInVC{
         
         setupValidationLabel(emailValidationLabel)
         setupValidationLabel(passwordValidationLabel)
-        
     }
     
-    private func setupTextField(_ textField:UITextField){
+    private func setupTextField(_ textField: UITextField) {
         textField.layer.borderWidth = Constant.TextBoxConstant.borderWidth
         textField.layer.borderColor = Constant.TextBoxConstant.borderColor.cgColor
         textField.layer.cornerRadius = Constant.TextBoxConstant.cornerRadius
@@ -60,16 +117,16 @@ extension LogInVC{
         textField.delegate = self
     }
     
-    private func setupFieldIdentifier(){
+    private func setupFieldIdentifier() {
         emailField.tag = FieldIdentifier.email.rawValue
         passwordField.tag = FieldIdentifier.password.rawValue
     }
     
-    private func setupValidationLabel(_ label: UILabel){
+    private func setupValidationLabel(_ label: UILabel) {
         label.text = ""
     }
     
-    private func setupButton(_ customButton: UIButton){
+    private func setupButton(_ customButton: UIButton) {
         customButton.layer.cornerRadius = Constant.ButtonConstant.cornerRadius
         customButton.layer.masksToBounds = true
 
@@ -83,91 +140,22 @@ extension LogInVC{
         }
     }
 }
-// Text field validation
-extension LogInVC: UITextFieldDelegate{
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.text = textField.text ?? ""
-        switch textField.tag{
-        case FieldIdentifier.email.rawValue:
-            
-            if let validationResponse = Validator.isDataEmpty(for: textField.text){
 
-                emailValidationLabel.text = validationResponse
-                email = nil
-                
-            }
-            else {
-                email = textField.text
-            }
-            
-        case FieldIdentifier.password.rawValue:
-            if let validationResponse = Validator.isDataEmpty(for: textField.text){
-                passwordValidationLabel.text = validationResponse
-                password = nil
-            }
-            else{
-                password = textField.text
-            }
-        default: break
-        }
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        switch textField.tag{
-        case FieldIdentifier.email.rawValue:
-            emailValidationLabel.text = ""
-            
-        case FieldIdentifier.password.rawValue:
-            passwordValidationLabel.text = ""
-        default: break
-        }
-        return true
-    }
-}
-
-//API Calls
-extension LogInVC{
-    func getDataFromTableFields() -> LoginModel?{
-        guard let email = email,
-              let password = password
-        else{
-            return nil
-        }
-        return LoginModel(email: email, password: password)
-    }
-    
-    private func checkAuthenToNavigate(token tokenData: SuccessLoginResponse){
-        DispatchQueue.main.async {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
-        }
-       }
-    
-    private func callLogInAPI(){
-        
+// API Calls
+extension LogInVC {
+    private func logInRequest() {
         isLoading = true
-        guard let loginRequestData = getDataFromTableFields() else{
-            AlertManager.showAlert(on: self,
-                                   title: "Form not complete",
-                                   message: "Please check the sign in form again.")
-            isLoading = false
-            return
-        }
-        guard let request = Endpoints.login(model: loginRequestData).request else {
-            //TODO: HANDLE
-            return
-        }
-        
-        AuthService.login(request: request) {result in
-            switch result{
-            case .success(let tokenData):
-                self.checkAuthenToNavigate(token: tokenData)
-                
-            case .failure(let error):
-                guard let error = error as? APIErrorTypes else {return}
-                AlertManager.alertOnAPIError(with: error, on: self)
-                DispatchQueue.main.sync {
-                    self.isLoading = false
+        viewModel.requestLogInAPI { [weak self] result in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                switch result {
+                case .success(let tokenData):
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
+                case .failure(let error):
+                    guard let error = error as? APIErrorTypes else { return }
+                    AlertManager.alertOnAPIError(with: error, on: self)
                 }
+                self.isLoading = false
             }
         }
     }

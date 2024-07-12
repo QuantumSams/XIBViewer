@@ -44,8 +44,8 @@ final class SignUpVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getRoleAction()
         setupViews()
+        getRoleAction()
     }
     
     override func viewDidAppear(_ animated: Bool) {
