@@ -81,7 +81,6 @@ extension SceneDelegate{
             if(transition){
                 UIView.transition(with: window, duration: 0.75, options: .transitionFlipFromRight ,animations: nil, completion: nil)
             }
-            
         }
     }
 }
