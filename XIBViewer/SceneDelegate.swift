@@ -23,23 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate{
-    
-    private func getRoles(){
-        RoleService.getRole { result in
-            DispatchQueue.main.async {
-                switch result{
-                case .success(let roleData):
-                    RoleSingleton.accessSingleton.setRole(newRole: roleData.results)
-                    self.checkAuthen(transition: false)
-                case .failure(let string):
-                    //TODO: HANDLE CASE
-                    print(string)
-                }
-            }
-            return
-        }
-    }
-
 
     public func checkAuthen(transition: Bool = true){
         AuthService.refreshToken { [weak self] result in
@@ -48,7 +31,7 @@ extension SceneDelegate{
                     switch result{
                     case .success(let accessToken):
                         TokenSingleton.getToken.setInitialToken(access: accessToken)
-                        self?.swapRootVC(SettingTabBarController(), transition: transition)
+                        self?.swapRootVC(SettingTabBarVC(), transition: transition)
                     
                     case .failure(let error):
                         print(error)
@@ -59,11 +42,11 @@ extension SceneDelegate{
         }
     }
     
-    public func afterLogin(transition: Bool = true, token tokenData: SuccessLoginResponse){
+    public func afterLogin(transition: Bool = true, token tokenData: SuccessLoginResponseDTO){
         
         DispatchQueue.main.async {
             TokenSingleton.getToken.setInitialToken(access: tokenData.access, refresh: tokenData.refresh)
-            self.swapRootVC(SettingTabBarController(), transition: transition)
+            self.swapRootVC(SettingTabBarVC(), transition: transition)
         }
     }
    
