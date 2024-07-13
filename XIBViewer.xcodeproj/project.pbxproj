@@ -17,7 +17,9 @@
 		7C0C4A022C426BE5005CEAB4 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A012C426BE5005CEAB4 /* SignUpModel.swift */; };
 		7C0C4A042C4273CD005CEAB4 /* UsersListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A032C4273CD005CEAB4 /* UsersListRepository.swift */; };
 		7C0C4A062C427473005CEAB4 /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A052C427473005CEAB4 /* UserListModel.swift */; };
-		7C0C4A082C4275AE005CEAB4 /* UsersListRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A072C4275AD005CEAB4 /* UsersListRemoteDataSource.swift */; };
+		7C0C4A082C4275AE005CEAB4 /* UsersListRemoteDataSourceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A072C4275AD005CEAB4 /* UsersListRemoteDataSourceImp.swift */; };
+		7C0C4A0A2C428167005CEAB4 /* RoleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A092C428167005CEAB4 /* RoleRepository.swift */; };
+		7C0C4A0E2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A0D2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift */; };
 		7C3F271B2C379FB80013780B /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F271A2C379FB80013780B /* UIViewControllerExtensions.swift */; };
 		7C3F271D2C37A4F40013780B /* UIActivityIndicatorViewExtendsions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F271C2C37A4F40013780B /* UIActivityIndicatorViewExtendsions.swift */; };
 		7C4013B92C206BEA0019074D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4013B82C206BEA0019074D /* Constant.swift */; };
@@ -77,7 +79,9 @@
 		7C0C4A012C426BE5005CEAB4 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		7C0C4A032C4273CD005CEAB4 /* UsersListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListRepository.swift; sourceTree = "<group>"; };
 		7C0C4A052C427473005CEAB4 /* UserListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
-		7C0C4A072C4275AD005CEAB4 /* UsersListRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListRemoteDataSource.swift; sourceTree = "<group>"; };
+		7C0C4A072C4275AD005CEAB4 /* UsersListRemoteDataSourceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListRemoteDataSourceImp.swift; sourceTree = "<group>"; };
+		7C0C4A092C428167005CEAB4 /* RoleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleRepository.swift; sourceTree = "<group>"; };
+		7C0C4A0D2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleRepositoryRemotedDataSourceImp.swift; sourceTree = "<group>"; };
 		7C3F271A2C379FB80013780B /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		7C3F271C2C37A4F40013780B /* UIActivityIndicatorViewExtendsions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicatorViewExtendsions.swift; sourceTree = "<group>"; };
 		7C4013B82C206BEA0019074D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				7C0C4A032C4273CD005CEAB4 /* UsersListRepository.swift */,
+				7C0C4A092C428167005CEAB4 /* RoleRepository.swift */,
 			);
 			path = RepositoryInterfaces;
 			sourceTree = "<group>";
@@ -186,7 +191,8 @@
 		7C0C49EF2C426681005CEAB4 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				7C0C4A072C4275AD005CEAB4 /* UsersListRemoteDataSource.swift */,
+				7C0C4A072C4275AD005CEAB4 /* UsersListRemoteDataSourceImp.swift */,
+				7C0C4A0D2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -518,6 +524,7 @@
 				7C455DF12C2EF81400F4CECB /* APIConstant.swift in Sources */,
 				7CC832072C2B096E00A97350 /* Endpoints.swift in Sources */,
 				7C6BFE372C3C33B600D1C3FC /* FieldIdentifier.swift in Sources */,
+				7C0C4A0A2C428167005CEAB4 /* RoleRepository.swift in Sources */,
 				7CC8320C2C2B0F2500A97350 /* URLRequestExtension.swift in Sources */,
 				7CBF2A142C4189690067E71F /* UsersVM.swift in Sources */,
 				7CE613132C2BC5B9001A3B96 /* APIErrorTypes.swift in Sources */,
@@ -529,7 +536,7 @@
 				7C0C49E92C423CBE005CEAB4 /* TokenSingleton.swift in Sources */,
 				7C4FEB422C41132E00D3783F /* EditVM.swift in Sources */,
 				7CE52AE82C2D6B39005D8A6B /* RoleService.swift in Sources */,
-				7C0C4A082C4275AE005CEAB4 /* UsersListRemoteDataSource.swift in Sources */,
+				7C0C4A082C4275AE005CEAB4 /* UsersListRemoteDataSourceImp.swift in Sources */,
 				7CE613112C2BC2AA001A3B96 /* ErrorResponseDTO.swift in Sources */,
 				7C911F3A2C0627A700D28629 /* SignUpVC.swift in Sources */,
 				7CDF31F42C060A2100C01B06 /* SceneDelegate.swift in Sources */,
@@ -550,6 +557,7 @@
 				7CC832052C2B05C600A97350 /* AuthService.swift in Sources */,
 				7C0C49F82C4269DD005CEAB4 /* SignUpDTO.swift in Sources */,
 				7C0C49FA2C426A45005CEAB4 /* TokenDTO.swift in Sources */,
+				7C0C4A0E2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

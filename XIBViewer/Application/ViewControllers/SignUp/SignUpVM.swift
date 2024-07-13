@@ -6,6 +6,8 @@ class SignUpVM {
     var password: String?
     var role: RoleModel?
     var roleSelectionMenu: [RoleModel]?
+    
+    private let roleRepo: RoleRepository = RoleRepositoryRemotedDataSourceImp()
 }
 
 extension SignUpVM {
@@ -73,10 +75,10 @@ extension SignUpVM {
     }
         
     func requestRoleAPI(completion: @escaping ((Result<Void, Error>) -> Void)) {
-        RoleService.getRole { [weak self] result in
+        roleRepo.getRoleList() { [weak self] result in
             switch result {
             case .success(let data):
-                self?.roleSelectionMenu = data.results
+                self?.roleSelectionMenu = data
                 completion(.success(()))
 
             case .failure(let error):

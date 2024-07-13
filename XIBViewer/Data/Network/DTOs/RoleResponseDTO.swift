@@ -6,3 +6,10 @@ struct RoleResponseDTO: Decodable {
     let previous: URL?
     let results: [RoleModel]
 }
+
+
+extension RoleResponseDTO{
+    func toDomain() -> [RoleModel]{
+        return results
+    }
+}

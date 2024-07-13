@@ -4,7 +4,7 @@ class UsersVM {
     var userList: [UserModel] = []
     var nextURL: String?
     
-    private var userListRepo: UsersListRepository = UsersListRemoteDataSourceImp()
+    private let userListRepo: UsersListRepository = UsersListRemoteDataSourceImp()
     
     func requestNewUsersListAPI(limit: Int = 10, offset: Int = 0, completion: @escaping (Result<Void, Error>) -> Void) {
         
