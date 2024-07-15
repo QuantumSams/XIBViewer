@@ -3,7 +3,7 @@ import Foundation
 
 class AccountVM{
     var adminUser: UserModel?
-    private let userRepo: AccountRepository = AccountRemoteDataSourceImp()
+    private let userRepo: AccountRepository = AccountRepositoryImp()
     
     func fetchAdminData(completion: @escaping (Result<Void, Error>) -> Void){
         

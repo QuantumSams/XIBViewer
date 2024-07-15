@@ -4,7 +4,7 @@ class LogInVM {
     var password: String?
     var email: String?
     
-    let authRepo: AuthenticationRepositiory = AuthenticationRemoteDataSource()
+    let authRepo: AuthenticationRepository = AuthenticationRepositoryImp()
     
         
     func requestLogInAPI(completion: @escaping (Result<SuccessLoginResponseDTO, Error>) -> Void) {

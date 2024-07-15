@@ -1,6 +1,11 @@
 import Foundation
 
-final class AccountRemoteDataSourceImp: AccountRepository {
+protocol AccountRemoteDataSource{
+    func getOneUser(completion: @escaping (Result<UserModel, any Error>) -> Void)
+    func editOneUser(for data: EditUserDTO, completion: @escaping (Result<UserModel, Error>) -> Void)
+}
+
+final class AccountRemoteDataSourceImp: AccountRemoteDataSource {
     func getOneUser(completion: @escaping (Result<UserModel, any Error>) -> Void) {
         AccountService.getAccount { result in
             switch result {

@@ -11,7 +11,7 @@ class EditVM {
     var email: String?
     var delegate: EditVCDelegate
     
-    let userRepo: AccountRepository = AccountRemoteDataSourceImp()
+    let userRepo: AccountRepository = AccountRepositoryImp()
 }
 
 extension EditVM {

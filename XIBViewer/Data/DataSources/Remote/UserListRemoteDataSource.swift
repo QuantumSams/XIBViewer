@@ -1,6 +1,13 @@
 import Foundation
 
-final class UserListRemoteDataSourceImp: UserListRepository {
+protocol UserListRemoteDataSource{
+    func removeOneUser(id: Int, completion: @escaping (Result<Void, any Error>) -> Void)
+    func getUserList(limit: Int, offset: Int, completion: @escaping (Result<UserListModel, any Error>) -> Void)
+    func appendUserList(url: URL, completion: @escaping (Result<UserListModel, any Error>) -> Void)
+}
+
+
+final class UserListRemoteDataSourceImp: UserListRemoteDataSource {
     func removeOneUser(id: Int, completion: @escaping (Result<Void, any Error>) -> Void) {
         
         

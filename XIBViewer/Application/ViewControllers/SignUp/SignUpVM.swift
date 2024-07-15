@@ -7,8 +7,8 @@ class SignUpVM {
     var role: RoleModel?
     var roleSelectionMenu: [RoleModel]?
     
-    private let roleRepo: RoleListRepository = RoleRepositoryRemotedDataSourceImp()
-    private let authRepo: AuthenticationRepositiory = AuthenticationRemoteDataSource()
+    private let roleRepo: RoleListRepository = RoleListRepositoryImp()
+    private let authRepo: AuthenticationRepository = AuthenticationRepositoryImp()
 }
 
 extension SignUpVM {

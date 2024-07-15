@@ -1,6 +1,12 @@
 import Foundation
 
-final class AuthenticationRemoteDataSource: AuthenticationRepositiory {
+protocol AuthenticationRemoteDataSource{
+    func login(email: String, password: String, completion: @escaping ((Result<SuccessLoginResponseDTO, any Error>) -> Void))
+    
+    func signUp(name: String, email: String, password: String, role: Int, completion: @escaping (Result<Void, any Error>) -> Void)
+}
+
+final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
     func login(email: String, password: String, completion: @escaping ((Result<SuccessLoginResponseDTO, any Error>) -> Void)) {
         let data = LoginDTO(email: email, password: password)
         
