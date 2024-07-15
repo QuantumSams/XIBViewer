@@ -8,38 +8,26 @@ class SignUpVM {
     var roleSelectionMenu: [RoleModel]?
     
     private let roleRepo: RoleListRepository = RoleRepositoryRemotedDataSourceImp()
+    private let authRepo: AuthenticationRepositiory = AuthenticationRemoteDataSource()
 }
 
 extension SignUpVM {
-    private func getDataFromTableFields() -> SignUpDTO? {
+    func requestSignUpAPI(completion: @escaping (Result<Void, Error>) -> Void) {
         guard let name: String = name,
               let email: String = email,
               let password: String = password,
               let role: RoleModel = role,
               role.id != -1
         else {
-            return nil
-        }
-        return SignUpDTO(
-            name: name,
-            email: email,
-            role: role.id,
-            password: password
-        )
-    }
-    
-    func requestSignUpAPI(completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let signUpData = getDataFromTableFields() else {
             completion(.failure(APIErrorTypes.dataIsMissing()))
             return
         }
         
-        guard let request = Endpoints.signup(model: signUpData).request else {
-            completion(.failure(APIErrorTypes.unknownError("Request cannot be fullfilled - Endpoint error")))
-            return
-        }
-        
-        AuthService.signUp(request: request) { result in
+        authRepo.signUp(name: name,
+                        email: email,
+                        password: password,
+                        role: role.id)
+        { result in
             switch result {
             case .success:
                 completion(.success(()))
@@ -56,14 +44,8 @@ extension SignUpVM {
             completion(.failure(APIErrorTypes.dataIsMissing()))
             return
         }
-        let loginData = LoginDTO(email: email, password: password)
-            
-        guard let request = Endpoints.login(model: loginData).request else {
-            completion(.failure(APIErrorTypes.unknownError("Request cannot be fullfilled - Endpoint error")))
-            return
-        }
-            
-        AuthService.login(request: request) { result in
+       
+        authRepo.login(email: email, password: password) { result in
             switch result {
             case .success(let tokenData):
                 completion(.success(tokenData))
@@ -75,7 +57,7 @@ extension SignUpVM {
     }
         
     func requestRoleAPI(completion: @escaping ((Result<Void, Error>) -> Void)) {
-        roleRepo.getRoleList() { [weak self] result in
+        roleRepo.getRoleList { [weak self] result in
             switch result {
             case .success(let data):
                 self?.roleSelectionMenu = data

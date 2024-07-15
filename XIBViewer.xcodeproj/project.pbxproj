@@ -91,7 +91,7 @@
 		7C3F271A2C379FB80013780B /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		7C3F271C2C37A4F40013780B /* UIActivityIndicatorViewExtendsions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicatorViewExtendsions.swift; sourceTree = "<group>"; };
 		7C4013B82C206BEA0019074D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		7C4013C62C208C180019074D /* UsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersVC.swift; sourceTree = "<group>"; };
+		7C4013C62C208C180019074D /* UsersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersVC.swift; path = XIBViewer/Application/ViewControllers/Users/UsersVC.swift; sourceTree = SOURCE_ROOT; };
 		7C4013C72C208C180019074D /* UsersVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UsersVC.xib; sourceTree = "<group>"; };
 		7C43D7182C1D909D00B3E914 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		7C43D7192C1D909D00B3E914 /* AccountVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountVC.xib; sourceTree = "<group>"; };
