@@ -6,7 +6,7 @@ final class AuthenticationRepositoryImp {
 
 extension AuthenticationRepositoryImp: AuthenticationRepository {
     func login(email: String, password: String, completion: @escaping ((Result<SuccessLoginResponseDTO, any Error>) -> Void)) {
-        remoteDataSource.login(email: email, password: email, completion: completion)
+        remoteDataSource.login(email: email, password: password, completion: completion)
     }
 
     func signUp(name: String, email: String, password: String, role: Int, completion: @escaping (Result<Void, any Error>) -> Void) {
