@@ -1,12 +1,9 @@
 import Foundation
 
-
-struct RefreshTokenDTO: Codable{
+struct RefreshTokenDTO: Codable {
     let refresh: String
 }
 
-struct AccessTokenDTO: Decodable{
+struct AccessTokenDTO: Decodable {
     let access: String
 }
-
-

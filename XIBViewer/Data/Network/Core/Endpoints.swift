@@ -3,12 +3,12 @@ import Foundation
 
 enum Endpoints{
     
-    case login          (path: String = "/api/auth/login/", model: LoginModel)
-    case signup         (path: String = "/api/auth/register/", model: SignUpModel)
+    case login          (path: String = "/api/auth/login/", model: LoginDTO)
+    case signup         (path: String = "/api/auth/register/", model: SignUpDTO)
     case getAccountData (path: String = "/api/users/me/")
     case getRole        (path: String = "/api/roles/")
     case refreshToken   (path: String = "/api/auth/refresh-token/", model: RefreshTokenDTO)
-    case editUser       (path: String = "/api/users/", model: PUTMethodUserModel, id: Int)
+    case editUser       (path: String = "/api/users/", model: EditUserDataDTO, id: Int)
     case deleteUser     (path: String = "/api/users/", id: Int)
     case getUserList    (path: String = "/api/users/", limit: Int = 10, offset: Int = 0)
     

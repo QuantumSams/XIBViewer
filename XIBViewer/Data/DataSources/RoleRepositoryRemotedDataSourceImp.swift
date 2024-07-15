@@ -7,8 +7,7 @@
 
 import Foundation
 
-
-final class RoleRepositoryRemotedDataSourceImp: RoleRepository{
+final class RoleRepositoryRemotedDataSourceImp: RoleListRepository {
     func getRoleList(completion: @escaping ((Result<[RoleModel], any Error>) -> Void)) {
         RoleService.getRole { result in
             switch result {

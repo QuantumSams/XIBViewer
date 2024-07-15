@@ -7,11 +7,11 @@ class SignUpVM {
     var role: RoleModel?
     var roleSelectionMenu: [RoleModel]?
     
-    private let roleRepo: RoleRepository = RoleRepositoryRemotedDataSourceImp()
+    private let roleRepo: RoleListRepository = RoleRepositoryRemotedDataSourceImp()
 }
 
 extension SignUpVM {
-    private func getDataFromTableFields() -> SignUpModel? {
+    private func getDataFromTableFields() -> SignUpDTO? {
         guard let name: String = name,
               let email: String = email,
               let password: String = password,
@@ -20,7 +20,7 @@ extension SignUpVM {
         else {
             return nil
         }
-        return SignUpModel(
+        return SignUpDTO(
             name: name,
             email: email,
             role: role.id,
@@ -56,7 +56,7 @@ extension SignUpVM {
             completion(.failure(APIErrorTypes.dataIsMissing()))
             return
         }
-        let loginData = LoginModel(email: email, password: password)
+        let loginData = LoginDTO(email: email, password: password)
             
         guard let request = Endpoints.login(model: loginData).request else {
             completion(.failure(APIErrorTypes.unknownError("Request cannot be fullfilled - Endpoint error")))

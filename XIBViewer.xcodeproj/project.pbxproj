@@ -8,17 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		7C0C49E92C423CBE005CEAB4 /* TokenSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C49E72C423CBE005CEAB4 /* TokenSingleton.swift */; };
-		7C0C49F62C42694D005CEAB4 /* SuccessLoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C49F52C42694D005CEAB4 /* SuccessLoginResponseDTO.swift */; };
-		7C0C49F82C4269DD005CEAB4 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C49F72C4269DD005CEAB4 /* SignUpDTO.swift */; };
+		7C0C49F62C42694D005CEAB4 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C49F52C42694D005CEAB4 /* LoginResponseDTO.swift */; };
 		7C0C49FA2C426A45005CEAB4 /* TokenDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C49F92C426A45005CEAB4 /* TokenDTO.swift */; };
 		7C0C49FC2C426B30005CEAB4 /* RoleResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C49FB2C426B30005CEAB4 /* RoleResponseDTO.swift */; };
 		7C0C49FE2C426B5C005CEAB4 /* UserListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C49FD2C426B5C005CEAB4 /* UserListResponseDTO.swift */; };
-		7C0C4A002C426BAB005CEAB4 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C49FF2C426BAB005CEAB4 /* LoginModel.swift */; };
-		7C0C4A022C426BE5005CEAB4 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A012C426BE5005CEAB4 /* SignUpModel.swift */; };
-		7C0C4A042C4273CD005CEAB4 /* UsersListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A032C4273CD005CEAB4 /* UsersListRepository.swift */; };
+		7C0C4A002C426BAB005CEAB4 /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C49FF2C426BAB005CEAB4 /* LoginDTO.swift */; };
+		7C0C4A022C426BE5005CEAB4 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A012C426BE5005CEAB4 /* SignUpDTO.swift */; };
+		7C0C4A042C4273CD005CEAB4 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A032C4273CD005CEAB4 /* AccountRepository.swift */; };
 		7C0C4A062C427473005CEAB4 /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A052C427473005CEAB4 /* UserListModel.swift */; };
-		7C0C4A082C4275AE005CEAB4 /* UsersListRemoteDataSourceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A072C4275AD005CEAB4 /* UsersListRemoteDataSourceImp.swift */; };
-		7C0C4A0A2C428167005CEAB4 /* RoleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A092C428167005CEAB4 /* RoleRepository.swift */; };
+		7C0C4A082C4275AE005CEAB4 /* UserListRemoteDataSourceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A072C4275AD005CEAB4 /* UserListRemoteDataSourceImp.swift */; };
+		7C0C4A0A2C428167005CEAB4 /* RoleListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A092C428167005CEAB4 /* RoleListRepository.swift */; };
 		7C0C4A0E2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0C4A0D2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift */; };
 		7C3F271B2C379FB80013780B /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F271A2C379FB80013780B /* UIViewControllerExtensions.swift */; };
 		7C3F271D2C37A4F40013780B /* UIActivityIndicatorViewExtendsions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F271C2C37A4F40013780B /* UIActivityIndicatorViewExtendsions.swift */; };
@@ -34,7 +33,15 @@
 		7C4FEB422C41132E00D3783F /* EditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4FEB412C41132E00D3783F /* EditVM.swift */; };
 		7C4FEB442C412B8200D3783F /* SignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4FEB432C412B8200D3783F /* SignUpVM.swift */; };
 		7C6BFE372C3C33B600D1C3FC /* FieldIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6BFE362C3C33B600D1C3FC /* FieldIdentifier.swift */; };
+		7C71AE8B2C450DB900EA6A63 /* EditUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C71AE8A2C450DB900EA6A63 /* EditUserDTO.swift */; };
+		7C71AE8D2C451B9200EA6A63 /* RoleListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C71AE8C2C451B9200EA6A63 /* RoleListResponseDTO.swift */; };
+		7C71AE8F2C451C3300EA6A63 /* UserListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C71AE8E2C451C3300EA6A63 /* UserListRepository.swift */; };
+		7C71AE912C451CA200EA6A63 /* AccountRemoteDataSourceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C71AE902C451CA200EA6A63 /* AccountRemoteDataSourceImp.swift */; };
+		7C71AE932C45205100EA6A63 /* AuthenticationRepositiory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C71AE922C45205100EA6A63 /* AuthenticationRepositiory.swift */; };
+		7C71AE952C45219300EA6A63 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C71AE942C45219300EA6A63 /* TokenModel.swift */; };
+		7C71AE972C4523F200EA6A63 /* AuthenticationRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C71AE962C4523F200EA6A63 /* AuthenticationRemoteDataSource.swift */; };
 		7C7C7B702C37F5F1003FEF92 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = 7C7C7B6F2C37F5F1003FEF92 /* netfox */; };
+		7C8559622C4502E400C70BAA /* UserResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8559612C4502E400C70BAA /* UserResponseDTO.swift */; };
 		7C911F352C06272B00D28629 /* LogInVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C911F332C06272B00D28629 /* LogInVC.xib */; };
 		7C911F362C06272B00D28629 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C911F342C06272B00D28629 /* LogInVC.swift */; };
 		7C911F3A2C0627A700D28629 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C911F382C0627A700D28629 /* SignUpVC.swift */; };
@@ -70,17 +77,16 @@
 
 /* Begin PBXFileReference section */
 		7C0C49E72C423CBE005CEAB4 /* TokenSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenSingleton.swift; path = ../../Common/Singleton/TokenSingleton.swift; sourceTree = "<group>"; };
-		7C0C49F52C42694D005CEAB4 /* SuccessLoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessLoginResponseDTO.swift; sourceTree = "<group>"; };
-		7C0C49F72C4269DD005CEAB4 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
+		7C0C49F52C42694D005CEAB4 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		7C0C49F92C426A45005CEAB4 /* TokenDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDTO.swift; sourceTree = "<group>"; };
 		7C0C49FB2C426B30005CEAB4 /* RoleResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleResponseDTO.swift; sourceTree = "<group>"; };
 		7C0C49FD2C426B5C005CEAB4 /* UserListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListResponseDTO.swift; sourceTree = "<group>"; };
-		7C0C49FF2C426BAB005CEAB4 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
-		7C0C4A012C426BE5005CEAB4 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
-		7C0C4A032C4273CD005CEAB4 /* UsersListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListRepository.swift; sourceTree = "<group>"; };
+		7C0C49FF2C426BAB005CEAB4 /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
+		7C0C4A012C426BE5005CEAB4 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
+		7C0C4A032C4273CD005CEAB4 /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		7C0C4A052C427473005CEAB4 /* UserListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
-		7C0C4A072C4275AD005CEAB4 /* UsersListRemoteDataSourceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListRemoteDataSourceImp.swift; sourceTree = "<group>"; };
-		7C0C4A092C428167005CEAB4 /* RoleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleRepository.swift; sourceTree = "<group>"; };
+		7C0C4A072C4275AD005CEAB4 /* UserListRemoteDataSourceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListRemoteDataSourceImp.swift; sourceTree = "<group>"; };
+		7C0C4A092C428167005CEAB4 /* RoleListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleListRepository.swift; sourceTree = "<group>"; };
 		7C0C4A0D2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleRepositoryRemotedDataSourceImp.swift; sourceTree = "<group>"; };
 		7C3F271A2C379FB80013780B /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		7C3F271C2C37A4F40013780B /* UIActivityIndicatorViewExtendsions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicatorViewExtendsions.swift; sourceTree = "<group>"; };
@@ -96,6 +102,14 @@
 		7C4FEB412C41132E00D3783F /* EditVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditVM.swift; path = XIBViewer/Application/ViewControllers/Edit/EditVM.swift; sourceTree = SOURCE_ROOT; };
 		7C4FEB432C412B8200D3783F /* SignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVM.swift; sourceTree = "<group>"; };
 		7C6BFE362C3C33B600D1C3FC /* FieldIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldIdentifier.swift; sourceTree = "<group>"; };
+		7C71AE8A2C450DB900EA6A63 /* EditUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserDTO.swift; sourceTree = "<group>"; };
+		7C71AE8C2C451B9200EA6A63 /* RoleListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleListResponseDTO.swift; sourceTree = "<group>"; };
+		7C71AE8E2C451C3300EA6A63 /* UserListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListRepository.swift; sourceTree = "<group>"; };
+		7C71AE902C451CA200EA6A63 /* AccountRemoteDataSourceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRemoteDataSourceImp.swift; sourceTree = "<group>"; };
+		7C71AE922C45205100EA6A63 /* AuthenticationRepositiory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepositiory.swift; sourceTree = "<group>"; };
+		7C71AE942C45219300EA6A63 /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
+		7C71AE962C4523F200EA6A63 /* AuthenticationRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRemoteDataSource.swift; sourceTree = "<group>"; };
+		7C8559612C4502E400C70BAA /* UserResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponseDTO.swift; sourceTree = "<group>"; };
 		7C911F332C06272B00D28629 /* LogInVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogInVC.xib; sourceTree = "<group>"; };
 		7C911F342C06272B00D28629 /* LogInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		7C911F382C0627A700D28629 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
@@ -175,8 +189,10 @@
 		7C0C49ED2C4265A1005CEAB4 /* RepositoryInterfaces */ = {
 			isa = PBXGroup;
 			children = (
-				7C0C4A032C4273CD005CEAB4 /* UsersListRepository.swift */,
-				7C0C4A092C428167005CEAB4 /* RoleRepository.swift */,
+				7C0C4A032C4273CD005CEAB4 /* AccountRepository.swift */,
+				7C71AE8E2C451C3300EA6A63 /* UserListRepository.swift */,
+				7C0C4A092C428167005CEAB4 /* RoleListRepository.swift */,
+				7C71AE922C45205100EA6A63 /* AuthenticationRepositiory.swift */,
 			);
 			path = RepositoryInterfaces;
 			sourceTree = "<group>";
@@ -191,8 +207,10 @@
 		7C0C49EF2C426681005CEAB4 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				7C0C4A072C4275AD005CEAB4 /* UsersListRemoteDataSourceImp.swift */,
+				7C0C4A072C4275AD005CEAB4 /* UserListRemoteDataSourceImp.swift */,
+				7C71AE902C451CA200EA6A63 /* AccountRemoteDataSourceImp.swift */,
 				7C0C4A0D2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift */,
+				7C71AE962C4523F200EA6A63 /* AuthenticationRemoteDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -209,9 +227,9 @@
 		7C0C49F12C4266AC005CEAB4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7C1EE2552C3E4C6200C72CED /* Services */,
 				7C455DF02C2EF81400F4CECB /* APIConstant.swift */,
 				7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */,
-				7C1EE2552C3E4C6200C72CED /* Services */,
 				7CC832062C2B096E00A97350 /* Endpoints.swift */,
 				7CC832082C2B0CC800A97350 /* HTTP.swift */,
 			);
@@ -222,11 +240,15 @@
 			isa = PBXGroup;
 			children = (
 				7CE613102C2BC2AA001A3B96 /* ErrorResponseDTO.swift */,
-				7C0C49F52C42694D005CEAB4 /* SuccessLoginResponseDTO.swift */,
-				7C0C49F72C4269DD005CEAB4 /* SignUpDTO.swift */,
+				7C0C49F52C42694D005CEAB4 /* LoginResponseDTO.swift */,
 				7C0C49F92C426A45005CEAB4 /* TokenDTO.swift */,
 				7C0C49FB2C426B30005CEAB4 /* RoleResponseDTO.swift */,
+				7C71AE8C2C451B9200EA6A63 /* RoleListResponseDTO.swift */,
 				7C0C49FD2C426B5C005CEAB4 /* UserListResponseDTO.swift */,
+				7C8559612C4502E400C70BAA /* UserResponseDTO.swift */,
+				7C71AE8A2C450DB900EA6A63 /* EditUserDTO.swift */,
+				7C0C49FF2C426BAB005CEAB4 /* LoginDTO.swift */,
+				7C0C4A012C426BE5005CEAB4 /* SignUpDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -302,11 +324,10 @@
 		7CA5ACCF2C227C62001F8648 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7C0C49FF2C426BAB005CEAB4 /* LoginModel.swift */,
-				7C0C4A012C426BE5005CEAB4 /* SignUpModel.swift */,
 				7CA5ACD02C227C75001F8648 /* UserModel.swift */,
 				7C0C4A052C427473005CEAB4 /* UserListModel.swift */,
 				7CF6797D2C22D83B00C0389C /* RoleModel.swift */,
+				7C71AE942C45219300EA6A63 /* TokenModel.swift */,
 			);
 			name = Models;
 			path = XIBViewer/Domain/Models;
@@ -317,8 +338,7 @@
 			children = (
 				7CE613162C2C0CD1001A3B96 /* Singleton */,
 			);
-			name = Common;
-			path = Model;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		7CC831F92C2AD98400A97350 /* Extensions */ = {
@@ -511,6 +531,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CA5ACCC2C218C43001F8648 /* UsersTableCell.swift in Sources */,
+				7C71AE952C45219300EA6A63 /* TokenModel.swift in Sources */,
 				7C0C49FE2C426B5C005CEAB4 /* UserListResponseDTO.swift in Sources */,
 				7C4FEB442C412B8200D3783F /* SignUpVM.swift in Sources */,
 				7C911F362C06272B00D28629 /* LogInVC.swift in Sources */,
@@ -524,19 +545,26 @@
 				7C455DF12C2EF81400F4CECB /* APIConstant.swift in Sources */,
 				7CC832072C2B096E00A97350 /* Endpoints.swift in Sources */,
 				7C6BFE372C3C33B600D1C3FC /* FieldIdentifier.swift in Sources */,
-				7C0C4A0A2C428167005CEAB4 /* RoleRepository.swift in Sources */,
+				7C0C4A0A2C428167005CEAB4 /* RoleListRepository.swift in Sources */,
+				7C71AE912C451CA200EA6A63 /* AccountRemoteDataSourceImp.swift in Sources */,
 				7CC8320C2C2B0F2500A97350 /* URLRequestExtension.swift in Sources */,
+				7C71AE8F2C451C3300EA6A63 /* UserListRepository.swift in Sources */,
 				7CBF2A142C4189690067E71F /* UsersVM.swift in Sources */,
 				7CE613132C2BC5B9001A3B96 /* APIErrorTypes.swift in Sources */,
 				7C0C49FC2C426B30005CEAB4 /* RoleResponseDTO.swift in Sources */,
 				7CC832092C2B0CC800A97350 /* HTTP.swift in Sources */,
-				7C0C4A022C426BE5005CEAB4 /* SignUpModel.swift in Sources */,
-				7C0C49F62C42694D005CEAB4 /* SuccessLoginResponseDTO.swift in Sources */,
+				7C0C4A022C426BE5005CEAB4 /* SignUpDTO.swift in Sources */,
+				7C8559622C4502E400C70BAA /* UserResponseDTO.swift in Sources */,
+				7C71AE932C45205100EA6A63 /* AuthenticationRepositiory.swift in Sources */,
+				7C71AE972C4523F200EA6A63 /* AuthenticationRemoteDataSource.swift in Sources */,
+				7C0C49F62C42694D005CEAB4 /* LoginResponseDTO.swift in Sources */,
 				7C4013C92C208C180019074D /* UsersVC.swift in Sources */,
 				7C0C49E92C423CBE005CEAB4 /* TokenSingleton.swift in Sources */,
+				7C71AE8B2C450DB900EA6A63 /* EditUserDTO.swift in Sources */,
 				7C4FEB422C41132E00D3783F /* EditVM.swift in Sources */,
 				7CE52AE82C2D6B39005D8A6B /* RoleService.swift in Sources */,
-				7C0C4A082C4275AE005CEAB4 /* UsersListRemoteDataSourceImp.swift in Sources */,
+				7C71AE8D2C451B9200EA6A63 /* RoleListResponseDTO.swift in Sources */,
+				7C0C4A082C4275AE005CEAB4 /* UserListRemoteDataSourceImp.swift in Sources */,
 				7CE613112C2BC2AA001A3B96 /* ErrorResponseDTO.swift in Sources */,
 				7C911F3A2C0627A700D28629 /* SignUpVC.swift in Sources */,
 				7CDF31F42C060A2100C01B06 /* SceneDelegate.swift in Sources */,
@@ -547,15 +575,14 @@
 				7CE6131A2C2C5923001A3B96 /* UIButtonExtension.swift in Sources */,
 				7CBF2A122C41817B0067E71F /* LogInVM.swift in Sources */,
 				7CA5ACD12C227C75001F8648 /* UserModel.swift in Sources */,
-				7C0C4A042C4273CD005CEAB4 /* UsersListRepository.swift in Sources */,
+				7C0C4A042C4273CD005CEAB4 /* AccountRepository.swift in Sources */,
 				7CCC75F22C36AA5300DDBC87 /* EditVC.swift in Sources */,
 				7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */,
 				7C3F271B2C379FB80013780B /* UIViewControllerExtensions.swift in Sources */,
 				7CC832022C2AEB2B00A97350 /* StringExtension.swift in Sources */,
-				7C0C4A002C426BAB005CEAB4 /* LoginModel.swift in Sources */,
+				7C0C4A002C426BAB005CEAB4 /* LoginDTO.swift in Sources */,
 				7C4013B92C206BEA0019074D /* Constant.swift in Sources */,
 				7CC832052C2B05C600A97350 /* AuthService.swift in Sources */,
-				7C0C49F82C4269DD005CEAB4 /* SignUpDTO.swift in Sources */,
 				7C0C49FA2C426A45005CEAB4 /* TokenDTO.swift in Sources */,
 				7C0C4A0E2C428354005CEAB4 /* RoleRepositoryRemotedDataSourceImp.swift in Sources */,
 			);

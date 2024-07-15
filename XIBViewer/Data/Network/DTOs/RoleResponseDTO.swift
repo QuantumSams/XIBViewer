@@ -1,15 +1,12 @@
 import Foundation
 
 struct RoleResponseDTO: Decodable {
-    let count: Int
-    let next: URL?
-    let previous: URL?
-    let results: [RoleModel]
+    let id: Int
+    let name: String
 }
 
-
-extension RoleResponseDTO{
-    func toDomain() -> [RoleModel]{
-        return results
+extension RoleResponseDTO {
+    func toDomain() -> RoleModel {
+        return RoleModel(id: id, name: name)
     }
 }

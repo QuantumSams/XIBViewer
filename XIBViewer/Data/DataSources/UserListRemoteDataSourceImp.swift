@@ -1,7 +1,8 @@
 import Foundation
 
-final class UsersListRemoteDataSourceImp: UsersListRepository {
+final class UserListRemoteDataSourceImp: UserListRepository {
     func removeOneUser(id: Int, completion: @escaping (Result<Void, any Error>) -> Void) {
+        completion(.failure(APIErrorTypes.unknownError("Cannot create request from Endpoint - UserVM")))
         guard let request = Endpoints.deleteUser(id: id).request else {
             return
         }

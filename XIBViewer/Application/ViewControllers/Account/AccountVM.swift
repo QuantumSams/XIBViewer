@@ -3,10 +3,11 @@ import Foundation
 
 class AccountVM{
     var adminUser: UserModel?
+    private let userRepo: AccountRepository = AccountRemoteDataSourceImp()
     
     func fetchAdminData(completion: @escaping (Result<Void, Error>) -> Void){
         
-        AccountService.getAccount { [weak self] result in
+        userRepo.getOneUser { [weak self] result in
             switch result{
             case .success(let adminUser):
                 self?.adminUser = adminUser

@@ -1,9 +1,6 @@
 import Foundation
 
-
-
-struct SuccessLoginResponseDTO: Decodable{
+struct TokenModel{
     let refresh: String
     let access: String
 }
-

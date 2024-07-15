@@ -7,8 +7,8 @@ struct UserListResponseDTO: Decodable {
     let results: [UserModel]
 }
 
-extension UserListResponseDTO{
-    func toDomain() -> UserListModel{
+extension UserListResponseDTO {
+    func toDomain() -> UserListModel {
         UserListModel(next: next, results: results)
     }
 }

@@ -220,7 +220,7 @@ extension SignUpVC {
 
 // API requests
 extension SignUpVC {
-    private func getDataFromTableFields() -> SignUpModel? {
+    private func getDataFromTableFields() -> SignUpDTO? {
         guard let name: String = viewModel.name,
               let email: String = viewModel.email,
               let password: String = viewModel.password,
@@ -229,7 +229,7 @@ extension SignUpVC {
         else {
             return nil
         }
-        return SignUpModel(
+        return SignUpDTO(
             name: name,
             email: email,
             role: role.id,

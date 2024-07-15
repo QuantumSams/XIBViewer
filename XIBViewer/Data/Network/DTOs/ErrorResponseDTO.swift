@@ -1,14 +1,13 @@
 import Foundation
 
-struct ErrorResponseDTO: Decodable{
+struct ErrorResponseDTO: Decodable {
     let detail: String
 }
 
-struct EditUserErrorResponse: Decodable{
+struct EditUserErrorResponse: Decodable {
     let email: [String]
 }
 
-
-
-
-
+struct SignupErrorResponseDTO: Decodable {
+    let email: [String: String]?
+}

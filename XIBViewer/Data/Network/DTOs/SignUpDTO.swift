@@ -1,9 +1,8 @@
 import Foundation
 
-
-
-
-struct SignupErrorResponseDTO: Decodable{
-    let email: [String: String]?
+struct SignUpDTO: Codable{
+    let name: String
+    let email: String
+    let role: Int
+    let password: String
 }
-

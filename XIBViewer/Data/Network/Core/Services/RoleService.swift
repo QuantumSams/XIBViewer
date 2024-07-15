@@ -1,7 +1,7 @@
 import Foundation
 
 class RoleService{
-    static func getRole(completion: @escaping (Result<RoleResponseDTO, Error>) -> Void){
+    static func getRole(completion: @escaping (Result<RoleListResponseDTO, Error>) -> Void){
         
         
         guard let request = Endpoints.getRole().request else {return}
@@ -29,7 +29,7 @@ class RoleService{
             
             //case: received data
             
-            if let roleData = try? decoder.decode(RoleResponseDTO.self, from: data){
+            if let roleData = try? decoder.decode(RoleListResponseDTO.self, from: data){
                 completion(.success(roleData))
                 return
             }

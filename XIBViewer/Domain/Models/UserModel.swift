@@ -9,8 +9,8 @@ struct UserModel: Codable{
     var imageURL: URL? = nil
 }
 
-struct PUTMethodUserModel: Codable{
-    let name: String
-    let email: String
-    let role: PUTMethodRoleModel
+extension UserModel{
+    func toEditMethod() -> EditUserDTO{
+        EditUserDTO(for: self)
+    }
 }
