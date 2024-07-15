@@ -66,7 +66,7 @@ extension UsersVC: UserTableCellDelegate {
             case .edit:
                 self.presentEditVC(with: self.viewModel.userList[index])
             case .delete:
-                confirmDeletion(id: self.viewModel.userList[index].id)
+                confirmDeletion(id: self.viewModel.userList[index].id, index: index)
             case .cancel:
                 break
             }
@@ -120,10 +120,14 @@ extension UsersVC {
         }
     }
     
-    private func confirmDeletion(id: Int) {
+    private func confirmDeletion(id: Int, index: Int) {
         AlertManager.deleteUserConfirm(on: self) { [weak self] choice in
             if choice == true {
                 self?.deleteUser(id: id)
+                self?.viewModel.userList.remove(at: index)
+                let indexPath = IndexPath(item: index, section: 0)
+                self?.userTableView.deleteRows(at: [indexPath], with: .fade)
+                
             }
         }
     }
@@ -177,7 +181,6 @@ extension UsersVC {
                 guard let self = self else { return }
                 switch result {
                 case .success:
-                    self.getNewList(limit: 20, loadingAnimation: false)
                     AlertManager.showAlert(on: self,
                                            title: "Request completed",
                                            message: "User has been removed.")
