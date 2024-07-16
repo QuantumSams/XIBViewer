@@ -278,9 +278,9 @@ extension SignUpVC {
     
     private func initialAuthenCheck() {
         startIndicatingActivity(isFullScreen: true)
-        viewModel.requestRefreshToken {[weak self] result in
-            DispatchQueue.main.async {[weak self] in
-                guard let self = self else {return}
+        viewModel.requestRefreshToken { [weak self] result in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 switch result {
                 case .success():
                     self.stopIndicatingActivity()
@@ -288,7 +288,12 @@ extension SignUpVC {
                 case .failure(let error):
                     self.stopIndicatingActivity()
                     guard let error = error as? APIErrorTypes else { return }
-                    AlertManager.alertOnAPIError(with: error, on: self)
+                    switch error {
+                    case .unauthorized: 
+                        break
+                    default:
+                        AlertManager.alertOnAPIError(with: error, on: self)
+                    }
                     self.getRoleAction()
                 }
             }

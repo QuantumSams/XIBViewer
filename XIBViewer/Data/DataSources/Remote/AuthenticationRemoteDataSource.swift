@@ -5,12 +5,14 @@ protocol AuthenticationRemoteDataSource {
     
     func signUp(name: String, email: String, password: String, role: Int, completion: @escaping (Result<Void, any Error>) -> Void)
     
-    func refreshToken(completion: @escaping (Result<AccessTokenDTO, Error>) -> Void)
+    func refreshToken(refreshToken: RefreshTokenDTO?, completion: @escaping (Result<AccessTokenDTO, Error>) -> Void)
     
     func accessGuarded(completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
+    let networkService = NetworkService()
+    
     func login(email: String, password: String, completion: @escaping ((Result<SuccessLoginResponseDTO, any Error>) -> Void)) {
         let data = LoginDTO(email: email, password: password)
         
@@ -19,7 +21,7 @@ final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
             return
         }
         
-        AuthService.login(request: request) { result in
+        networkService.sendRequest(urlRequest: request) { (result: Result<SuccessLoginResponseDTO, APIErrorTypes>) in
             switch result {
             case .success(let tokenData):
                 completion(.success(tokenData))
@@ -39,7 +41,7 @@ final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
             return
         }
         
-        AuthService.signUp(request: request) { result in
+        networkService.sendRequest(urlRequest: request) { (result: Result<Void, APIErrorTypes>) in
             switch result {
             case .success:
                 completion(.success(()))
@@ -49,13 +51,24 @@ final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
         }
     }
     
-    func refreshToken(completion: @escaping (Result<AccessTokenDTO, Error>) -> Void) {
-        AuthService.refreshToken { result in
+    func refreshToken(refreshToken: RefreshTokenDTO?, completion: @escaping (Result<AccessTokenDTO, Error>) -> Void) {
+        guard let refreshToken = refreshToken else {
+            completion(.failure(APIErrorTypes.dataIsMissing("Refresh token is nil")))
+            return
+        }
+        
+        guard let request = Endpoints.refreshToken(model: refreshToken).request else {
+            completion(.failure(APIErrorTypes.unknownError("Cannot create request from endpoint - AuthService - refreshToken")))
+            return
+        }
+        
+        networkService.sendRequest(urlRequest: request) { (result: Result<AccessTokenDTO, APIErrorTypes>) in
+             
             DispatchQueue.main.async {
                 switch result {
                 case .success(let accessToken):
                     completion(.success(accessToken))
-                    
+                        
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -64,7 +77,8 @@ final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
     }
     
     func accessGuarded(completion: @escaping (Result<Void, any Error>) -> Void) {
-        AuthService.accessGuarded { result in
+        guard let request = Endpoints.accessGuarded().request else { return }
+        networkService.sendRequest(urlRequest: request) { (result: Result<Void, APIErrorTypes>) in
             switch result {
             case .success():
                 completion(.success(()))

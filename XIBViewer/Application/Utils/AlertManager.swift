@@ -136,8 +136,8 @@ extension AlertManager {
             self.showDevelopmentError(on: vc, message: string, errorType: .unknownError())
         case .dataIsMissing:
             self.FormNotCompleted(on: vc)
-        case .tokenExpired:
-            break
+        case .unauthorized:
+            self.showGenericError(on: vc, message: "You are not authorized to perform this action")
         case .invalidURL:
             self.showDevelopmentError(on: vc, message: "Invalid URL used", errorType: .invalidURL())
         case .noResponse:

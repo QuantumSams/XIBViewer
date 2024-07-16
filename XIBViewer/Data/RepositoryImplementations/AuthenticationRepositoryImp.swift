@@ -50,7 +50,7 @@ extension AuthenticationRepositoryImp: AuthenticationRepository {
             case .success():
                 completion(.success(()))
             case .failure:
-                self?.remoteDataSource.refreshToken { [weak self] result in
+                self?.remoteDataSource.refreshToken(refreshToken: self?.localDataSource.getRequestToken())  { [weak self] result in
                     switch result {
                     case .success(let accessToken):
                         self?.localDataSource.setInitialToken(access: accessToken, refresh: nil)

@@ -130,7 +130,7 @@ extension AuthService {
             
             else if let errorData = try? decoder.decode(ErrorResponseDTO.self, from: data) {
                 if code.statusCode == 401{
-                    completion(.failure(APIErrorTypes.tokenExpired))
+                    completion(.failure(APIErrorTypes.unauthorized))
                     return
                 }
                 completion(.failure(APIErrorTypes.serverError(errorData.detail)))
