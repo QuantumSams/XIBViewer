@@ -3,7 +3,7 @@ import Foundation
 class AccountService{
 
     
-    static func getAccount(completion: @escaping (Result<UserModel, Error>) -> Void){
+    static func getAccount(completion: @escaping (Result<AccountModel, Error>) -> Void){
         
         
         guard let request = Endpoints.getAccountData().request else {return}
@@ -30,7 +30,7 @@ class AccountService{
             let decoder = JSONDecoder()
             
             //case: received data
-            if let accountData = try? decoder.decode(UserModel.self, from: data){
+            if let accountData = try? decoder.decode(AccountModel.self, from: data){
                 completion(.success(accountData))
                 return
             }
@@ -52,7 +52,7 @@ class AccountService{
 }
 
 extension AccountService{
-    static func editAccount(request: URLRequest, completion: @escaping (Result<UserModel, Error>) -> Void){
+    static func editAccount(request: URLRequest, completion: @escaping (Result<AccountModel, Error>) -> Void){
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else{
                 if let error = error{
@@ -67,7 +67,7 @@ extension AccountService{
             let decoder = JSONDecoder()
             let response = response as! HTTPURLResponse
             
-            if let successData = try? decoder.decode(UserModel.self, from: data){
+            if let successData = try? decoder.decode(AccountModel.self, from: data){
                 completion(.success(successData))
                 return
             }

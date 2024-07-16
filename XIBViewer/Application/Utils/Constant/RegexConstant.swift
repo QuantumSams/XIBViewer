@@ -1,10 +1,3 @@
-//
-//  RegexConstant.swift
-//  XIBViewer
-//
-//  Created by Huy on 28/6/24.
-//
-
 import Foundation
 
 struct RegexConstant{

@@ -1,7 +1,7 @@
 import Foundation
 
 class UsersVM {
-    var userList: [UserModel] = []
+    var userList: [AccountModel] = []
     var nextURL: String?
     
     private let userListRepo: UserListRepository = UserListRepositoryImp()

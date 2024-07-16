@@ -1,6 +1,6 @@
 import Foundation
 
-struct UserModel: Codable{
+struct AccountModel: Codable{
     
     let id: Int
     let name: String
@@ -9,7 +9,7 @@ struct UserModel: Codable{
     var imageURL: URL? = nil
 }
 
-extension UserModel{
+extension AccountModel{
     func toEditMethod() -> EditUserDTO{
         EditUserDTO(for: self)
     }

@@ -18,7 +18,7 @@ extension EditUserDataDTO {
 }
 
 extension EditUserDTO {
-    init(for user: UserModel) {
+    init(for user: AccountModel) {
         self.id = user.id
         self.data = EditUserDataDTO(name: user.name, email: user.email, role: user.role)
     }

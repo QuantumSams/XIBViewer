@@ -95,7 +95,7 @@ extension AccountVC{
 
 // API Calling
 extension AccountVC{
-    private func parseDataToFields(with adminUser: UserModel?){
+    private func parseDataToFields(with adminUser: AccountModel?){
         guard let adminUser = adminUser else{return}
         DispatchQueue.main.async {
             self.emailField.text = adminUser.email
@@ -120,7 +120,7 @@ extension AccountVC{
 
 //MARK: - DELEGATE
 extension AccountVC: EditVCDelegate{
-    func doneEditing(send newUserData: UserModel) {
+    func doneEditing(send newUserData: AccountModel) {
         parseDataToFields(with: newUserData)
     }
 }

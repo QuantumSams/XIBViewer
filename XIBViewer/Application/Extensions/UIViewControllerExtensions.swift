@@ -34,9 +34,15 @@ public extension UIViewController {
             }
         }
     }
-
-    func startIndicatingActivity() {
-        DispatchQueue.main.async {
+    func startIndicatingActivity(isFullScreen:Bool = false) {
+        DispatchQueue.main.async {[weak self] in
+            guard let self = self else {return}
+            
+            if isFullScreen {
+                self.indicator = UIActivityIndicatorView.customFullScreenIndicator(
+                    height: self.view.bounds.height,
+                    width: self.view.bounds.width)
+            }
             self.view.addSubview(self.indicator)
             self.indicator.startAnimating()
             self.view.isUserInteractionEnabled = false

@@ -46,11 +46,7 @@ final class SignUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.initialAuthenCheck()
-            
-        }
+        initialAuthenCheck()
     }
     
     // MARK: - Event catching
@@ -281,13 +277,16 @@ extension SignUpVC {
     }
     
     private func initialAuthenCheck() {
+        startIndicatingActivity(isFullScreen: true)
         viewModel.requestRefreshToken {[weak self] result in
             DispatchQueue.main.async {[weak self] in
                 guard let self = self else {return}
                 switch result {
                 case .success():
+                    self.stopIndicatingActivity()
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(SettingTabBarVC(), transition: false)
                 case .failure(let error):
+                    self.stopIndicatingActivity()
                     guard let error = error as? APIErrorTypes else { return }
                     AlertManager.alertOnAPIError(with: error, on: self)
                     self.getRoleAction()

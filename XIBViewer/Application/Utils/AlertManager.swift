@@ -136,6 +136,9 @@ extension AlertManager {
             self.showDevelopmentError(on: vc, message: string, errorType: .unknownError())
         case .dataIsMissing:
             self.FormNotCompleted(on: vc)
+        case .tokenExpired:
+            print()
+            break
         }
     }
 }

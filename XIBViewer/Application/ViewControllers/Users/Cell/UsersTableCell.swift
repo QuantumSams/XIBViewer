@@ -45,7 +45,7 @@ extension UsersTableCell{
         id
     }
     
-    func setData(user:UserModel, indexPath: Int){
+    func setData(user:AccountModel, indexPath: Int){
         cellName.text = user.name
         cellEmail.text = user.email
         self.index = indexPath

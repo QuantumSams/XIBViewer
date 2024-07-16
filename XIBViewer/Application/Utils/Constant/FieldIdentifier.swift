@@ -1,10 +1,3 @@
-//
-//  FieldIdentifier.swift
-//  XIBViewer
-//
-//  Created by Huy on 8/7/24.
-//
-
 import Foundation
 
 

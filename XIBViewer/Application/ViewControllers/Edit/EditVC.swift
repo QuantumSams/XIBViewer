@@ -1,5 +1,5 @@
 protocol EditVCDelegate {
-    func doneEditing(send newUserData: UserModel)
+    func doneEditing(send newUserData: AccountModel)
 }
 
 import UIKit
@@ -18,7 +18,7 @@ class EditVC: UIViewController {
 
     // MARK: - LIFECYCLE
 
-    init(existingData: UserModel, delegate: EditVCDelegate) {
+    init(existingData: AccountModel, delegate: EditVCDelegate) {
         self.viewModel = EditVM(data: existingData, delegate: delegate)
         super.init(nibName: nil, bundle: nil)
     }
@@ -131,7 +131,7 @@ extension EditVC {
         label.text = ""
     }
     
-    func setInitalValueForEditField(from data: UserModel?) {
+    func setInitalValueForEditField(from data: AccountModel?) {
         guard let data = data else {
             return
         }

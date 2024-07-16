@@ -76,12 +76,12 @@ extension UsersVC: UserTableCellDelegate {
 
 // EditVCDelegate
 extension UsersVC: EditVCDelegate {
-    private func presentEditVC(with data: UserModel) {
+    private func presentEditVC(with data: AccountModel) {
         let vc = EditVC(existingData: data, delegate: self)
         presentCustomVCWithNavigationController(toVC: vc)
     }
 
-    func doneEditing(send newUserData: UserModel) {
+    func doneEditing(send newUserData: AccountModel) {
         getNewList(limit: 20, loadingAnimation: true)
     }
 }

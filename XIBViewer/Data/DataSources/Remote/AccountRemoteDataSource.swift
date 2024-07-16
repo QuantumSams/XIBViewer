@@ -1,12 +1,12 @@
 import Foundation
 
 protocol AccountRemoteDataSource{
-    func getOneUser(completion: @escaping (Result<UserModel, any Error>) -> Void)
-    func editOneUser(for data: EditUserDTO, completion: @escaping (Result<UserModel, Error>) -> Void)
+    func getOneUser(completion: @escaping (Result<AccountModel, any Error>) -> Void)
+    func editOneUser(for data: EditUserDTO, completion: @escaping (Result<AccountModel, Error>) -> Void)
 }
 
 final class AccountRemoteDataSourceImp: AccountRemoteDataSource {
-    func getOneUser(completion: @escaping (Result<UserModel, any Error>) -> Void) {
+    func getOneUser(completion: @escaping (Result<AccountModel, any Error>) -> Void) {
         AccountService.getAccount { result in
             switch result {
             case .success(let adminUser):
@@ -18,7 +18,7 @@ final class AccountRemoteDataSourceImp: AccountRemoteDataSource {
         }
     }
     
-    func editOneUser(for data: EditUserDTO, completion: @escaping (Result<UserModel, Error>) -> Void) {
+    func editOneUser(for data: EditUserDTO, completion: @escaping (Result<AccountModel, Error>) -> Void) {
         guard let request = Endpoints.editUser(model: data.data, id: data.id).request else {
             completion(.failure(APIErrorTypes.unknownError("Request cannot be fullfilled - Endpoint error")))
             return

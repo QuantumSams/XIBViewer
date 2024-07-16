@@ -5,11 +5,11 @@ final class AccountRepositoryImp{
 }
 
 extension AccountRepositoryImp: AccountRepository{
-    func getOneUser(completion: @escaping (Result<UserModel, any Error>) -> Void){
+    func getOneUser(completion: @escaping (Result<AccountModel, any Error>) -> Void){
         remoteDataSource.getOneUser(completion: completion)
     }
     
-    func editOneUser(for data: EditUserDTO, completion: @escaping (Result<UserModel, Error>) -> Void){
+    func editOneUser(for data: EditUserDTO, completion: @escaping (Result<AccountModel, Error>) -> Void){
         remoteDataSource.editOneUser(for: data, completion: completion)
     }
 }

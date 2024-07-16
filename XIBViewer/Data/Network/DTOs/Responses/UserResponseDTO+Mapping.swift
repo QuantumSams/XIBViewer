@@ -9,7 +9,7 @@ struct UserResponseDTO: Decodable {
 }
 
 extension UserResponseDTO {
-    func toDomain() -> UserModel {
-        return UserModel(id: id, name: name, email: email, role: role.toDomain())
+    func toDomain() -> AccountModel {
+        return AccountModel(id: id, name: name, email: email, role: role.toDomain())
     }
 }

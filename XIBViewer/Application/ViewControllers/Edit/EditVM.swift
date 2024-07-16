@@ -1,12 +1,12 @@
 import Foundation
 
 class EditVM {
-    init(data: UserModel, delegate: EditVCDelegate) {
+    init(data: AccountModel, delegate: EditVCDelegate) {
         self.existingData = data
         self.delegate = delegate
     }
     
-    let existingData: UserModel?
+    let existingData: AccountModel?
     var name: String?
     var email: String?
     var delegate: EditVCDelegate
@@ -15,7 +15,7 @@ class EditVM {
 }
 
 extension EditVM {
-    private func getData() -> UserModel? {
+    private func getData() -> AccountModel? {
         guard let name = name,
               let email = email,
               let role = existingData?.role,
@@ -24,7 +24,7 @@ extension EditVM {
             return nil
         }
         
-        return UserModel(id: id, name: name, email: email, role: role)
+        return AccountModel(id: id, name: name, email: email, role: role)
     }
 
     func sendData(completion: @escaping (Result<Void, Error>) -> Void) {

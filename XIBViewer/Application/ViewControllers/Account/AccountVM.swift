@@ -2,7 +2,7 @@ import Foundation
 
 
 class AccountVM{
-    var adminUser: UserModel?
+    var adminUser: AccountModel?
     private let userRepo: AccountRepository = AccountRepositoryImp()
     private let authRepo: AuthenticationRepository = AuthenticationRepositoryImp()
     
