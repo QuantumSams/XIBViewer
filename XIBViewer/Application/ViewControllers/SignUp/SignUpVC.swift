@@ -49,7 +49,7 @@ final class SignUpVC: UIViewController {
         
         DispatchQueue.main.async { [weak self] in
             self?.initialAuthenCheck()
-            self?.getRoleAction()
+            
         }
     }
     
@@ -290,6 +290,7 @@ extension SignUpVC {
                 case .failure(let error):
                     guard let error = error as? APIErrorTypes else { return }
                     AlertManager.alertOnAPIError(with: error, on: self)
+                    self.getRoleAction()
                 }
             }
         }

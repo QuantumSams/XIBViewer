@@ -7,7 +7,7 @@ extension URLRequest {
             self.setValue(HTTP.Headers.Value.applicationJson.HeaderValues,
                           forHTTPHeaderField: HTTP.Headers.Key.contentType.HeadersKey)
 
-        case .getAccountData:
+        case .getAccountData, .accessGuarded:
 
             self.setValue(HTTP.Headers.Value.applicationJson.HeaderValues,
                           forHTTPHeaderField: HTTP.Headers.Key.contentType.HeadersKey)

@@ -1,11 +1,13 @@
 import Foundation
 
-protocol AuthenticationRemoteDataSource{
+protocol AuthenticationRemoteDataSource {
     func login(email: String, password: String, completion: @escaping ((Result<SuccessLoginResponseDTO, any Error>) -> Void))
     
     func signUp(name: String, email: String, password: String, role: Int, completion: @escaping (Result<Void, any Error>) -> Void)
     
-    func refreshToken(completion: @escaping(Result<AccessTokenDTO, Error>) -> Void)
+    func refreshToken(completion: @escaping (Result<AccessTokenDTO, Error>) -> Void)
+    
+    func accessGuarded(completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
@@ -29,7 +31,6 @@ final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
     }
     
     func signUp(name: String, email: String, password: String, role: Int, completion: @escaping (Result<Void, any Error>) -> Void) {
-        
         let data = SignUpDTO(name: name,
                              email: email, role: role, password: password)
         
@@ -48,8 +49,8 @@ final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
         }
     }
     
-    func refreshToken(completion: @escaping(Result<AccessTokenDTO, Error>) -> Void){
-        AuthService.refreshToken {result in
+    func refreshToken(completion: @escaping (Result<AccessTokenDTO, Error>) -> Void) {
+        AuthService.refreshToken { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let accessToken):
@@ -58,6 +59,18 @@ final class AuthenticationRemoteDataSourceImp: AuthenticationRemoteDataSource {
                 case .failure(let error):
                     completion(.failure(error))
                 }
+            }
+        }
+    }
+    
+    func accessGuarded(completion: @escaping (Result<Void, any Error>) -> Void) {
+        AuthService.accessGuarded { result in
+            switch result {
+            case .success():
+                completion(.success(()))
+                
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }

@@ -10,7 +10,6 @@ protocol AuthenticationLocalDataSource{
 
 class AuthenticationLocalDataSourceImp : AuthenticationLocalDataSource{
     
-  
     static let getToken = AuthenticationLocalDataSourceImp()
     private let storage = UserDefaults.standard
 }

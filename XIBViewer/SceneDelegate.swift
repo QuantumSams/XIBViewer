@@ -16,9 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
-        window.rootViewController = UINavigationController(rootViewController: SignUpVC())
-        
-        
+        window.rootViewController = UINavigationController(rootViewController: SignUpVC())   
     }
 }
 

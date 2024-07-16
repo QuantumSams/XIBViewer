@@ -142,3 +142,47 @@ extension AuthService {
         }.resume()
     }
 }
+extension AuthService{
+    static func accessGuarded(completion: @escaping (Result<Void, Error>) -> Void){
+        
+        guard let request = Endpoints.accessGuarded().request else {return}
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            
+            
+            //MARK: LOCAL ERROR OCCURRED
+            guard let data = data else{
+                //case: error response exists
+                if let error = error{
+                    completion(.failure(APIErrorTypes.deviceError(error.localizedDescription)))
+                }
+                //case: no error response from sever
+                else{
+                    completion(.failure(APIErrorTypes.unknownError("UNKNOWN ERROR: no response from server")))
+                }
+                return
+            }
+            
+            
+            //MARK: NO LOCAL ERROR - RESPONSE RECEIVED
+            let decoder = JSONDecoder()
+            guard let response = response as? HTTPURLResponse else{
+                completion(.failure(APIErrorTypes.decodingError()))
+                return
+            }
+            
+            //case: received data
+            if 200...299 ~= response.statusCode{
+                completion(.success(()))
+                return
+            }
+            
+            //case: server error response
+            else if let errorData = try? decoder.decode(ErrorResponseDTO.self, from: data){
+                completion(.failure(APIErrorTypes.serverError(errorData.detail)))
+                return
+            }
+        }.resume()
+    }
+}

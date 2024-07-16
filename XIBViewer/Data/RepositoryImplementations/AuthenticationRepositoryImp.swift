@@ -7,9 +7,6 @@ final class AuthenticationRepositoryImp {
 }
 
 extension AuthenticationRepositoryImp: AuthenticationRepository {
-    
-    
-    
     func login(email: String, password: String, completion: @escaping ((Result<Void, any Error>) -> Void)) {
         remoteDataSource.login(email: email, password: password) { [weak self] result in
             switch result {
@@ -48,14 +45,20 @@ extension AuthenticationRepositoryImp: AuthenticationRepository {
     }
     
     func getAccessToken(completion: @escaping (Result<Void, any Error>) -> Void) {
-        remoteDataSource.refreshToken {[weak self] result in
-            
+        remoteDataSource.accessGuarded {[weak self] result in
             switch result {
-            case .success(let accessToken):
-                self?.localDataSource.setInitialToken(access: accessToken, refresh: nil)
+            case .success():
                 completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
+            case .failure:
+                self?.remoteDataSource.refreshToken { [weak self] result in
+                    switch result {
+                    case .success(let accessToken):
+                        self?.localDataSource.setInitialToken(access: accessToken, refresh: nil)
+                        completion(.success(()))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
             }
         }
     }
