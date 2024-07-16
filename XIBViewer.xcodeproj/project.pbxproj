@@ -60,7 +60,6 @@
 		7CBF2A142C4189690067E71F /* UsersVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBF2A132C4189690067E71F /* UsersVM.swift */; };
 		7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC831FA2C2ADA2200A97350 /* UIImageViewExtensions.swift */; };
 		7CC832022C2AEB2B00A97350 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC832012C2AEB2B00A97350 /* StringExtension.swift */; };
-		7CC832052C2B05C600A97350 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC832042C2B05C600A97350 /* AuthService.swift */; };
 		7CC832072C2B096E00A97350 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC832062C2B096E00A97350 /* Endpoints.swift */; };
 		7CC832092C2B0CC800A97350 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC832082C2B0CC800A97350 /* HTTP.swift */; };
 		7CC8320C2C2B0F2500A97350 /* URLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC8320B2C2B0F2500A97350 /* URLRequestExtension.swift */; };
@@ -71,10 +70,8 @@
 		7CDF31FB2C060A2100C01B06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF31FA2C060A2100C01B06 /* Assets.xcassets */; };
 		7CDF31FE2C060A2100C01B06 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF31FD2C060A2100C01B06 /* Base */; };
 		7CE52AE32C2D22D5005D8A6B /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE52AE22C2D22D5005D8A6B /* AlertManager.swift */; };
-		7CE52AE82C2D6B39005D8A6B /* RoleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE52AE72C2D6B39005D8A6B /* RoleService.swift */; };
 		7CE613112C2BC2AA001A3B96 /* ErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613102C2BC2AA001A3B96 /* ErrorResponseDTO.swift */; };
 		7CE613132C2BC5B9001A3B96 /* APIErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */; };
-		7CE613152C2BFB32001A3B96 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613142C2BFB32001A3B96 /* AccountService.swift */; };
 		7CE6131A2C2C5923001A3B96 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE613192C2C5923001A3B96 /* UIButtonExtension.swift */; };
 		7CF6797E2C22D83B00C0389C /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6797D2C22D83B00C0389C /* RoleModel.swift */; };
 /* End PBXBuildFile section */
@@ -130,7 +127,6 @@
 		7CBF2A132C4189690067E71F /* UsersVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersVM.swift; sourceTree = "<group>"; };
 		7CC831FA2C2ADA2200A97350 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		7CC832012C2AEB2B00A97350 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		7CC832042C2B05C600A97350 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		7CC832062C2B096E00A97350 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		7CC832082C2B0CC800A97350 /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 		7CC8320B2C2B0F2500A97350 /* URLRequestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExtension.swift; sourceTree = "<group>"; };
@@ -143,10 +139,8 @@
 		7CDF31FD2C060A2100C01B06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CDF31FF2C060A2100C01B06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CE52AE22C2D22D5005D8A6B /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
-		7CE52AE72C2D6B39005D8A6B /* RoleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleService.swift; sourceTree = "<group>"; };
 		7CE613102C2BC2AA001A3B96 /* ErrorResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponseDTO.swift; sourceTree = "<group>"; };
 		7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorTypes.swift; sourceTree = "<group>"; };
-		7CE613142C2BFB32001A3B96 /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		7CE613192C2C5923001A3B96 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		7CF6797D2C22D83B00C0389C /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,7 +231,6 @@
 		7C0C49F12C4266AC005CEAB4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				7C1EE2552C3E4C6200C72CED /* Services */,
 				7C655B9F2C46A97000F818CE /* Networkable.swift */,
 				7C455DF02C2EF81400F4CECB /* APIConstant.swift */,
 				7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */,
@@ -272,16 +265,6 @@
 				7CA5ACCB2C218C43001F8648 /* UsersTableCell.xib */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		7C1EE2552C3E4C6200C72CED /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				7CC832042C2B05C600A97350 /* AuthService.swift */,
-				7CE613142C2BFB32001A3B96 /* AccountService.swift */,
-				7CE52AE72C2D6B39005D8A6B /* RoleService.swift */,
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		7C4013BA2C206C010019074D /* Constant */ = {
@@ -576,7 +559,6 @@
 				7C4FEB3E2C4106FA00D3783F /* AccountVM.swift in Sources */,
 				7C455DED2C2EF2AF00F4CECB /* Validator.swift in Sources */,
 				7CDF31F22C060A2100C01B06 /* AppDelegate.swift in Sources */,
-				7CE613152C2BFB32001A3B96 /* AccountService.swift in Sources */,
 				7C455DF12C2EF81400F4CECB /* APIConstant.swift in Sources */,
 				7CC832072C2B096E00A97350 /* Endpoints.swift in Sources */,
 				7C6BFE372C3C33B600D1C3FC /* FieldIdentifier.swift in Sources */,
@@ -600,7 +582,6 @@
 				7C71AE8B2C450DB900EA6A63 /* EditUserDTO+Mapping.swift in Sources */,
 				7C71AE9A2C4553B900EA6A63 /* UserListRepositoryImp.swift in Sources */,
 				7C4FEB422C41132E00D3783F /* EditVM.swift in Sources */,
-				7CE52AE82C2D6B39005D8A6B /* RoleService.swift in Sources */,
 				7C71AE8D2C451B9200EA6A63 /* RoleListResponseDTO+Mapping.swift in Sources */,
 				7C0C4A082C4275AE005CEAB4 /* UserListRemoteDataSource.swift in Sources */,
 				7CE613112C2BC2AA001A3B96 /* ErrorResponseDTO.swift in Sources */,
@@ -622,7 +603,6 @@
 				7CC832022C2AEB2B00A97350 /* StringExtension.swift in Sources */,
 				7C0C4A002C426BAB005CEAB4 /* LoginDTO.swift in Sources */,
 				7C4013B92C206BEA0019074D /* Constant.swift in Sources */,
-				7CC832052C2B05C600A97350 /* AuthService.swift in Sources */,
 				7C0C49FA2C426A45005CEAB4 /* TokenDTO.swift in Sources */,
 				7C0C4A0E2C428354005CEAB4 /* RoleRepositoryRemotedDataSource.swift in Sources */,
 			);
