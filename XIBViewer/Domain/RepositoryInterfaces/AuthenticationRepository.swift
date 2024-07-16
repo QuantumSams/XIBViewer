@@ -2,7 +2,7 @@ import Foundation
 
 protocol AuthenticationRepository {
     // login
-    func login(email: String, password: String, completion: @escaping ((Result<SuccessLoginResponseDTO, Error>) -> Void))
+    func login(email: String, password: String, completion: @escaping ((Result<Void, Error>) -> Void))
     
     // signUp
     func signUp(name: String,
@@ -11,7 +11,13 @@ protocol AuthenticationRepository {
                 role: Int,
                 completion: @escaping (Result<Void, Error>) -> Void)
     
-    // request refresh token
+    func getAccessToken(completion: @escaping(Result<Void, Error>) -> Void)
+    
+    func logout()
+    
+    func getRefreshToken() -> RefreshTokenDTO
+    
+    //func getAccessToken
 
     // TODO: GUARDED
 }

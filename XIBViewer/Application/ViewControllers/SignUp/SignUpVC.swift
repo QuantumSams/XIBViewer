@@ -38,6 +38,7 @@ final class SignUpVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -45,11 +46,11 @@ final class SignUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        getRoleAction()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.initialAuthenCheck()
+            self?.getRoleAction()
+        }
     }
     
     // MARK: - Event catching
@@ -196,7 +197,8 @@ extension SignUpVC {
         button.layer.cornerRadius = Constant.ButtonConstant.cornerRadius
         NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
         
-        button.configurationUpdateHandler = { [unowned self] button in
+        button.configurationUpdateHandler = { [weak self] button in
+            guard let self = self else { return }
             var config = button.configuration
             config?.showsActivityIndicator = self.isLoading
             button.configuration = config
@@ -244,28 +246,12 @@ extension SignUpVC {
                 guard let self = self else { return }
                 switch result {
                 case .success:
-                    self.loginAction()
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(SettingTabBarVC(), transition: true)
                 case .failure(let error):
                     self.isLoading = false
                     guard let error = error as? APIErrorTypes else { return }
                     AlertManager.alertOnAPIError(with: error, on: self)
                 }
-            }
-        }
-    }
-    
-    private func loginAction() {
-        viewModel.loginAftersignUp { [weak self] result in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                switch result {
-                case .success(let tokenData):
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
-                case .failure(let error):
-                    guard let error = error as? APIErrorTypes else { return }
-                    AlertManager.alertOnAPIError(with: error, on: self)
-                }
-                self.isLoading = false
             }
         }
     }
@@ -288,6 +274,21 @@ extension SignUpVC {
                     DispatchQueue.main.async { [weak self] in
                         self?.stopIndicatingActivity()
                     }
+                    AlertManager.alertOnAPIError(with: error, on: self)
+                }
+            }
+        }
+    }
+    
+    private func initialAuthenCheck() {
+        viewModel.requestRefreshToken {[weak self] result in
+            DispatchQueue.main.async {[weak self] in
+                guard let self = self else {return}
+                switch result {
+                case .success():
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(SettingTabBarVC(), transition: false)
+                case .failure(let error):
+                    guard let error = error as? APIErrorTypes else { return }
                     AlertManager.alertOnAPIError(with: error, on: self)
                 }
             }

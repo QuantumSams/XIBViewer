@@ -6,22 +6,23 @@ class LogInVM {
     
     let authRepo: AuthenticationRepository = AuthenticationRepositoryImp()
     
-        
-    func requestLogInAPI(completion: @escaping (Result<SuccessLoginResponseDTO, Error>) -> Void) {
+    func requestLogInAPI(completion: @escaping (Result<Void, Error>) -> Void) {
         guard let email = email,
-            let password = password
+              let password = password
         else {
             completion(.failure(APIErrorTypes.dataIsMissing()))
             return
         }
         
         authRepo.login(email: email, password: password) { result in
-            switch result {
-            case .success(let tokenData):
-                completion(.success(tokenData))
-                    
-            case .failure(let error):
-                completion(.failure(error))
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    completion(.success(()))
+                        
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
         }
     }

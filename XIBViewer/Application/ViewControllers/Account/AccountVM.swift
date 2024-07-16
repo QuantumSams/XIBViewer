@@ -4,6 +4,7 @@ import Foundation
 class AccountVM{
     var adminUser: UserModel?
     private let userRepo: AccountRepository = AccountRepositoryImp()
+    private let authRepo: AuthenticationRepository = AuthenticationRepositoryImp()
     
     func fetchAdminData(completion: @escaping (Result<Void, Error>) -> Void){
         
@@ -21,7 +22,7 @@ class AccountVM{
     }
     
     func revokeAuthen(){
-        TokenSingleton.getToken.removeToken()
+        authRepo.logout()
     }
 }
 

@@ -2,6 +2,8 @@ import Foundation
 
 // Login request
 class AuthService {
+    private static let authenRepo: AuthenticationRepository = AuthenticationRepositoryImp()
+    
     static func login(request: URLRequest, completion: @escaping (Result<SuccessLoginResponseDTO, Error>) -> Void) {
         URLSession.shared.dataTask(with: request) { data, _, error in
             
@@ -97,9 +99,14 @@ extension AuthService {
 // Refresh token request
 
 extension AuthService {
-    static func refreshToken(completion: @escaping (Result<String, Error>) -> Void) {
-        let model = RefreshTokenDTO(refresh: TokenSingleton.getToken.getRequestToken())
-        guard let request = Endpoints.refreshToken(model: model).request else { return }
+    static func refreshToken(completion: @escaping (Result<AccessTokenDTO, Error>) -> Void) {
+        let model = authenRepo.getRefreshToken()
+        
+        guard let request = Endpoints.refreshToken(model: model).request else {
+            completion(.failure(APIErrorTypes.unknownError("Cannot create request from endpoint - AuthService - refreshToken")))
+            
+            return
+        }
         
         URLSession.shared.dataTask(with: request) { data, responseCode, error in
             
@@ -117,7 +124,7 @@ extension AuthService {
             let decoder = JSONDecoder()
             
             if let successData = try? decoder.decode(AccessTokenDTO.self, from: data) {
-                completion(.success(successData.access))
+                completion(.success(successData))
                 return
             }
             
@@ -127,7 +134,9 @@ extension AuthService {
             }
             
             else {
-                completion(.failure(APIErrorTypes.deviceError("Cannot parse neither to data type nor error type\n Error code: \(code)")))
+                let dataString = String(data: data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
+                
+                completion(.failure(APIErrorTypes.deviceError("Cannot parse neither to data type nor error type\n Error code: \(code.statusCode) \(dataString)")))
                 return
             }
         }.resume()

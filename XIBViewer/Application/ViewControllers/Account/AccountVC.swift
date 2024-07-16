@@ -47,7 +47,7 @@ class AccountVC: UIViewController{
                 self.logoutButton.isEnabled = false
                 self.editButton.isEnabled = false
                 self.viewModel.revokeAuthen()
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(SignUpVC(), transition: true)
             }
         }
     }
@@ -69,7 +69,8 @@ extension AccountVC{
             maskToBound: true
         )
         
-        logoutButton.configurationUpdateHandler = { [unowned self] button in
+        logoutButton.configurationUpdateHandler = { [weak self] button in
+            guard let self = self else {return}
             var config = button.configuration
             config?.showsActivityIndicator = self.isLoading
             button.isEnabled = !self.isLoading
@@ -111,7 +112,7 @@ extension AccountVC{
                 self.parseDataToFields(with: self.viewModel.adminUser)
                 self.stopIndicatingActivity()
             case .failure(_):
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.checkAuthen()
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(SignUpVC(), transition: true)
             }
         }
     }

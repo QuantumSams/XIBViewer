@@ -23,48 +23,47 @@ extension SignUpVM {
             return
         }
         
-        authRepo.signUp(name: name,
-                        email: email,
-                        password: password,
-                        role: role.id)
-        { result in
-            switch result {
-            case .success:
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func loginAftersignUp(completion: @escaping ((Result<SuccessLoginResponseDTO, Error>) -> Void)) {
-        guard let email = email,
-              let password = password
-        else {
-            completion(.failure(APIErrorTypes.dataIsMissing()))
-            return
-        }
-       
-        authRepo.login(email: email, password: password) { result in
-            switch result {
-            case .success(let tokenData):
-                completion(.success(tokenData))
-            case .failure(let error):
-                guard let error = error as? APIErrorTypes else { return }
-                completion(.failure(error))
+        DispatchQueue.main.async { [weak self] in
+            self?.authRepo.signUp(name: name,
+                                  email: email,
+                                  password: password,
+                                  role: role.id)
+            { result in
+                switch result {
+                case .success:
+                    completion(.success(()))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
         }
     }
         
     func requestRoleAPI(completion: @escaping ((Result<Void, Error>) -> Void)) {
         roleRepo.getRoleList { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.roleSelectionMenu = data
-                completion(.success(()))
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    self?.roleSelectionMenu = data
+                    completion(.success(()))
 
-            case .failure(let error):
-                completion(.failure(error))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    func requestRefreshToken(transition: Bool = true, completion: @escaping (Result<Void, Error>) -> Void) {
+        authRepo.getAccessToken { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    completion(.success(()))
+                    
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
         }
     }

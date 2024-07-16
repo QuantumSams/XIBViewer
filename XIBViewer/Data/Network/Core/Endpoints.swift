@@ -27,7 +27,6 @@ extension Endpoints{
         request.httpMethod      = self.httpMethod
         request.httpBody        = self.httpBody
         request.addValues(self)
-        print(request)
         return request
     }
     

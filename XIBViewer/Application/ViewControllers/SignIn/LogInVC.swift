@@ -131,8 +131,9 @@ extension LogInVC {
         customButton.layer.masksToBounds = true
 
         NSLayoutConstraint.activate([customButton.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
-                
-        customButton.configurationUpdateHandler = { [unowned self] button in
+
+        customButton.configurationUpdateHandler = { [weak self] button in
+            guard let self = self else {return}
             var config = button.configuration
             config?.showsActivityIndicator = self.isLoading
             button.configuration = config
@@ -149,8 +150,8 @@ extension LogInVC {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 switch result {
-                case .success(let tokenData):
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.afterLogin(token: tokenData)
+                case .success(_):
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(SettingTabBarVC(), transition: true)
                 case .failure(let error):
                     guard let error = error as? APIErrorTypes else { return }
                     AlertManager.alertOnAPIError(with: error, on: self)

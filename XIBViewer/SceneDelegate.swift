@@ -16,34 +16,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
-        checkAuthen(transition: false)
+        window.rootViewController = UINavigationController(rootViewController: SignUpVC())
+        
+        
     }
 }
 
 extension SceneDelegate {
-    public func checkAuthen(transition: Bool = true) {
-        AuthService.refreshToken { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let accessToken):
-                    TokenSingleton.getToken.setInitialToken(access: accessToken)
-                    self?.swapRootVC(SettingTabBarVC(), transition: transition)
-                    
-                case .failure(let error):
-                    print(error)
-                    self?.swapRootVC(SignUpVC(), transition: transition)
-                }
-            }
-        }
-    }
     
-    public func afterLogin(transition: Bool = true, token tokenData: SuccessLoginResponseDTO) {
-        DispatchQueue.main.async {
-            TokenSingleton.getToken.setInitialToken(access: tokenData.access, refresh: tokenData.refresh)
-            self.swapRootVC(SettingTabBarVC(), transition: transition)
-        }
-    }
-   
     func swapRootVC(_ swapToVC: UIViewController, transition: Bool) {
         guard let window = window else {
             return
