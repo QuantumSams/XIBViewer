@@ -73,7 +73,6 @@ extension Endpoints {
             return nil
             
         case .getRole:
-            
             return nil
 
         case .refreshToken(path: _, model: let model):

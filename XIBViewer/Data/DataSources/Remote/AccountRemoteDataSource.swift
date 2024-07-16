@@ -30,15 +30,13 @@ final class AccountRemoteDataSourceImp: AccountRemoteDataSource {
         }
         
         networkService.sendRequest(urlRequest: request) { (result: Result<AccountResponseDTO, APIErrorTypes>) in
-            AccountService.editAccount(request: request) { result in
-                
-                switch result {
-                case .success(let newUserData):
-                    completion(.success(newUserData.toDomain()))
+            
+            switch result {
+            case .success(let newUserData):
+                completion(.success(newUserData.toDomain()))
                     
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
