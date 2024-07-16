@@ -42,6 +42,10 @@ extension Endpoints {
         }
     }
     
+    var scheme: String{
+        return API_Constant.scheme
+    }
+    
     var path: String {
         switch self {
         case .login(path: let path, _): return path

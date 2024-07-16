@@ -8,4 +8,6 @@ enum APIErrorTypes: Error{
     case unknownError(String = "UNKNOWN ERROR")
     case dataIsMissing(String = "Not all data has been filled, please try again")
     case tokenExpired
+    case invalidURL(String = "URL is invalid")
+    case noResponse (String = "No response from server")
 }

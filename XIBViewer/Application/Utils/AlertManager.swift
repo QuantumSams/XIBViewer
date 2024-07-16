@@ -137,8 +137,11 @@ extension AlertManager {
         case .dataIsMissing:
             self.FormNotCompleted(on: vc)
         case .tokenExpired:
-            print()
             break
+        case .invalidURL:
+            self.showDevelopmentError(on: vc, message: "Invalid URL used", errorType: .invalidURL())
+        case .noResponse:
+            self.showDevelopmentError(on: vc, message: "No response from server", errorType: .noResponse())
         }
     }
 }

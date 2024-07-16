@@ -31,6 +31,7 @@
 		7C4FEB3E2C4106FA00D3783F /* AccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4FEB3D2C4106FA00D3783F /* AccountVM.swift */; };
 		7C4FEB422C41132E00D3783F /* EditVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4FEB412C41132E00D3783F /* EditVM.swift */; };
 		7C4FEB442C412B8200D3783F /* SignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4FEB432C412B8200D3783F /* SignUpVM.swift */; };
+		7C655BA02C46A97000F818CE /* Networkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C655B9F2C46A97000F818CE /* Networkable.swift */; };
 		7C6BFE372C3C33B600D1C3FC /* FieldIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6BFE362C3C33B600D1C3FC /* FieldIdentifier.swift */; };
 		7C71AE8B2C450DB900EA6A63 /* EditUserDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C71AE8A2C450DB900EA6A63 /* EditUserDTO+Mapping.swift */; };
 		7C71AE8D2C451B9200EA6A63 /* RoleListResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C71AE8C2C451B9200EA6A63 /* RoleListResponseDTO+Mapping.swift */; };
@@ -103,6 +104,7 @@
 		7C4FEB3D2C4106FA00D3783F /* AccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVM.swift; sourceTree = "<group>"; };
 		7C4FEB412C41132E00D3783F /* EditVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditVM.swift; path = XIBViewer/Application/ViewControllers/Edit/EditVM.swift; sourceTree = SOURCE_ROOT; };
 		7C4FEB432C412B8200D3783F /* SignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVM.swift; sourceTree = "<group>"; };
+		7C655B9F2C46A97000F818CE /* Networkable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Networkable.swift; path = XIBViewer/Data/Network/Core/Networkable.swift; sourceTree = SOURCE_ROOT; };
 		7C6BFE362C3C33B600D1C3FC /* FieldIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldIdentifier.swift; sourceTree = "<group>"; };
 		7C71AE8A2C450DB900EA6A63 /* EditUserDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditUserDTO+Mapping.swift"; sourceTree = "<group>"; };
 		7C71AE8C2C451B9200EA6A63 /* RoleListResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoleListResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				7C1EE2552C3E4C6200C72CED /* Services */,
+				7C655B9F2C46A97000F818CE /* Networkable.swift */,
 				7C455DF02C2EF81400F4CECB /* APIConstant.swift */,
 				7CE613122C2BC5B9001A3B96 /* APIErrorTypes.swift */,
 				7CC832062C2B096E00A97350 /* Endpoints.swift */,
@@ -602,6 +605,7 @@
 				7C0C4A082C4275AE005CEAB4 /* UserListRemoteDataSource.swift in Sources */,
 				7CE613112C2BC2AA001A3B96 /* ErrorResponseDTO.swift in Sources */,
 				7C911F3A2C0627A700D28629 /* SignUpVC.swift in Sources */,
+				7C655BA02C46A97000F818CE /* Networkable.swift in Sources */,
 				7CDF31F42C060A2100C01B06 /* SceneDelegate.swift in Sources */,
 				7C71AEA02C455CF000EA6A63 /* AuthenticationRepositoryImp.swift in Sources */,
 				7CA5ACC42C2172DB001F8648 /* SettingTabBarVC.swift in Sources */,

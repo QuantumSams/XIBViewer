@@ -60,10 +60,6 @@ extension NetworkService{
             }
 
             if 200...299 ~= response.statusCode {
-                guard let data = data else {
-                    resultHandler(.failure(.unknownError()))
-                    return
-                }
                 resultHandler(.success(()))
                 
             } else {
