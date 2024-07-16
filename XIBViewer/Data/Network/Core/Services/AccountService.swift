@@ -52,7 +52,7 @@ class AccountService{
 }
 
 extension AccountService{
-    static func editAccount(request: URLRequest, completion: @escaping (Result<AccountModel, Error>) -> Void){
+    static func editAccount(request: URLRequest, completion: @escaping (Result<AccountResponseDTO, Error>) -> Void){
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else{
                 if let error = error{
@@ -67,7 +67,7 @@ extension AccountService{
             let decoder = JSONDecoder()
             let response = response as! HTTPURLResponse
             
-            if let successData = try? decoder.decode(AccountModel.self, from: data){
+            if let successData = try? decoder.decode(AccountResponseDTO.self, from: data){
                 completion(.success(successData))
                 return
             }
