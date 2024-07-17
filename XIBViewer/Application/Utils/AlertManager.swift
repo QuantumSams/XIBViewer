@@ -54,7 +54,7 @@ extension AlertManager {
 
 // for development only
 extension AlertManager {
-    public static func showDevelopmentError(on onVC: UIViewController, message: String, errorType: APIErrorTypes) {
+    private static func showDevelopmentError(on onVC: UIViewController, message: String, errorType: APIErrorTypes) {
         let debugMessage = "Error type: \(errorType.localizedDescription)\n \(message)"
         self.showAlert(on: onVC, title: "Development error", message: debugMessage)
     }
@@ -143,5 +143,17 @@ extension AlertManager {
         case .noResponse:
             self.showDevelopmentError(on: vc, message: "No response from server", errorType: .noResponse())
         }
+    }
+}
+
+extension AlertManager {
+    public static func retryAPICall(on vc: UIViewController, message: String, closure: @escaping () -> Void) {
+        let retry = UIAlertAction(title: "Retry", style: .default) { _ in
+            DispatchQueue.main.async {
+                closure()
+            }
+        }
+        
+        self.showButtonAlert(on: vc, title: "Cannot send request", message: message, buttonList: [retry])
     }
 }

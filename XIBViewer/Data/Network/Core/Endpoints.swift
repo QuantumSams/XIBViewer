@@ -42,7 +42,7 @@ extension Endpoints {
         }
     }
     
-    var scheme: String{
+    var scheme: String {
         return API_Constant.scheme
     }
     

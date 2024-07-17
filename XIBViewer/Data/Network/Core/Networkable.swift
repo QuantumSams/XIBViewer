@@ -3,16 +3,30 @@ import Foundation
 protocol Networkable {
     func sendRequest<T: Decodable>(urlRequest: URLRequest,
                                    resultHandler: @escaping (Result<T, APIErrorTypes>) -> Void)
+
+    func sendRequest(urlRequest: URLRequest,
+                     resultHandler: @escaping (Result<Void, APIErrorTypes>) -> Void)
 }
 
-class NetworkService {
+final class NetworkService: Networkable {
+    private var session: URLSession {
+        let sessionConfig = URLSessionConfiguration.default
+        // time limit for addtional data to arrive
+        sessionConfig.timeoutIntervalForRequest = 5
+
+        // total time limit for an API call
+        sessionConfig.timeoutIntervalForResource = 10
+
+        return URLSession(configuration: sessionConfig)
+    }
+
     public func sendRequest<T: Decodable>(urlRequest: URLRequest,
                                           resultHandler: @escaping (Result<T, APIErrorTypes>) -> Void)
     {
-        let urlTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+        let urlTask = session.dataTask(with: urlRequest) { data, response, error in
 
-            guard error == nil else {
-                resultHandler(.failure(APIErrorTypes.invalidURL()))
+            if let error = error {
+                resultHandler(.failure(APIErrorTypes.deviceError(error.localizedDescription)))
                 return
             }
 
@@ -52,7 +66,7 @@ extension NetworkService {
     public func sendRequest(urlRequest: URLRequest,
                             resultHandler: @escaping (Result<Void, APIErrorTypes>) -> Void)
     {
-        let urlTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+        let urlTask = session.dataTask(with: urlRequest) { data, response, error in
 
             guard error == nil else {
                 resultHandler(.failure(.invalidURL()))

@@ -2,7 +2,7 @@ import Foundation
 
 final class AuthenticationRepositoryImp {
     private let remoteDataSource: AuthenticationRemoteDataSource = AuthenticationRemoteDataSourceImp()
-    
+
     private let localDataSource: AuthenticationLocalDataSource = AuthenticationLocalDataSourceImp()
 }
 
@@ -43,14 +43,14 @@ extension AuthenticationRepositoryImp: AuthenticationRepository {
             }
         }
     }
-    
+
     func getAccessToken(completion: @escaping (Result<Void, any Error>) -> Void) {
-        remoteDataSource.accessGuarded {[weak self] result in
+        remoteDataSource.accessGuarded { [weak self] result in
             switch result {
             case .success():
                 completion(.success(()))
             case .failure:
-                self?.remoteDataSource.refreshToken(refreshToken: self?.localDataSource.getRequestToken())  { [weak self] result in
+                self?.remoteDataSource.refreshToken(refreshToken: self?.localDataSource.getRequestToken()) { [weak self] result in
                     switch result {
                     case .success(let accessToken):
                         self?.localDataSource.setInitialToken(access: accessToken, refresh: nil)
@@ -62,11 +62,11 @@ extension AuthenticationRepositoryImp: AuthenticationRepository {
             }
         }
     }
-    
+
     func logout() {
         localDataSource.removeToken()
     }
-    
+
     func getRefreshToken() -> RefreshTokenDTO {
         localDataSource.getRequestToken()
     }

@@ -26,8 +26,10 @@ final class SettingTabBarVC: UITabBarController {
         setupTabBarPosition()
     }
 }
+
 // MARK: - DELEGATE/DATASOURCE CONFORM
-//UITabBarControllerDelegate
+
+// UITabBarControllerDelegate
 extension SettingTabBarVC: UITabBarControllerDelegate {
     private func modifyVC(viewController: UIViewController, title: String, tag: Int) -> UIViewController {
         let returningVC = viewController
@@ -37,9 +39,11 @@ extension SettingTabBarVC: UITabBarControllerDelegate {
         return returningVC
     }
 }
-//MARK: - ADDITIONAL METHODS
-//Setup Views
-extension SettingTabBarVC{
+
+// MARK: - ADDITIONAL METHODS
+
+// Setup Views
+extension SettingTabBarVC {
     private func setupNav() {
         initialSetup()
         
@@ -49,7 +53,6 @@ extension SettingTabBarVC{
         setViewControllers([firstTab, secondTab], animated: true)
         selectedIndex = 0
     }
-    
     
     private func initialSetup() {
         let tabBarItemFontAttribute: [NSAttributedString.Key: Any] = [
@@ -63,6 +66,7 @@ extension SettingTabBarVC{
         navigationController?.navigationBar.prefersLargeTitles = true
         UITabBarItem.appearance().setTitleTextAttributes(tabBarItemFontAttribute, for: .normal)
     }
+
     private func setupTabBarPosition() {
         let height = navigationController?.navigationBar.frame.maxY
         tabBar.frame = CGRect(x: 0, y: height ?? 0, width: tabBar.frame.size.width, height: Constant.TabBarConstant.height)

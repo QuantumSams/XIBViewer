@@ -28,16 +28,16 @@ public extension UIViewController {
             if let indicator = UIViewController.association[self] {
                 return indicator
             } else {
-                UIViewController.association[self] = UIActivityIndicatorView.customIndicator(height: 100,
-                                                                                             width: 100, center: self.view.center)
+                UIViewController.association[self] = UIActivityIndicatorView.customIndicator(height: 100, width: 100, center: self.view.center)
                 return UIViewController.association[self]!
             }
         }
     }
-    func startIndicatingActivity(isFullScreen:Bool = false) {
-        DispatchQueue.main.async {[weak self] in
-            guard let self = self else {return}
-            
+
+    func startIndicatingActivity(isFullScreen: Bool = false) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
             if isFullScreen {
                 self.indicator = UIActivityIndicatorView.customFullScreenIndicator(
                     height: self.view.bounds.height,

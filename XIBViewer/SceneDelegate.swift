@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  XIBViewer
-//
-//  Created by Huy on 28/5/24.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -16,12 +9,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
-        window.rootViewController = UINavigationController(rootViewController: SignUpVC())   
+        window.rootViewController = UINavigationController(rootViewController: SignUpVC())
     }
 }
 
 extension SceneDelegate {
-    
     func swapRootVC(_ swapToVC: UIViewController, transition: Bool) {
         guard let window = window else {
             return
@@ -30,7 +22,7 @@ extension SceneDelegate {
             let nextNavigation = UINavigationController(rootViewController: swapToVC)
             window.rootViewController = nextNavigation
             nextNavigation.modalPresentationStyle = .fullScreen
-            
+
             if transition {
                 UIView.transition(with: window, duration: 0.75, options: .transitionFlipFromRight, animations: nil, completion: nil)
             }

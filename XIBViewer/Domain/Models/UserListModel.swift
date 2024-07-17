@@ -1,6 +1,6 @@
 import Foundation
 
-struct UserListModel{
+struct UserListModel {
     let next: String?
     let results: [AccountModel]
 }

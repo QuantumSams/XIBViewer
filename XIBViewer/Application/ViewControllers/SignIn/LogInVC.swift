@@ -8,6 +8,7 @@ final class LogInVC: UIViewController {
             loginButton.setNeedsUpdateConfiguration()
         }
     }
+
     private let viewModel: LogInVM
     
     // MARK: - IBOUTLETS
@@ -133,7 +134,7 @@ extension LogInVC {
         NSLayoutConstraint.activate([customButton.heightAnchor.constraint(equalToConstant: Constant.ButtonConstant.heightAnchor)])
 
         customButton.configurationUpdateHandler = { [weak self] button in
-            guard let self = self else {return}
+            guard let self = self else { return }
             var config = button.configuration
             config?.showsActivityIndicator = self.isLoading
             button.configuration = config
@@ -150,13 +151,20 @@ extension LogInVC {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 switch result {
-                case .success(_):
+                case .success:
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.swapRootVC(SettingTabBarVC(), transition: true)
                 case .failure(let error):
+                    self.isLoading = false
                     guard let error = error as? APIErrorTypes else { return }
-                    AlertManager.alertOnAPIError(with: error, on: self)
+                    switch error {
+                    case .deviceError(let err):
+                        AlertManager.retryAPICall(on: self, message: err) {
+                            self.logInRequest()
+                        }
+                    default:
+                        AlertManager.alertOnAPIError(with: error, on: self)
+                    }
                 }
-                self.isLoading = false
             }
         }
     }

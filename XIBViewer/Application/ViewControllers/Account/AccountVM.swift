@@ -1,29 +1,25 @@
 import Foundation
 
-
-class AccountVM{
+class AccountVM {
     var adminUser: AccountModel?
     private let userRepo: AccountRepository = AccountRepositoryImp()
     private let authRepo: AuthenticationRepository = AuthenticationRepositoryImp()
-    
-    func fetchAdminData(completion: @escaping (Result<Void, Error>) -> Void){
-        
+
+    func fetchAdminData(completion: @escaping (Result<Void, Error>) -> Void) {
         userRepo.getOneUser { [weak self] result in
-            switch result{
+            switch result {
             case .success(let adminUser):
                 self?.adminUser = adminUser
                 completion(.success(()))
-                
+
             case .failure(let error):
                 completion(.failure(error))
                 self?.revokeAuthen()
             }
         }
     }
-    
-    func revokeAuthen(){
+
+    func revokeAuthen() {
         authRepo.logout()
     }
 }
-
-

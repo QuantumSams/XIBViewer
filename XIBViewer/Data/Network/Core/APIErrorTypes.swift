@@ -1,7 +1,6 @@
 import Foundation
 
-
-enum APIErrorTypes: Error{
+enum APIErrorTypes: Error {
     case deviceError(String)
     case serverError(String)
     case decodingError(String = "PARSING ERROR")
@@ -9,5 +8,5 @@ enum APIErrorTypes: Error{
     case dataIsMissing(String = "Not all data has been filled, please try again")
     case unauthorized
     case invalidURL(String = "URL is invalid")
-    case noResponse (String = "No response from server")
+    case noResponse(String = "No response from server")
 }

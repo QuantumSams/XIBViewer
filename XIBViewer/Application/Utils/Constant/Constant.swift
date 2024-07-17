@@ -1,36 +1,38 @@
 import UIKit
-struct Constant{
-    struct TextBoxConstant{
-        static let cornerRadius:CGFloat = 12
+
+enum Constant {
+    enum TextBoxConstant {
+        static let cornerRadius: CGFloat = 12
         static let borderWidth: CGFloat = 2
-        static let heightAnchor:CGFloat = 64
+        static let heightAnchor: CGFloat = 64
         static let backgroundColor: UIColor = .secondarySystemBackground
         static let borderColor: UIColor = .clear
     }
-    struct ButtonConstant{
-        static let cornerRadius:CGFloat = 12
-        static let heightAnchor:CGFloat = 50
-        static let borderWidth:CGFloat = 2
+
+    enum ButtonConstant {
+        static let cornerRadius: CGFloat = 12
+        static let heightAnchor: CGFloat = 50
+        static let borderWidth: CGFloat = 2
     }
     
-    struct ImageConstant{
-        static let imageHeight:CGFloat = 50
-        static let imageWidth:CGFloat = 50
+    enum ImageConstant {
+        static let imageHeight: CGFloat = 50
+        static let imageWidth: CGFloat = 50
         static let imageCornerRadius = imageHeight / 2
-        static let imageCGSize: CGSize = CGSize(width: imageWidth, height: imageHeight)
+        static let imageCGSize: CGSize = .init(width: imageWidth, height: imageHeight)
     }
     
-    struct PopUpButtonConstant{
-        static let cornerRadius:CGFloat = 12
-        static let borderWidth:CGFloat = 2
-        static let borderColor:UIColor = UIColor.tintColor
-        static let backgroundColor:UIColor = UIColor.tintColor
-        static let tintColor:UIColor = UIColor.tintColor
+    enum PopUpButtonConstant {
+        static let cornerRadius: CGFloat = 12
+        static let borderWidth: CGFloat = 2
+        static let borderColor: UIColor = .tintColor
+        static let backgroundColor: UIColor = .tintColor
+        static let tintColor: UIColor = .tintColor
     }
     
-    struct TabBarConstant{
+    enum TabBarConstant {
         static let height: CGFloat = 40
         static let fontSize: CGFloat = 20
-        static let backgroundColor: UIColor = UIColor.white
+        static let backgroundColor: UIColor = .white
     }
 }

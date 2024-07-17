@@ -59,7 +59,6 @@
 		7CBF2A122C41817B0067E71F /* LogInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBF2A112C41817B0067E71F /* LogInVM.swift */; };
 		7CBF2A142C4189690067E71F /* UsersVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBF2A132C4189690067E71F /* UsersVM.swift */; };
 		7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC831FA2C2ADA2200A97350 /* UIImageViewExtensions.swift */; };
-		7CC832022C2AEB2B00A97350 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC832012C2AEB2B00A97350 /* StringExtension.swift */; };
 		7CC832072C2B096E00A97350 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC832062C2B096E00A97350 /* Endpoints.swift */; };
 		7CC832092C2B0CC800A97350 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC832082C2B0CC800A97350 /* HTTP.swift */; };
 		7CC8320C2C2B0F2500A97350 /* URLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC8320B2C2B0F2500A97350 /* URLRequestExtension.swift */; };
@@ -126,7 +125,6 @@
 		7CBF2A112C41817B0067E71F /* LogInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVM.swift; sourceTree = "<group>"; };
 		7CBF2A132C4189690067E71F /* UsersVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersVM.swift; sourceTree = "<group>"; };
 		7CC831FA2C2ADA2200A97350 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
-		7CC832012C2AEB2B00A97350 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		7CC832062C2B096E00A97350 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		7CC832082C2B0CC800A97350 /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 		7CC8320B2C2B0F2500A97350 /* URLRequestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExtension.swift; sourceTree = "<group>"; };
@@ -372,7 +370,6 @@
 			isa = PBXGroup;
 			children = (
 				7CC831FA2C2ADA2200A97350 /* UIImageViewExtensions.swift */,
-				7CC832012C2AEB2B00A97350 /* StringExtension.swift */,
 				7CC8320B2C2B0F2500A97350 /* URLRequestExtension.swift */,
 				7CE613192C2C5923001A3B96 /* UIButtonExtension.swift */,
 				7C3F271A2C379FB80013780B /* UIViewControllerExtensions.swift */,
@@ -453,8 +450,8 @@
 		7CDF32092C060B9800C01B06 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				7C0C49F32C426843005CEAB4 /* SettingTabBar */,
 				7CDF31FC2C060A2100C01B06 /* LaunchScreen.storyboard */,
+				7C0C49F32C426843005CEAB4 /* SettingTabBar */,
 				7C911F372C06277A00D28629 /* SignUp */,
 				7CDA8AB62C06259700AAEE2F /* SignIn */,
 				7CCC75EF2C36A9FB00DDBC87 /* Edit */,
@@ -600,7 +597,6 @@
 				7CCC75F22C36AA5300DDBC87 /* EditVC.swift in Sources */,
 				7CC831FB2C2ADA2200A97350 /* UIImageViewExtensions.swift in Sources */,
 				7C3F271B2C379FB80013780B /* UIViewControllerExtensions.swift in Sources */,
-				7CC832022C2AEB2B00A97350 /* StringExtension.swift in Sources */,
 				7C0C4A002C426BAB005CEAB4 /* LoginDTO.swift in Sources */,
 				7C4013B92C206BEA0019074D /* Constant.swift in Sources */,
 				7C0C49FA2C426A45005CEAB4 /* TokenDTO.swift in Sources */,

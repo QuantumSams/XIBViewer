@@ -1,21 +1,23 @@
-import UIKit
 import SDWebImage
+import UIKit
 
-protocol UserTableCellDelegate{
+protocol UserTableCellDelegate {
     func moreInfoButtonPressed(index: Int)
 }
 
 class UsersTableCell: UITableViewCell {
-    //MARK: - PROPERTIES
-    static private let id = "UsersTableCell"
-    private var index: Int = Int()
+    // MARK: - PROPERTIES
+
+    private static let id = "UsersTableCell"
+    private var index: Int = .init()
     var delegate: UserTableCellDelegate?
     
-    //MARK: - OUTLETS
-    @IBOutlet private weak var moreInfoButton: UIButton!
-    @IBOutlet private weak var cellName: UILabel!
-    @IBOutlet private weak var cellEmail: UILabel!
-    @IBOutlet private weak var imageCell: UIImageView!
+    // MARK: - OUTLETS
+
+    @IBOutlet private var moreInfoButton: UIButton!
+    @IBOutlet private var cellName: UILabel!
+    @IBOutlet private var cellEmail: UILabel!
+    @IBOutlet private var imageCell: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,8 +29,7 @@ class UsersTableCell: UITableViewCell {
     }
     
     @IBAction private func moreInfoButtonSelected(_ sender: UIButton) {
-        
-        guard let delegate = delegate else{
+        guard let delegate = delegate else {
             print("userTableCell delegate hasn't been assigned")
             return
         }
@@ -36,31 +37,31 @@ class UsersTableCell: UITableViewCell {
     }
 }
 
-extension UsersTableCell{
-    static func getNib() -> UINib{
+extension UsersTableCell {
+    static func getNib() -> UINib {
         UINib(nibName: "UsersTableCell", bundle: nil)
     }
     
-    static func getID() -> String{
+    static func getID() -> String {
         id
     }
     
-    func setData(user:AccountModel, indexPath: Int){
+    func setData(user: AccountModel, indexPath: Int) {
         cellName.text = user.name
         cellEmail.text = user.email
-        self.index = indexPath
+        index = indexPath
 //
-        //load image from URL
-        //imageCell.circularImageFromURL(url: validImageURL)
+        // load image from URL
+        // imageCell.circularImageFromURL(url: validImageURL)
         
         imageCell.image = UIImage(systemName: "person.crop.circle.fill")
     }
     
-    private func setupButtons(){
+    private func setupButtons() {
         setupMoreInfoButton(moreInfoButton: moreInfoButton)
     }
     
-    private func setupMoreInfoButton(moreInfoButton: UIButton){
+    private func setupMoreInfoButton(moreInfoButton: UIButton) {
         moreInfoButton.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
         moreInfoButton.tintColor = UIColor.tintColor
     }

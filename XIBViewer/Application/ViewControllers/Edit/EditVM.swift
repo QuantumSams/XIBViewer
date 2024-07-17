@@ -38,7 +38,6 @@ extension EditVM {
             
             guard let self = self else { return }
             switch result {
-                
             case .success(let newUserData):
                 self.delegate.doneEditing(send: newUserData)
                 completion(.success(()))

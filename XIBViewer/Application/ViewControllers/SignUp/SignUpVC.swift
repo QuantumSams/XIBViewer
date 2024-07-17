@@ -246,7 +246,14 @@ extension SignUpVC {
                 case .failure(let error):
                     self.isLoading = false
                     guard let error = error as? APIErrorTypes else { return }
-                    AlertManager.alertOnAPIError(with: error, on: self)
+                    switch error {
+                    case .deviceError(let err):
+                        AlertManager.retryAPICall(on: self, message: err) {
+                            self.signUpAction()
+                        }
+                    default:
+                        AlertManager.alertOnAPIError(with: error, on: self)
+                    }
                 }
             }
         }
@@ -267,10 +274,16 @@ extension SignUpVC {
                     }
                 case .failure(let error):
                     guard let error = error as? APIErrorTypes else { return }
-                    DispatchQueue.main.async { [weak self] in
-                        self?.stopIndicatingActivity()
+                    self.stopIndicatingActivity()
+                    
+                    switch error {
+                    case .deviceError(let err):
+                        AlertManager.retryAPICall(on: self, message: err) {
+                            self.getRoleAction()
+                        }
+                    default:
+                        AlertManager.alertOnAPIError(with: error, on: self)
                     }
-                    AlertManager.alertOnAPIError(with: error, on: self)
                 }
             }
         }
@@ -289,12 +302,17 @@ extension SignUpVC {
                     self.stopIndicatingActivity()
                     guard let error = error as? APIErrorTypes else { return }
                     switch error {
-                    case .unauthorized: 
-                        break
+                    case .unauthorized:
+                        self.getRoleAction()
+                        
+                    case .deviceError(let err):
+                        AlertManager.retryAPICall(on: self, message: err) {
+                            self.initialAuthenCheck()
+                        }
+
                     default:
                         AlertManager.alertOnAPIError(with: error, on: self)
                     }
-                    self.getRoleAction()
                 }
             }
         }

@@ -15,9 +15,9 @@ final class UserListRemoteDataSourceImp: UserListRemoteDataSource {
             return
         }
         
-        networkService.sendRequest(urlRequest: request){ (result: Result<Void, APIErrorTypes>) in
-            switch result{
-            case .success(_):
+        networkService.sendRequest(urlRequest: request) { (result: Result<Void, APIErrorTypes>) in
+            switch result {
+            case .success:
                 completion(.success(()))
             case .failure(let error):
                 completion(.failure(error))
@@ -31,8 +31,8 @@ final class UserListRemoteDataSourceImp: UserListRemoteDataSource {
             return
         }
         
-        networkService.sendRequest(urlRequest: request){ (result: Result<UserListResponseDTO, APIErrorTypes>) in
-            switch result{
+        networkService.sendRequest(urlRequest: request) { (result: Result<UserListResponseDTO, APIErrorTypes>) in
+            switch result {
             case .success(let data):
                 completion(.success(data.toDomain()))
             case .failure(let error):
@@ -47,8 +47,8 @@ final class UserListRemoteDataSourceImp: UserListRemoteDataSource {
             return
         }
         
-        networkService.sendRequest(urlRequest: request){ (result: Result<UserListResponseDTO, APIErrorTypes>) in
-            switch result{
+        networkService.sendRequest(urlRequest: request) { (result: Result<UserListResponseDTO, APIErrorTypes>) in
+            switch result {
             case .success(let data):
                 completion(.success(data.toDomain()))
             case .failure(let error):

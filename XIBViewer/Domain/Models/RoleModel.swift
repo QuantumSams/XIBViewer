@@ -1,6 +1,6 @@
 import Foundation
 
-struct RoleModel: Codable{
-    let id:Int
-    let name:String
+struct RoleModel: Codable {
+    let id: Int
+    let name: String
 }
